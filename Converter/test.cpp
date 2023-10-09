@@ -6,7 +6,7 @@ using namespace std;
 
 int transfer();
 int Separate();
-void decimalToBinary(unsigned &binaryResult, int decimalNumber);
+void decimal_To_Binary(unsigned &binaryResult, int decimalNumber);
 
 int main()
 {
@@ -20,8 +20,8 @@ int main()
     // transfer();
     unsigned temp = Separate();
     unsigned output;
-    decimalToBinary(output, temp);
-    cout << "二进制表示: " << bitset<32>(output) << endl;
+    decimal_To_Binary(output, temp);
+    cout << "32-bit Binay form: " << bitset<32>(output) << endl;
 
         return 0;
 }
@@ -39,67 +39,57 @@ int transfer()
 
 int Separate()
 {
-    double decimalNumber;
+    double decimal_number;
 
-    // 输入十进制小数
-    std::cout << "输入一个十进制小数: ";
-    std::cin >> decimalNumber;
+    // Enter a Decimal number
+    cout << "Enter a Decimal number (Integer/non-Integer)";
+    cin >> decimal_number;
 
-    // 将小数转换为字符串
-    std::string decimalString = std::to_string(decimalNumber);
+    // Transfer the input to string 
+    string decimal_string = to_string(decimal_number);
 
-    // 查找小数点的位置
-    size_t decimalPointPos = decimalString.find('.');
+    // find the position of the decimal point
+    size_t decimal_Point_Posistion = decimal_string.find('.');
 
-    unsigned unsignedIntegerPart;
+    unsigned unsigned_Integer_Part;
+    unsigned unsigned_Decimal_Part;
 
-    // 如果找到小数点
-    if (decimalPointPos != std::string::npos)
+    // if the input is not a integer
+    if (decimal_Point_Posistion != string::npos)
     {
-        // 提取整数部分并转换为无符号整数
-        std::string integerPart = decimalString.substr(0, decimalPointPos);
-        unsignedIntegerPart = std::stoul(integerPart);
+        string integerPart = decimal_string.substr(0, decimal_Point_Posistion);
+        unsigned_Integer_Part = stoul(integerPart);
 
-        // 提取小数部分并转换为无符号整数
-        std::string decimalPart = decimalString.substr(decimalPointPos + 1);
-        unsigned unsignedDecimalPart = std::stoul(decimalPart);
+        string decimalPart = decimal_string.substr(decimal_Point_Posistion + 1);
+        unsigned_Decimal_Part = stoul(decimalPart);
 
-        // 输出结果
-        std::cout << "整数部分: " << unsignedIntegerPart << std::endl;
-        std::cout << "小数部分: " << unsignedDecimalPart << std::endl;
-        // return unsignedIntegerPart;
+        cout << "Integer Part: " << unsigned_Integer_Part << endl;
+        cout << "Decimal Part: " << unsigned_Decimal_Part << endl;
+        // return unsigned_Integer_Part;
     }
     else
     {
-        // 如果没有小数点，则整个数为整数部分
-         unsignedIntegerPart = std::stoul(decimalString);
-        std::cout << "整数部分: " << unsignedIntegerPart << std::endl;
-        std::cout << "小数部分: 0" << std::endl;
-        // return unsignedIntegerPart;
+         unsigned_Integer_Part = stoul(decimal_string);
+        cout << "Integer Part: " << unsigned_Integer_Part << endl;
+        cout << "No Decimal Part" << endl;
+        // return unsigned_Integer_Part;
     }
-        return unsignedIntegerPart;
+        return unsigned_Integer_Part;
 
     // return 0;
 }
 
-void decimalToBinary(unsigned &binaryResult, int decimalNumber)
+void decimal_To_Binary(unsigned &binary_Result, int decimal_Number)
 {
-    binaryResult = 0; // 初始化二进制结果为0
+    binary_Result = 0;
 
-    int bitPosition = 0; // 位的位置
+    int bit_Position = 0;
 
-    while (decimalNumber > 0)
+    while (decimal_Number > 0)
     {
-        // 取出最低位
-        int remainder = decimalNumber % 2;
-
-        // 将最低位加入二进制结果
-        binaryResult += remainder << bitPosition;
-
-        // 右移十进制数，准备处理下一位
-        decimalNumber /= 2;
-
-        // 增加位的位置
-        ++bitPosition;
+        int remainder = decimal_Number % 2;
+        binary_Result += remainder << bit_Position;
+        decimal_Number /= 2;
+        ++bit_Position;
     }
 }
