@@ -1,5 +1,18 @@
 # GDP33
-posits for RISC-V
+Posits for RISC-V
+
+-----------------------------------------------------------------------
+
+To commit changes: 
+use "git add <filename>" to add to commit
+use "git restore <filename> --staged" to remove from commit
+Then "git commit", the first line is the title of the commit, then two lines down list changes starting with "*"
+
+e.g: 
+New Commit
+
+* 1 change
+* 2 change
 
 Create new branch: "git checkout -b <branch_name>"
 
