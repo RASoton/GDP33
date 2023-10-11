@@ -7,6 +7,7 @@ using namespace std;
 int transfer();
 int Separate();
 void decimal_To_Binary(unsigned &binaryResult, int decimalNumber);
+void double_separation(double input, bool &sign, int &exponent, bitset<52>&fraction);
 
 int main()
 {
@@ -18,11 +19,24 @@ int main()
     // cout << a << endl;
     // cout << bitset<10>(b) << "," << bitset<10>(a) << endl;
     // transfer();
-    unsigned temp = Separate();
-    unsigned output;
-    decimal_To_Binary(output, temp);
-    cout << "32-bit Binay form: " << bitset<32>(output) << endl;
+    // unsigned temp = Separate();
+    // unsigned output;
+    // decimal_To_Binary(output, temp);
+    // cout << "32-bit Binay form: " << bitset<32>(output) << endl;
 
+    bool sign;
+    int exponent;
+    bitset<52> fraction;
+
+    double input;
+    cout << "enter a double number: ";
+    cin >> input;
+
+    double_separation(input, sign, exponent, fraction);
+
+    cout << "sign = " << sign << endl;
+    cout << "exponents = " << exponent << endl;
+    cout << "fraction = " << fraction << endl;
         return 0;
 }
 
@@ -92,4 +106,18 @@ void decimal_To_Binary(unsigned &binary_Result, int decimal_Number)
         decimal_Number /= 2;
         ++bit_Position;
     }
+}
+
+void double_separation(double input, bool &sign, int &exponent, bitset<52>&fraction)
+{
+        unsigned long long* bits = reinterpret_cast<unsigned long long*>(&input);
+    
+    // 提取符号位
+    sign = (*bits >> 63) & 1;
+    
+    // 提取指数位
+    exponent = static_cast<int>((*bits >> 52) & 0x7FF) - 1023;
+    
+    // 提取尾数位
+    fraction = std::bitset<52>((*bits) & ((1ULL << 52) - 1));
 }
