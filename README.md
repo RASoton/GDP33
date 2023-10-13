@@ -1,6 +1,8 @@
 # GDP33
 posits for RISC-V
 
-test push
+Create new branch: "git checkout -b <branch_name>"
 
-test 2
+Push to remote branch: whilst on local branch "git push origin <remote_name>:<local_name>"
+
+Then go to github.com and create pull request if needed, and ask for reviewer
