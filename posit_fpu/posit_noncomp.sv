@@ -1,8 +1,5 @@
-<<<<<<< Updated upstream
-=======
 module posit_noncomp #(
-     parameter fpnew_pkg::fp_format_e   FpFormat    = fpnew_pkg::fp_format_e'(0),
-     localparam int unsigned WIDTH = fpnew_pkg::fp_width(FpFormat)
+    localparam unsigned int WIDTH = 32
 ) (
   input logic                  clk_i,
   input logic                  rst_ni,
@@ -52,4 +49,3 @@ begin : Comp
   status_o.NV = invalid_input;
 end
 endmodule
->>>>>>> Stashed changes
