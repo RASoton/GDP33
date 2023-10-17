@@ -110,26 +110,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	union ui64_double   { uint64_t ui; double d; };
 
 	union ui32_q8 {
-		uint32_t ui=0;
+		uint32_t ui;
 		quire8_t q;
 	};
 	union ui128_q16 {
-		uint64_t ui[2]={0,0};
+		uint64_t ui[2];
 		quire16_t q;
 	};
 
 	union ui512_q32 {
-		uint64_t ui[8]={0,0,0,0, 0,0,0,0};
+		uint64_t ui[8];
 		quire32_t q;
 	};
 
 	union ui512_qX2 {
-		uint64_t ui[8]={0,0,0,0, 0,0,0,0};
+		uint64_t ui[8];
 		quire_2_t q;
 	};
 
 	union ui512_qX1 {
-		uint64_t ui[8]={0,0,0,0, 0,0,0,0};
+		uint64_t ui[8];
 		quire_1_t q;
 	};
 #endif
