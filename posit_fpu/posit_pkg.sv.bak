@@ -28,13 +28,6 @@ package posit_pkg;
 	 int unsigned exp_bits;
   } posit_encoding_t;
 
-<<<<<<< Updated upstream
-
-
-
-
-
-=======
   localparam int unsigned NUM_POSIT_FORMATS = 1; // change me to add formats
   localparam int unsigned POSIT_FORMAT_BITS = $clog2(NUM_POSIT_FORMATS);
 
@@ -49,7 +42,6 @@ package posit_pkg;
     '{32, 2} // 32-bit, 2-bit exponent
     // add new formats here
   };
->>>>>>> Stashed changes
 
   typedef logic [0:NUM_POSIT_FORMATS-1]       fmt_logic_t;    // Logic indexed by FP format (for masks)
   typedef logic [0:NUM_POSIT_FORMATS-1][31:0] fmt_unsigned_t; // Unsigned indexed by FP format
@@ -297,7 +289,7 @@ package posit_pkg;
   // Extracting the exponent
   function automatic logic [31:0] extract_exponent(input logic [31:0] operand);
     int unsigned regime_size = regime_bits(operand);
-    int unsigned exp_size = posit_pkg::exp_bits(posit_format_e'(0));
+    int unsigned exp_size = posit_pkg::exp_bits(0);
     logic [31:0] result = 32'b0;
 
     for(int i = 0; i < exp_size; i = i+1) begin
@@ -310,7 +302,7 @@ package posit_pkg;
   // Extracting the fraction
   function automatic logic [31:0] extract_fraction(input logic [31:0] operand);
     int unsigned regime_size = regime_bits(operand);
-    int unsigned exp_size = posit_pkg::exp_bits(posit_format_e'(0));
+    int unsigned exp_size = posit_pkg::exp_bits(0);
     int unsigned frac_size = 32 - regime_size - exp_size - 1;
     logic [31:0] result = 32'b0;
 

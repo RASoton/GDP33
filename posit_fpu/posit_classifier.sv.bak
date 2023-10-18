@@ -20,7 +20,6 @@ module posit_classifier #(
     logic is_NaR;
     logic is_pos;
     logic is_neg;
-    logic sign;
     logic [31:0] regime, exponent, fraction;
 
     // ---------------
