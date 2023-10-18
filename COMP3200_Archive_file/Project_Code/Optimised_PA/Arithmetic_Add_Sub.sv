@@ -149,7 +149,7 @@ begin
         LE_ON = LE_O;
 
     if (LE_O[ES+RS] & |(LE_ON[ES-1:0]))
-        E_O = -LE_ON[ES-1:0];
+        E_O = (1<<ES)-LE_ON[ES-1:0];
     else
         E_O = LE_ON[ES-1:0];
 

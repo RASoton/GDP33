@@ -65,7 +65,7 @@ begin
     if(LS)
         sft_tmp_oN = -sft_tmp_o_rnd;
     else
-        sft_tmp_oN = sft_tmp_o_rnd;
+        sft_tmp_oN = sft_tmp_o_rnd+1;
 
 
     //////      FINAL OUTPUT        //////
@@ -79,7 +79,7 @@ begin
     else if (inf2)             
         OUT = IN2;
     else if (IN1 == -IN2)
-        OUT = {(N-1){1'b0}};
+        OUT = {N{1'b0}};
     else
         OUT = {LS, sft_tmp_oN[N-1:1]};
 end

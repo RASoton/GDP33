@@ -31,6 +31,7 @@ Optimised_PA #(.N(N), .ES(ES)) OPA_tb (.*);
 logic clk;
 // bit [N-1:0]outf [100];
 integer outfile;
+integer outfile2;
 
 logic start;
 logic [N-1:0] data1 [1:8200];
@@ -61,12 +62,14 @@ logic [15:0] error_count;
 		#100;
 		
 		$fclose(outfile);
+		$fclose(outfile2);
 		$finish;
 	end
 
  always #5 clk=~clk;
 
 initial outfile = $fopen("adder_error_32bit.txt", "wb");
+initial outfile2 = $fopen("adder_error_full_32bit.txt", "wb");
 
   always @(posedge clk) 
   begin			
@@ -79,6 +82,7 @@ initial outfile = $fopen("adder_error_32bit.txt", "wb");
     else
     error_count = error_count;
     $fwrite(outfile, "%d\n",diff);
+	$fwrite(outfile2, "%b -------- %b\n", OUT, show_result);
 	if(i==16'hffff)
   	      $finish;
 	else i = i + 1;
