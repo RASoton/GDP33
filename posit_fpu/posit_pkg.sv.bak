@@ -137,8 +137,8 @@ package posit_pkg;
   } classmask_e;
 
   typedef enum logic [31:0] {
-    POSIT_NAR = 32'h8000_0000,
-    POSIT_ZERO = 32'b0
+    POSIT_NAR = 32'b1000_0000_0000_0000_0000_0000_0000_0000,
+    POSIT_ZERO = 32'b0000_0000_0000_0000_0000_0000_0000_0000
   } posit_special_values_e;
 
   // ------------------

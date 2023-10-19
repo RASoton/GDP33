@@ -33,7 +33,7 @@ logic less;
 
 assign src1 = operands_i[0];
 assign src2 = operands_i[1];
-assign invalid_input = (posit_pkg::POSIT_NAR == operands_i[0]) || (posit_pkg::POSIT_NAR == operands_i[1]);
+assign invalid_input = (posit_pkg::NAR == operands_i[0]) || (posit_pkg::NAR == operands_i[1]);
 
 always_comb
 begin : Comp

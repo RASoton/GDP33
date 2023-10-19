@@ -12,7 +12,7 @@ module test_classifier;
   initial begin
     test_operands[0] = 32'b00000000000000000000000000000000; // zero
     test_operands[1] = 32'b10000000000000000000000000000000; // NaR
-    test_operands[2] = 32'b11111111111111111111111111111111; // ones
+    test_operands[2] = 32'b11111111111111111111111111111111; // largest -ve
     test_operands[3] = 32'b10000000000000000000000000000001; // neg
     test_operands[4] = 32'b01100000000000000000000000000001; // pos
 

@@ -31,6 +31,7 @@ module posit_classifier #(
       is_neg		  = (sign == '1) && ~is_NaR && ~is_NaR;
       // Assign output for current input
       info_o[op].is_zero = is_zero;
+      info_o[op].is_inf = is_inf;
       info_o[op].is_NaR = is_NaR;
       info_o[op].is_pos = is_pos;
       info_o[op].is_neg = is_neg;
