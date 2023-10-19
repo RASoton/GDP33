@@ -28,29 +28,6 @@ package posit_pkg;
 	 int unsigned exp_bits;
   } posit_encoding_t;
 
-<<<<<<< Updated upstream
-
-
-
-
-
-=======
-  localparam int unsigned NUM_POSIT_FORMATS = 1; // change me to add formats
-  localparam int unsigned POSIT_FORMAT_BITS = $clog2(NUM_POSIT_FORMATS);
-
-  // POSIT formats
-  typedef enum logic [POSIT_FORMAT_BITS-1:0] {
-    POSIT32    = 'd0
-    // add new formats here
-  } posit_format_e;
-
-  // Encodings for supported POSIT formats
-  localparam posit_encoding_t [0:NUM_POSIT_FORMATS-1] POSIT_ENCODINGS  = '{
-    '{32, 2} // 32-bit, 2-bit exponent
-    // add new formats here
-  };
->>>>>>> Stashed changes
-
   typedef logic [0:NUM_POSIT_FORMATS-1]       fmt_logic_t;    // Logic indexed by FP format (for masks)
   typedef logic [0:NUM_POSIT_FORMATS-1][31:0] fmt_unsigned_t; // Unsigned indexed by FP format
 
