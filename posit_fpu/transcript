@@ -1,98 +1,31 @@
 # Compile of posit_cast_multi.sv was successful.
 # Compile of posit_classifier.sv was successful with warnings.
 # Compile of posit_divsqrt_multi.sv was successful.
+# Compile of posit_extraction.sv was successful.
 # Compile of posit_fma.sv was successful.
-# Compile of posit_noncomp.sv failed with 1 errors.
+# Compile of posit_LB_detector.sv was successful.
+# Compile of posit_noncomp.sv was successful with warnings.
 # Compile of posit_opgroup_block.sv was successful.
 # Compile of posit_opgroup_fmt_slice.sv was successful.
 # Compile of posit_opgroup_multifmt_slice.sv was successful.
-# Compile of posit_pkg.sv failed with 1 errors.
+# Compile of posit_pkg.sv was successful.
 # Compile of posit_rounding.sv was successful.
-# 10 compiles, 2 failed with 2 errors.
+# Compile of test_classifier.sv was successful.
+# Compile of test_extraction.sv was successful.
+# 14 compiles, 0 failed with no errors.
+# Compile of posit_pkg.sv was successful.
 # Compile of posit_cast_multi.sv was successful.
 # Compile of posit_classifier.sv was successful with warnings.
 # Compile of posit_divsqrt_multi.sv was successful.
+# Compile of posit_extraction.sv was successful.
 # Compile of posit_fma.sv was successful.
-# Compile of posit_noncomp.sv failed with 1 errors.
+# Compile of posit_LB_detector.sv was successful.
+# Compile of posit_noncomp.sv was successful with warnings.
 # Compile of posit_opgroup_block.sv was successful.
 # Compile of posit_opgroup_fmt_slice.sv was successful.
 # Compile of posit_opgroup_multifmt_slice.sv was successful.
-# Compile of posit_pkg.sv was successful with warnings.
+# Compile of posit_pkg.sv was successful.
 # Compile of posit_rounding.sv was successful.
-# 10 compiles, 1 failed with 1 error.
-# Compile of posit_noncomp.sv failed with 1 errors.
-# Compile of posit_pkg.sv was successful with warnings.
-# Compile of posit_pkg.sv was successful with warnings.
-# Compile of posit_classifier.sv failed with 2 errors.
-# Compile of posit_classifier.sv failed with 2 errors.
-# Compile of posit_classifier.sv failed with 1 errors.
-# Compile of posit_classifier.sv failed with 1 errors.
-# Compile of posit_classifier.sv failed with 1 errors.
-# Compile of posit_pkg.sv was successful with warnings.
-# Compile of posit_classifier.sv failed with 2 errors.
-# Compile of posit_classifier.sv failed with 3 errors.
-# Compile of posit_classifier.sv failed with 3 errors.
-# Compile of posit_classifier.sv was successful with warnings.
-# Compile of posit_classifier.sv was successful with warnings.
-# Compile of posit_classifier.sv was successful with warnings.
-# Compile of posit_classifier.sv was successful with warnings.
-# Compile of posit_classifier.sv failed with 2 errors.
-# Compile of posit_classifier.sv failed with 2 errors.
-# Compile of posit_classifier.sv failed with 2 errors.
-# Compile of posit_cast_multi.sv was successful.
-# Compile of posit_classifier.sv failed with 3 errors.
-# Compile of posit_divsqrt_multi.sv was successful.
-# Compile of posit_fma.sv was successful.
-# Compile of posit_noncomp.sv failed with 1 errors.
-# Compile of posit_opgroup_block.sv was successful.
-# Compile of posit_opgroup_fmt_slice.sv was successful.
-# Compile of posit_opgroup_multifmt_slice.sv was successful.
-# Compile of posit_pkg.sv was successful with warnings.
-# Compile of posit_rounding.sv was successful.
-# 10 compiles, 2 failed with 4 errors.
-# Compile of posit_classifier.sv failed with 3 errors.
-# Compile of posit_classifier.sv failed with 3 errors.
-# Compile of posit_classifier.sv failed with 2 errors.
-# Compile of posit_classifier.sv was successful with warnings.
-# Compile of posit_classifier.sv was successful with warnings.
-# Compile of posit_classifier.sv failed with 2 errors.
-# Compile of posit_classifier.sv failed with 1 errors.
-# Compile of posit_classifier.sv was successful with warnings.
-# Compile of posit_pkg.sv failed with 7 errors.
-# Compile of posit_pkg.sv failed with 1 errors.
-# Compile of posit_pkg.sv failed with 7 errors.
-# Compile of posit_pkg.sv failed with 9 errors.
-# Compile of posit_pkg.sv failed with 1 errors.
-# Compile of posit_pkg.sv failed with 1 errors.
-# Compile of posit_pkg.sv failed with 1 errors.
-# Compile of posit_pkg.sv failed with 1 errors.
-# Compile of posit_pkg.sv failed with 1 errors.
-# Compile of posit_pkg.sv failed with 2 errors.
-# Compile of posit_pkg.sv was successful with warnings.
-# Compile of posit_pkg.sv failed with 6 errors.
-# Compile of posit_pkg.sv failed with 3 errors.
-# Compile of posit_pkg.sv failed with 3 errors.
-# Compile of posit_pkg.sv failed with 1 errors.
-# Compile of posit_pkg.sv was successful with warnings.
-# Compile of posit_pkg.sv was successful with warnings.
-# Compile of posit_pkg.sv was successful with warnings.
-# Compile of posit_pkg.sv failed with 2 errors.
-# Compile of posit_pkg.sv failed with 2 errors.
-# Compile of posit_pkg.sv failed with 1 errors.
-# Compile of posit_pkg.sv was successful with warnings.
-# Compile of posit_pkg.sv failed with 3 errors.
-# Compile of posit_pkg.sv failed with 3 errors.
-# Compile of posit_pkg.sv failed with 3 errors.
-# Compile of posit_pkg.sv failed with 3 errors.
-# Compile of posit_pkg.sv failed with 1 errors.
-# Compile of posit_pkg.sv failed with 2 errors.
-# Compile of posit_pkg.sv was successful with warnings.
-# Compile of posit_classifier.sv failed with 1 errors.
-# Compile of posit_classifier.sv failed with 4 errors.
-# Compile of posit_classifier.sv failed with 4 errors.
-# Compile of posit_classifier.sv failed with 4 errors.
-# Compile of posit_classifier.sv failed with 8 errors.
-# Compile of posit_classifier.sv failed with 1 errors.
-# Compile of posit_classifier.sv was successful with warnings.
-# Compile of posit_noncomp.sv failed with 1 errors.
-# Compile of posit_noncomp.sv failed with 8 errors.
+# Compile of test_classifier.sv was successful.
+# Compile of test_extraction.sv was successful.
+# 14 compiles, 0 failed with no errors.

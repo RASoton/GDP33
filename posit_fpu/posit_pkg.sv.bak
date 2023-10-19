@@ -1,17 +1,3 @@
-// Copyright 2019 ETH Zurich and University of Bologna.
-//
-// Copyright and related rights are licensed under the Solderpad Hardware
-// License, Version 0.51 (the "License"); you may not use this file except in
-// compliance with the License. You may obtain a copy of the License at
-// http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law
-// or agreed to in writing, software, hardware and materials distributed under
-// this License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-// CONDITIONS OF ANY KIND, either express or implied. See the License for the
-// specific language governing permissions and limitations under the License.
-//
-// SPDX-License-Identifier: SHL-0.51
-
-// Author: Stefan Mach <smach@iis.ee.ethz.ch>
 
 package posit_pkg;
 
@@ -22,11 +8,13 @@ package posit_pkg;
   // |:----------:|------------------|-------:|:------:|:--------:|:--------:
   // | POSIT32    | POSIT binary32   | 32 bit | r      | 2        | 29-r
   
-  // Encoding for a format
+  // Max array size for allocation
   typedef struct packed {
-	 int unsigned total_bits;
+    int unsigned total_bits;
+	 int unsigned max_regime_bits;
 	 int unsigned exp_bits;
-  } posit_encoding_t;
+    int unsigned max_frac_bits;
+  } posit_size_t;
 
   localparam int unsigned NUM_POSIT_FORMATS = 1; // change me to add formats
   localparam int unsigned POSIT_FORMAT_BITS = $clog2(NUM_POSIT_FORMATS);
@@ -38,8 +26,8 @@ package posit_pkg;
   } posit_format_e;
 
   // Encodings for supported POSIT formats
-  localparam posit_encoding_t [0:NUM_POSIT_FORMATS-1] POSIT_ENCODINGS  = '{
-    '{32, 2} // 32-bit, 2-bit exponent
+  localparam posit_size_t [0:NUM_POSIT_FORMATS-1] POSIT_SIZES  = '{
+    '{32, 5, 2, 27} // total bits, max_regime_bits, exp_bits, max_frac_bits
     // add new formats here
   };
 
@@ -105,7 +93,7 @@ package posit_pkg;
   typedef enum logic [OP_BITS-1:0] {
     FMADD, FNMSUB, ADD, MUL,     // ADDMUL operation group
     DIV, SQRT,                   // DIVSQRT operation group
-    SGNJ, MINMAX, CMP, CLASSIFY, // NONCOMP operation group
+    SGN, MINMAX, CMP, CLASSIFY, // NONCOMP operation group
     F2F, F2I, I2F, CPKAB, CPKCD  // CONV operation group
   } operation_e;
 
@@ -135,21 +123,23 @@ package posit_pkg;
   // Information about a floating point value
   typedef struct packed {
     logic is_zero;       // is the value zero
-    logic is_inf;        // is the value infinity
     logic is_NaR;        // is the value NaR
     logic is_pos;
     logic is_neg;
-    logic is_boxed;      // is the value properly NaN-boxed (RISC-V specific)
   } posit_info_t;
 
   // Classification mask
-  typedef enum logic [9:0] {
-    ZERO    = 5'b0_0001,
-    INF     = 5'b0_0010,
-    NAR     = 5'b0_0100,
-    POS     = 5'b0_1000,
-    NEG     = 5'b1_0000
+  typedef enum logic [3:0] {
+    ZERO    = 4'b0001,
+    NAR     = 4'b0010,
+    POS     = 4'b0100,
+    NEG     = 4'b1000
   } classmask_e;
+
+  typedef enum logic [31:0] {
+    POSIT_NAR = 32'b1000_0000_0000_0000_0000_0000_0000_0000,
+    POSIT_ZERO = 32'b0000_0000_0000_0000_0000_0000_0000_0000
+  } posit_special_values_e;
 
   // ------------------
   // POSIT configuration
@@ -240,7 +230,7 @@ package posit_pkg;
   // -------------------------------------------
   // Returns the width of a POSIT format
   function automatic int unsigned posit_width(posit_format_e fmt);
-    return POSIT_ENCODINGS[fmt].total_bits;
+    return POSIT_SIZES[fmt].total_bits;
   endfunction
 
   // Returns the widest POSIT format present
@@ -261,58 +251,21 @@ package posit_pkg;
     return res;
   endfunction
 
-  // Returns the number of regime bits for a format
-  function automatic int unsigned regime_bits(input logic [31:0] operand);
-    int unsigned k;
-    for (k = 0; k < 31; k = k + 1) begin
-      if (operand[30-k] != operand[30]) break;
-    end
-    k = k + 1; // plus the terminating bit
-    return k;
+  // Returns the maximum number of regime bits for a format
+  function automatic int unsigned max_regime_bits(posit_format_e fmt);
+    return POSIT_SIZES[fmt].max_regime_bits;
   endfunction
 
-  // Returns the number of expoent bits for a format
+  // Returns the number of exponent bits for a format
   function automatic int unsigned exp_bits(posit_format_e fmt);
-    return POSIT_ENCODINGS[fmt].exp_bits;
+    return POSIT_SIZES[fmt].exp_bits;
   endfunction
 
-  // Extract regime component from a posit
-  function automatic logic extract_regime(input logic [31:0] operand);
-    int unsigned regime_size = regime_bits(operand);
-    logic [31:0] result = 32'b0;
-    for(int i = 0; i < regime_size; i = i+1) begin
-      result[i] = operand[32-2-i];
-    end
-    return result;
+  // Returns the maximum number of fraction bits for a format
+  function automatic int unsigned max_frac_bits(posit_format_e fmt);
+    return POSIT_SIZES[fmt].max_frac_bits;
   endfunction
-
-  // Extracting the exponent
-  function automatic logic [31:0] extract_exponent(input logic [31:0] operand);
-    int unsigned regime_size = regime_bits(operand);
-    int unsigned exp_size = posit_pkg::exp_bits(0);
-    logic [31:0] result = 32'b0;
-
-    for(int i = 0; i < exp_size; i = i+1) begin
-      result[i] = operand[32-2-regime_size-i];
-    end
-
-    return result;
-  endfunction
-
-  // Extracting the fraction
-  function automatic logic [31:0] extract_fraction(input logic [31:0] operand);
-    int unsigned regime_size = regime_bits(operand);
-    int unsigned exp_size = posit_pkg::exp_bits(0);
-    int unsigned frac_size = 32 - regime_size - exp_size - 1;
-    logic [31:0] result = 32'b0;
-
-    for(int i = 0; i < frac_size; i = i+1) begin
-      result[i] = operand[32-2-regime_size-exp_size-i];
-    end
-
-    return result;
-  endfunction
-
+ 
   // -------------------------------------------
   // Helper functions for INT formats and values
   // -------------------------------------------
@@ -333,7 +286,7 @@ package posit_pkg;
     unique case (op)
       FMADD, FNMSUB, ADD, MUL:     return ADDMUL;
       DIV, SQRT:                   return DIVSQRT;
-      SGNJ, MINMAX, CMP, CLASSIFY: return NONCOMP;
+      SGN, MINMAX, CMP, CLASSIFY: return NONCOMP;
       F2F, F2I, I2F, CPKAB, CPKCD: return CONV;
       default:                     return NONCOMP;
     endcase

@@ -1,6 +1,11 @@
 m255
 K4
 z2
+Z0 !s99 nomlopt
+R0
+R0
+R0
+R0
 !s11f vlog 2021.2 2021.04, Apr 14 2021
 13
 !s112 1.1
@@ -8,77 +13,209 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dC:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu
-Xfpnew_pkg
-Z1 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-!s110 1697639416
-!i10b 1
-!s100 ajSYZOVd@?i_ho>^@]aLn2
-I?^jzOQ;2M7nn>PZ4e4OmY1
-S1
-R0
-w1696947276
-8C:/Users/sywon/OneDrive/Desktop/GDP33/GDP-33-master/rtl/vendor/pulp_platform_fpnew/src/fpnew_pkg.sv
-FC:/Users/sywon/OneDrive/Desktop/GDP33/GDP-33-master/rtl/vendor/pulp_platform_fpnew/src/fpnew_pkg.sv
-!i122 1
-Z2 L0 16 0
-V?^jzOQ;2M7nn>PZ4e4OmY1
-Z3 OL;L;2021.2;73
-r1
-!s85 0
-31
-!s108 1697639416.000000
-!s107 C:/Users/sywon/OneDrive/Desktop/GDP33/GDP-33-master/rtl/vendor/pulp_platform_fpnew/src/fpnew_pkg.sv|
-!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|C:/Users/sywon/OneDrive/Desktop/GDP33/GDP-33-master/rtl/vendor/pulp_platform_fpnew/src/fpnew_pkg.sv|
-!i113 0
-Z4 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z1 dC:/intelFPGA/22.1std
+T_opt
+!s110 1697735724
+V<YHM:6USi<`bH8dVgRM1G2
+Z2 04 15 4 work test_classifier fast 0
+=1-04421ad0b0be-6531642c-b0-1de8
+Z3 !s124 OEM10U12 
+Z4 o-quiet -auto_acc_if_foreign -work work +acc
 Z5 tCvgOpt 0
-vposit_classifier
+n@_opt
+Z6 OL;O;2021.2;73
 R1
-DXx4 work 9 posit_pkg 0 22 AKDRz7PJgE<zzH^jm5`0T0
-!s110 1697665880
+T_opt1
+!s110 1697720054
+V^S:`QDJWzL:j6kYJZQKCP0
+04 15 4 work test_extraction fast 0
+=1-04421ad0b0be-653126f5-3cc-7ab0
+!s124 OEM10U3 
+R4
+R5
+n@_opt1
+R6
+R1
+T_opt2
+!s110 1697736075
+VC>Xekj01ja<GHSJQXAI911
+R2
+=1-04421ad0b0be-6531658b-208-3fc8
+R3
+R4
+R5
+n@_opt2
+R6
+R1
+vposit_classifier
+Z7 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z8 DXx4 work 9 posit_pkg 0 22 :Tom;ioaI=fS5BQPVaNR^1
+Z9 !s110 1697738664
 !i10b 1
-!s100 dJzX5l]V3IN`:kXQ8N]JZ0
-Ig]dzi?`@5XX?o9cgMzY<G0
+!s100 Za7;NEg[fgFS7ZY:HeERk2
+IW@IA2AEZDLNUKo<_@NQEW2
 S1
-R0
-w1697665877
+Z10 dC:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu
+w1697735709
 8C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv
 FC:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv
-!i122 59
-L0 2 50
-VDg1SIo80bB@j0V0VzS_@n1
-R3
+!i122 131
+L0 2 38
+Z11 VDg1SIo80bB@j0V0VzS_@n1
+Z12 OL;L;2021.2;73
 r1
 !s85 0
 31
-!s108 1697665880.000000
+!s108 1697738663.000000
 !s107 C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv|
 !i113 0
-R4
+Z13 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R5
-Xposit_pkg
-R1
-!s110 1697665381
+vposit_extraction
+R7
+R9
 !i10b 1
-!s100 7A92l8;018T3mOUR;LD2A2
-IAKDRz7PJgE<zzH^jm5`0T0
+!s100 Y3^hDabmU:?k`FR:mS@4a1
+IIZj;FDA[>fMOb:?a_^9[m1
 S1
-R0
-w1697665372
-8C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv
-FC:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv
-!i122 58
-R2
-VAKDRz7PJgE<zzH^jm5`0T0
-R3
+R10
+w1697715932
+8C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_extraction.sv
+FC:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_extraction.sv
+!i122 132
+L0 18 59
+R11
+R12
 r1
 !s85 0
 31
-!s108 1697665381.000000
+Z14 !s108 1697738664.000000
+!s107 C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_extraction.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_extraction.sv|
+!i113 0
+R13
+R5
+vposit_LB_detector
+R7
+R9
+!i10b 1
+!s100 h`m0[Wd49_G]MMOg;G[Sz0
+I`;d>M[z=5HA>2R7b7:^5:2
+S1
+R10
+w1697713108
+8C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_LB_detector.sv
+FC:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_LB_detector.sv
+!i122 133
+L0 18 32
+R11
+R12
+r1
+!s85 0
+31
+R14
+!s107 C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_LB_detector.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_LB_detector.sv|
+!i113 0
+R13
+R5
+nposit_@l@b_detector
+vposit_noncomp
+R7
+R8
+R9
+!i10b 1
+!s100 ^NFooG8WRR6R__Ek:Vo:d3
+IOLnP2Nc=?gWBPI]?dlH`T1
+S1
+R10
+w1697737469
+8C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv
+FC:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv
+!i122 134
+L0 1 63
+R11
+R12
+r1
+!s85 0
+31
+R14
+!s107 C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv|
+!i113 0
+R13
+R5
+Xposit_pkg
+R7
+R9
+!i10b 1
+!s100 7InCX58DZL@G>c?RD`53A3
+I:Tom;ioaI=fS5BQPVaNR^1
+S1
+R10
+w1697738658
+8C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv
+FC:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv
+!i122 135
+L0 2 0
+V:Tom;ioaI=fS5BQPVaNR^1
+R12
+r1
+!s85 0
+31
+R14
 !s107 C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv|
 !i113 0
-R4
+R13
+R5
+vtest_classifier
+R7
+R8
+R9
+!i10b 1
+!s100 bRcDY0AY_4dM4U7zhhN9G1
+ILbD>zfUl6Ga_F8FI;=HOA1
+S1
+R10
+w1697736143
+8C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_classifier.sv
+FC:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_classifier.sv
+!i122 136
+L0 1 29
+R11
+R12
+r1
+!s85 0
+31
+R14
+!s107 C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_classifier.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_classifier.sv|
+!i113 0
+R13
+R5
+vtest_extraction
+R7
+R9
+!i10b 1
+!s100 =GYZQUnGGbEE;:XgZklzC1
+I1NjB`XLlIbBLXN>jObKZT0
+S1
+R10
+w1697719535
+8C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_extraction.sv
+FC:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_extraction.sv
+!i122 137
+L0 2 46
+R11
+R12
+r1
+!s85 0
+31
+R14
+!s107 C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_extraction.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_extraction.sv|
+!i113 0
+R13
 R5
