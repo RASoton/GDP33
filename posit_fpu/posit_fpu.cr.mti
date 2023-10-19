@@ -1,73 +1,83 @@
-C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_divsqrt_multi.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_divsqrt_multi.sv
+C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_classifier.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_classifier.sv
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module test_classifier
+-- Importing package posit_pkg
+
+Top level modules:
+	test_classifier
+
+} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_extraction.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/test_extraction.sv
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module test_extraction
+
+Top level modules:
+	test_extraction
+
+} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling package posit_pkg
+
+Top level modules:
+	--none--
+
+} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_fma.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_fma.sv
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 
 } {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_opgroup_multifmt_slice.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_opgroup_multifmt_slice.sv
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 
-} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_fma.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_fma.sv
+} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_cast_multi.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_cast_multi.sv
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 
 } {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv {2 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling module posit_classifier
 -- Importing package posit_pkg
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(7): (vlog-13314) Defaulting port 'operands_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 ** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(31): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
 ** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(32): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
 ** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(33): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(34): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
+** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(35): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
 ** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(36): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
 ** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(37): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
 ** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(38): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
 ** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(39): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(40): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(41): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(43): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(44): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(45): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(46): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_classifier.sv(47): (vlog-2583) [SVCHK] - Extra checking for conflicts with always_comb and always_latch variables is done at vopt time.
 
 Top level modules:
 	posit_classifier
 
+} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_opgroup_block.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_opgroup_block.sv
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+
+} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_rounding.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_rounding.sv
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+
+} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_divsqrt_multi.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_divsqrt_multi.sv
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+
+} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_LB_detector.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_LB_detector.sv
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module posit_LB_detector
+
+Top level modules:
+	posit_LB_detector
+
+} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_extraction.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_extraction.sv
+Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+-- Compiling module posit_extraction
+
+Top level modules:
+	posit_extraction
+
 } {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_opgroup_fmt_slice.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_opgroup_fmt_slice.sv
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 
-} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_cast_multi.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_cast_multi.sv
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
-
-} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv {2 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
--- Compiling package posit_pkg
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv(147): (vlog-2999) Enum literal 'ZERO' width (5) must match enum's width(10).
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv(148): (vlog-2999) Enum literal 'INF' width (5) must match enum's width(10).
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv(149): (vlog-2999) Enum literal 'NAR' width (5) must match enum's width(10).
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv(150): (vlog-2999) Enum literal 'POS' width (5) must match enum's width(10).
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv(151): (vlog-2999) Enum literal 'NEG' width (5) must match enum's width(10).
-
-Top level modules:
-	--none--
-
-} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv {0 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv
+} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv {2 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv
 Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
 -- Compiling module posit_noncomp
--- Importing package fpnew_pkg
-** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv(8): (vlog-13314) Defaulting port 'operands_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+** Warning: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv(7): (vlog-13314) Defaulting port 'operands_i' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 -- Importing package posit_pkg
-** Error: (vlog-13069) C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv(28): near "signed": syntax error, unexpected signed.
-** Error: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv(34): (vlog-2730) Undefined variable: 'src1'.
-** Error: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv(35): (vlog-2730) Undefined variable: 'src2'.
-** Error: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv(37): Failed to find the name 'POSIT_NAR' in scope 'posit_pkg' at C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv(16).
-** Error: C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv(37): Failed to find the name 'POSIT_NAR' in scope 'posit_pkg' at C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_pkg.sv(16).
-** Error: (vlog-13069) C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv(44): near "begin": syntax error, unexpected begin, expecting IDENTIFIER or TYPE_IDENTIFIER.
-** Error: (vlog-13069) C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv(45): near "begin": syntax error, unexpected begin, expecting IDENTIFIER or TYPE_IDENTIFIER or NETTYPE_IDENTIFIER.
-** Error: (vlog-13069) C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_noncomp.sv(50): near "=": syntax error, unexpected '=', expecting IDENTIFIER or TYPE_IDENTIFIER or NETTYPE_IDENTIFIER.
 
-} {7.0 15.0} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_rounding.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_rounding.sv
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
-
-} {} {}} C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_opgroup_block.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/sywon/OneDrive/Desktop/GDP33/posit_fpu/posit_opgroup_block.sv
-Questa Intel Starter FPGA Edition-64 vlog 2021.2 Compiler 2021.04 Apr 14 2021
+Top level modules:
+	posit_noncomp
 
 } {} {}}
