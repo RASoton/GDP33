@@ -16,6 +16,7 @@ package posit_pkg;
     int unsigned max_frac_bits;
   } posit_size_t;
 
+
   localparam int unsigned NUM_POSIT_FORMATS = 1; // change me to add formats
   localparam int unsigned POSIT_FORMAT_BITS = $clog2(NUM_POSIT_FORMATS);
 
