@@ -43,5 +43,5 @@ logic LS;
 Add_Subtract #(.N(N), .ES(ES)) Add_Sub(.*);
 
                                         //////////                  ROUNDING                  //////////
-Rounding #(.N(N), .ES(ES)) Round(.*);
+Rounding_ #(.N(N), .ES(ES)) Round(.*);
 endmodule

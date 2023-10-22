@@ -15,7 +15,7 @@
 // Revision   : Version 1.3 23/03/2023
 /////////////////////////////////////////////////////////////////////
 
-module Rounding #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
+module Rounding_ #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
 (
     input  logic[N-1:0] IN1, IN2,
     input  logic signed [ES+RS:0] LE_O,
@@ -50,12 +50,13 @@ begin
     G = sft_tmp_o[N+3+(N-(N-ES))]; // Guard bit
     R = sft_tmp_o[N+2+(N-(N-ES))]; // round bit
     S = |sft_tmp_o[N+1+(N-(N-ES)):0];  // sticky bit
-    ulp = ((G & (R | S)) | (L & G & ~(R | S)));
-    
+    // ulp = ((G & (R | S)) | (L & G & ~(R | S)));
+        ulp = ((G & (R | S)) | (L & G & ~(R)));
     rnd_ulp= {{N-1{1'b0}},ulp};
 
     
-    sft_tmp_o_rnd_ulp = sft_tmp_o[2*N-1+3+(N-(N-ES)):N+3+(N-(N-ES))] + rnd_ulp;
+    // sft_tmp_o_rnd_ulp = sft_tmp_o[2*N-1+3+(N-(N-ES)):N+3+(N-(N-ES))] + rnd_ulp;
+        sft_tmp_o_rnd_ulp = sft_tmp_o[2*N-1+3+(N-(N-ES)):N+3+(N-(N-ES))] + rnd_ulp - (~S&G&~R);
 
     if ((R_O < N-ES-2))
         sft_tmp_o_rnd = sft_tmp_o_rnd_ulp[N-1:0];
