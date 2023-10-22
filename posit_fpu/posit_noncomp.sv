@@ -57,7 +57,7 @@ begin : Output
   case (op_i)
     posit_pkg::SGN: begin result_o = sign_result; end
     posit_pkg::CMP: begin result_o = compare_result; end
-    default: result_o = 32'0;
+    default: result_o = 32'b0;
   endcase
 end
 
