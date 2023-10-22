@@ -28,7 +28,7 @@ module posit_classifier #(
     // ---------------
     always_comb begin : classify_input
       is_pos 		  = (sign == '0) && ~is_zero;
-      is_neg		  = (sign == '1) && ~is_NaR && ~is_NaR;
+      is_neg		  = (sign == '1) && ~is_NaR;
       // Assign output for current input
       info_o[op].is_zero = is_zero;
       info_o[op].is_NaR = is_NaR;
