@@ -1,0 +1,1254 @@
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv failed with 4 errors.
+# 7 compiles, 1 failed with 4 errors.
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv failed with 1 errors.
+# 7 compiles, 1 failed with 1 error.
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.Posit_Adder_32Bit_ES4_tb
+# vsim -voptargs="+acc" work.Posit_Adder_32Bit_ES4_tb 
+# Start time: 19:22:50 on Oct 22,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+add wave -position end  sim:/Posit_Adder_32Bit_ES4_tb/i
+add wave -position end  sim:/Posit_Adder_32Bit_ES4_tb/OUT
+add wave -position end  sim:/Posit_Adder_32Bit_ES4_tb/show_result
+add wave -position end  sim:/Posit_Adder_32Bit_ES4_tb/diff
+add wave -position end  sim:/Posit_Adder_32Bit_ES4_tb/error_count
+add wave -position 1  sim:/Posit_Adder_32Bit_ES4_tb/IN1
+add wave -position 2  sim:/Posit_Adder_32Bit_ES4_tb/IN2
+add wave -position 5  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round/Mult_Mant_N
+add wave -position 6  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round/R_O
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+add wave -position 6  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round/regime_output
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+add wave -position 7  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round/E_O
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+run
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Warning: H:\Lab\PART IV\ELEC6200\GDP33\PPU\GDP_Multiplier\Mult_Arithmetic.sv(69): (vopt-2182) 'R_O' might be read before written in always_comb or always @* block.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run -all
+# ** Note: $finish    : H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Posit_multiplier_32bits_tb.sv(68)
+#    Time: 655455 ns  Iteration: 1  Instance: /Posit_Adder_32Bit_ES4_tb
+# 1
+# Break in Module Posit_Adder_32Bit_ES4_tb at H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Posit_multiplier_32bits_tb.sv line 68
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+add wave -position 9  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round/Total_EO
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv failed with 1 errors.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 1 failed with 1 error.
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+add wave -position 7  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply/Mult_Mant
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# 7 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+# Warning in wave window restart: (vish-4014) No objects found matching '/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round/regime_output'. 
+# Warning in wave window restart: (vish-4014) No objects found matching '/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round/Mult_Mant_N'. 
+# Warning in wave window restart: (vish-4014) No objects found matching '/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round/E_O'. 
+# Warning in wave window restart: (vish-4014) No objects found matching '/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round/R_O'. 
+# Warning in wave window restart: (vish-4014) No objects found matching '/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round/Total_EO'. 
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv failed with 2 errors.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 1 failed with 2 errors.
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+run
+add wave -position end  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2/regime_output
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding(fast)
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Error (suppressible): H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv(45): (vopt-2247) The implicit port connection (.*) did not find a matching port, net, variable or interface instance for port 'LS'.
+# Optimization failed
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=1, Warnings=1.
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.Posit_Adder_32Bit_ES4_tb
+# vsim -voptargs="+acc" work.Posit_Adder_32Bit_ES4_tb 
+# Start time: 19:22:50 on Oct 22,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=1, Warnings=2.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+add wave -position end  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2/exp_frac_combine_output
+add wave -position end  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2/regime_output
+add wave -position end  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2/exp_frac_output
+run
+# ** Note: $finish    : H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Posit_multiplier_32bits_tb.sv(68)
+#    Time: 655455 ns  Iteration: 1  Instance: /Posit_Adder_32Bit_ES4_tb
+# 1
+# Break in Module Posit_Adder_32Bit_ES4_tb at H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Posit_multiplier_32bits_tb.sv line 68
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+add wave -position 6  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2/R_O
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+add wave -position 6  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply/Total_EO
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+add wave -position 6  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply/R_O_temp
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+add wave -position 2  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Extract_IN1/k
+add wave -position 3  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Extract_IN1/Exponent
+add wave -position 4  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Extract_IN1/Mantissa
+add wave -position 5  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Extract_IN1/InRemain
+add wave -position 7  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Extract_IN2/k
+add wave -position 8  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Extract_IN2/Exponent
+add wave -position 9  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Extract_IN2/Mantissa
+add wave -position 10  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Extract_IN2/InRemain
+add wave -position 7  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply/Mult_Mant_N
+add wave -position 9  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply/Total_EON
+add wave -position 10  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply/E_O
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+add wave -position 0  sim:/Posit_Adder_32Bit_ES4_tb/N
+add wave -position 1  sim:/Posit_Adder_32Bit_ES4_tb/ES
+add wave -position 2  sim:/Posit_Adder_32Bit_ES4_tb/RS
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(21).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(28).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(21).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(28).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(21).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(28).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(21).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv failed with 1 errors.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 1 failed with 1 error.
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(28).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (6) for port 'R_O'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(30).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(21).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(28).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (6) for port 'R_O'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(30).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(21).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Warning: H:\Lab\PART IV\ELEC6200\GDP33\PPU\GDP_Multiplier\Mult_Arithmetic.sv(87): (vopt-2182) 'R_O' might be read before written in always_comb or always @* block.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(28).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (6) for port 'R_O'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(30).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(21).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Warning: H:\Lab\PART IV\ELEC6200\GDP33\PPU\GDP_Multiplier\Mult_Arithmetic.sv(87): (vopt-2182) 'R_O' might be read before written in always_comb or always @* block.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(28).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (6) for port 'R_O'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(30).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(21).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (6) for port 'R_O'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Warning: H:\Lab\PART IV\ELEC6200\GDP33\PPU\GDP_Multiplier\Mult_Arithmetic.sv(87): (vopt-2182) 'R_O' might be read before written in always_comb or always @* block.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(28).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (6) for port 'R_O'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Mult_Arithmetic.sv(30).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 43
+# ** Warning: (vsim-3015) [PCDPC] - Port size (10) does not match connection size (9) for port 'Total_EO'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(21).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+# ** Warning: (vsim-3015) [PCDPC] - Port size (8) does not match connection size (6) for port 'R_O'. The port definition is at: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.2.sv(24).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv Line: 45
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+add wave -position 13  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2/round
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+add wave -position 23  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2/rounding_temp
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+add wave -position 21  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2/L
+add wave -position 21  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2/G
+add wave -position 21  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Round2_2/S
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv failed with 1 errors.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 1 failed with 1 error.
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+run
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Error (suppressible): H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv(43): (vopt-2247) The implicit port connection (.*) did not find a matching port, net, variable or interface instance for port 'Total_EON'.
+# ** Error (suppressible): H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Optimised_Multiplier_top_level.sv(45): (vopt-2247) The implicit port connection (.*) did not find a matching port, net, variable or interface instance for port 'Total_EON'.
+# Optimization failed
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=2, Warnings=1.
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.Posit_Adder_32Bit_ES4_tb
+# vsim -voptargs="+acc" work.Posit_Adder_32Bit_ES4_tb 
+# Start time: 19:22:50 on Oct 22,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Warning: H:\Lab\PART IV\ELEC6200\GDP33\PPU\GDP_Multiplier\Mult_Arithmetic.sv(87): (vopt-2182) 'R_O' might be read before written in always_comb or always @* block.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=2, Warnings=3.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+# ** Note: $finish    : H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Posit_multiplier_32bits_tb.sv(68)
+#    Time: 655455 ns  Iteration: 1  Instance: /Posit_Adder_32Bit_ES4_tb
+# 1
+# Break in Module Posit_Adder_32Bit_ES4_tb at H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Posit_multiplier_32bits_tb.sv line 68
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Warning: H:\Lab\PART IV\ELEC6200\GDP33\PPU\GDP_Multiplier\Mult_Arithmetic.sv(88): (vopt-2182) 'R_O' might be read before written in always_comb or always @* block.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Warning: H:\Lab\PART IV\ELEC6200\GDP33\PPU\GDP_Multiplier\Mult_Arithmetic.sv(90): (vopt-2182) 'R_O' might be read before written in always_comb or always @* block.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+add wave -position 16  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply/EXP1
+add wave -position 8  sim:/Posit_Adder_32Bit_ES4_tb/Posit_Mult/Multiply/EXP2
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run
+# Compile of Rounding.sv was successful.
+# Compile of Mult_Arithmetic.sv was successful.
+# Compile of Optimised_Multiplier_top_level.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# Compile of Posit_Multiplier_tb.sv was successful.
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Warning: H:\Lab\PART IV\ELEC6200\GDP33\PPU\GDP_Multiplier\Mult_Arithmetic.sv(90): (vopt-2182) 'R_O' might be read before written in always_comb or always @* block.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_ES4_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+run

@@ -15,7 +15,7 @@
 // Revision   : Version 1.3 23/03/2023
 /////////////////////////////////////////////////////////////////////
 
-module Rounding_ #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
+module Rounding #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
 (
     input  logic[N-1:0] IN1, IN2,
     input  logic signed [ES+RS:0] LE_O,

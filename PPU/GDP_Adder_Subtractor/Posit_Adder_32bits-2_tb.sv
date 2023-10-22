@@ -20,6 +20,9 @@ timeunit 1ns; timeprecision 1ps;
 module Posit_Adder_32Bit_es2_tb;
 parameter N = 32, RS = $clog2(N), ES = 2;
 
+
+
+logic [15:0] error_count;
 //input logic
 logic signed [N-1:0] IN1, IN2, tmp_in1, tmp_in2, OUT1,OUT2,diff;
 
@@ -34,16 +37,15 @@ integer outfile;
 integer outfile2;
 
 logic start;
-logic [N-1:0] data1 [1:8200];
-logic [N-1:0] data2 [1:8200];
-initial $readmemb("in1_32e2.txt",data1);
-initial $readmemb("in2_32e2.txt",data2);
-logic [N-1:0] result [1:65536];
+logic [N-1:0] data1 [1:210000];
+logic [N-1:0] data2 [1:210000];
+initial $readmemb("IN1_2.1.csv",data1);
+initial $readmemb("IN2_2.1.csv",data2);
+logic [N-1:0] result [1:210000];
 logic [N-1:0] show_result;
-initial $readmemb("answer_32e2.txt",result);
+initial $readmemb("210k_v1.txt",result);
 
-logic [15:0] i;
-logic [15:0] error_count;
+logic [17:0] i;
 	
 	initial 
     begin
@@ -58,7 +60,7 @@ logic [15:0] error_count;
 		#100 i=0;
              error_count = 0;
 		#20 start = 1;
-                #655500 start = 0;
+                #26214500 start = 0;
 		#100;
 		
 		$fclose(outfile);
@@ -83,7 +85,7 @@ initial outfile2 = $fopen("adder_error_full_32bit.txt", "wb");
     error_count = error_count;
     $fwrite(outfile, "%d\n",diff);
 	$fwrite(outfile2, "%b -------- %b\n", OUT, show_result);
-	if(i==16'hffff)
+	if(i==18'h3FFFF)
   	      $finish;
 	else i = i + 1;
     end

@@ -15,7 +15,7 @@
 // Revision   : Version 1.0 22/11/2022
 /////////////////////////////////////////////////////////////////////
 
-module Data_Extraction #( parameter N = 8, parameter ES = 3, parameter RS = $clog2(N))
+module Data_Extraction #( parameter N = 32, parameter ES = 3, parameter RS = $clog2(N))
 (
     input logic signed [N-1:0] In,
     output logic signed Sign,

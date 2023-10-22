@@ -18,61 +18,77 @@
 timeunit 1ns; timeprecision 1ps;
 
 module Posit_Adder_32Bit_ES4_tb;
-parameter N = 32, RS = $clog2(N), ES = 4;
+parameter N = 32, RS = $clog2(N), ES = 2;
+
 
 //input logic
 logic signed [N-1:0] IN1, IN2;
 
 //output logic
 logic signed [N-1:0] OUT;
-reg outfile;
 
-Posit_Multiplier #(.N(N), .ES(ES)) Posit_Mult_32B_ES4 (.*);
+Optimised_PM #(.N(N), .ES(ES)) Posit_Mult (.*);
 
-initial 
-    begin
-        #10
-        IN1 = '0;
-        IN2 = '0;
-        #90 // test action related to infinity
-        // IN1 = 32'b10000000000000000000000000000000; // inf
-        // IN2 = 32'b10101001001010101010010001010110; // random number
-    //  OUT = 32'b10000000000000000000000000000000; // inf
-    //     #50ns
-    //     IN1 = 32'b00000010101100000101101101100111;
-    //     IN2 = 32'b00000010101001000100010010001101;
-        
-    //     #50
-    //     IN1 = 32'b01001001010101001010011100100010; // random number
-    //     IN2 = 32'b10000000000000000000000000000000; // inf
-    // //  OUT = 32'b10000000000000000000000000000000;
-    //     #50 // test action related to zero
-    //     IN1 = 32'b00000000000000000000000000000000; // 0
-    //     IN2 = 32'b01010100101010101010010101000101; // random number
-    // //  OUT = 32'b00000000000000000000000000000000;
-    //     #50
-    //     IN1 = 32'b01001001010101001010011100100010; // random number
-    //     IN2 = 32'b00000000000000000000000000000000; // 0
-    //  OUT = 32'b00000000000000000000000000000000;
-        #50 // pos_max_float_real x pos_max_float_real
-        IN1 = 32'b01111111110000000000000000000000;
-        IN2 = 32'b01111111110000000000000000000000;
-    //  OUT = 32'b01111111111111111100000000000000;
-        #50 //  neg_max_float_real x neg_max_float_real
-        IN1 = 32'b10000000010000000000000000000000;
-        IN2 = 32'b10000000010000000000000000000000;
-    //  OUT = 32'b01111111111111111100000000000000;
-        #50 // pos_max_float_real x neg_max_float_real
-        IN1 = 32'b01111111110000000000000000000000;
-        IN2 = 32'b10000000010000000000000000000000;
-    //  OUT = 32'b10000000000000000100000000000000;
-        #50
-        IN1 = 32'b00000111110010000000111010111110;
-        IN2 = 32'b00000001111001110011011000011101;
+logic clk;
+integer outfile;
+logic start;
+logic [N-1:0] data1 [1:8200];
+logic [N-1:0] data2 [1:8200];
+initial $readmemb("in1_fin.txt",data1);
+initial $readmemb("in2_fin.txt",data2);
 
-        
-    end
+logic [15:0] i;
+logic [15:0] error_count;
+	initial begin
+		// Initialize Inputs
+		IN1 = 0;
+		IN2 = 0;
+		clk = 0;
+		start = 0;
+	
+		
+		// Wait 100 ns for global reset to finish
+		#100 i=0;
+        error_count = 0;
+		#20 start = 1;
+                #655500 start = 0;
+		#100;
+		
+		$fclose(outfile);
+		$finish;
+	end
 
+ always #5 clk=~clk;
+
+  always @(posedge clk) 
+  begin			
+ 	IN1=data1[i];	
+	IN2=data2[i];
+	if(i==16'hffff)
+  	      $finish;
+	else i = i + 1;
+ end
+
+
+initial outfile = $fopen("error_32bit.txt", "wb");
+
+logic [N-1:0] result [1:65536];
+logic [N-1:0] show_result;
+initial $readmemb("mult_result_v1.txt",result);
+logic [N-1:0] diff;
+assign diff = (result[i-1] > OUT) ? result[i-1]-OUT : OUT-result[i-1];
+always @(posedge clk) 
+begin
+        show_result = result[i-1];
+     	// diff = (result[i-1] > OUT) ? result[i-1]-OUT : OUT-result[i-1];
+     	//$fwrite(outfile, "%h\t%h\t%h\t%h\t%d\n",in1, in2, out,result[i-1],diff);
+        if(diff)
+        error_count += 1;
+        else
+        error_count =error_count;
+     	$fwrite(outfile, "%d\n",diff);
+   
+end
 
 
 endmodule

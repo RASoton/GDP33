@@ -15,7 +15,7 @@
 // Revision   : Version 1.3 23/03/2023
 /////////////////////////////////////////////////////////////////////
 
-module Rounding #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
+module Rounding2_2 #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
 (
     input  logic[N-1:0] IN1, IN2,
     input  logic signed [ES+RS:0] LE_O,
@@ -26,8 +26,8 @@ module Rounding #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N))
     input  logic LS,
     input  logic inf1, inf2,
     input  logic zero1, zero2,
-    output logic [N-1:0] OUT,
-    output logic [3:0] rounding_map
+    output logic [N-1:0] OUT
+    // output logic [3:0] rounding_map
 );
 
 logic [(N+ES+N+3)-1:0] tmp_o;
@@ -61,7 +61,7 @@ begin
     G2 = |rounding_temp[N:0];
     R = rounding_temp[N-1];
     S = |rounding_temp[N-1:0];
-    rounding_map = {L,G,R,S};
+    // rounding_map = {L,G,R,S};
     rounding_temp2 = exp_frac_combine_output >> R_O;
     
     // if(G==1'b0)

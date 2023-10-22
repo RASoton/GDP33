@@ -17,7 +17,7 @@
 
 timeunit 1ns; timeprecision 1ps;
 module Posit_Multiplier_8B_tb;
-parameter N = 8, RS = $clog2(N), ES = 4;
+parameter N = 32, RS = $clog2(N), ES = 2;
 
 //input logic
 logic signed [N-1:0] IN1, IN2;

@@ -16,7 +16,7 @@
 // Revision   : Version 1.0 21/11/2022
 /////////////////////////////////////////////////////////////////////
 
-module Leading_Bit_Detector #( parameter N = 8, parameter ES = 3, parameter RS = $clog2(N))
+module Leading_Bit_Detector #( parameter N = 32, parameter ES = 3, parameter RS = $clog2(N))
 (
     input logic signed [N-2:0] InRemain,
     output logic signed [RS:0] EndPosition,

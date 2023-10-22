@@ -16,7 +16,7 @@
 // Revision   : Version 1.3 24/03/2023
 /////////////////////////////////////////////////////////////////////
 
-module Optimised_PM #(parameter N = 32, parameter ES = 4, parameter RS = $clog2(N)) 
+module Optimised_PM #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
 (
     input logic[N-1:0] IN1, IN2,
     output logic signed[N-1:0] OUT
@@ -35,12 +35,12 @@ Data_Extraction #(.N(N), .ES(ES)) Extract_IN2 (.In(IN2), .Sign(Sign2), .k(k2), .
 
                                         //////////                  ADDITION ARITHMETIC                  //////////                        
 logic [2*N-1:0] Mult_Mant_N;
-logic [RS+ES+1:0]Total_EO;
+logic [RS+ES+2:0]Total_EO, Total_EON;
 logic [ES-1:0] E_O;
-logic signed [RS:0] R_O;
+logic [RS+2:0] R_O;
 logic inf, zero, Operation;
 
 Mult #(.N(N), .ES(ES)) Multiply(.*);
                                         //////////                  ROUNDING                  //////////
-Rounding #(.N(N), .ES(ES)) Round(.*);
+Rounding2_2 #(.N(N), .ES(ES)) Round2_2(.*);
 endmodule

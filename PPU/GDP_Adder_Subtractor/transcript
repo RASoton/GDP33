@@ -1,0 +1,62 @@
+# Compile of Posit_Adder_32bits-2_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# Compile of Posit_Adder_Top_Level.sv was successful.
+# Compile of Rounding.sv was successful.
+# Compile of Arithmetic_Add_Sub.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of 8B_LBD.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# 9 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.Posit_Adder_32Bit_es2_tb
+# vsim -voptargs="+acc" work.Posit_Adder_32Bit_es2_tb 
+# Start time: 18:49:42 on Oct 22,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_es2_tb(fast)
+# Loading work.Optimised_PA(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Add_Subtract(fast)
+# Loading work.Leading_Bit_Detector_8B(fast)
+# Loading work.Rounding2_2(fast)
+run -all
+# ** Note: $finish    : H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Posit_Adder_32bits-2_tb.sv(89)
+#    Time: 2621535 ns  Iteration: 1  Instance: /Posit_Adder_32Bit_es2_tb
+# 1
+# Break in Module Posit_Adder_32Bit_es2_tb at H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Posit_Adder_32bits-2_tb.sv line 89
+add wave -position insertpoint  \
+sim:/Posit_Adder_32Bit_es2_tb/error_count
+# Compile of Posit_Adder_32bits-2_tb.sv was successful.
+# Compile of Rounding2.2.sv was successful.
+# Compile of Rounding2.sv was successful.
+# Compile of Posit_Adder_Top_Level.sv was successful.
+# Compile of Rounding.sv was successful.
+# Compile of Arithmetic_Add_Sub.sv was successful.
+# Compile of Posit_Extraction.sv was successful.
+# Compile of 8B_LBD.sv was successful.
+# Compile of Leading_Bit_Detector.sv was successful.
+# 9 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Adder_32Bit_es2_tb(fast)
+# Loading work.Optimised_PA(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Add_Subtract(fast)
+# Loading work.Leading_Bit_Detector_8B(fast)
+# Loading work.Rounding(fast)
+run -all
+# ** Note: $finish    : H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Posit_Adder_32bits-2_tb.sv(89)
+#    Time: 2621535 ns  Iteration: 1  Instance: /Posit_Adder_32Bit_es2_tb
+# 1
+# Break in Module Posit_Adder_32Bit_es2_tb at H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Posit_Adder_32bits-2_tb.sv line 89
+quit -sim
+# End time: 19:04:01 on Oct 22,2023, Elapsed time: 0:14:19
+# Errors: 0, Warnings: 2
