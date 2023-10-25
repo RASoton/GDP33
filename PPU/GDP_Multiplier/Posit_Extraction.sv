@@ -15,11 +15,11 @@
 // Revision   : Version 1.0 22/11/2022
 /////////////////////////////////////////////////////////////////////
 
-module Data_Extraction #( parameter N = 32, parameter ES = 3, parameter RS = $clog2(N))
+module Data_Extraction #( parameter N = 8, parameter ES = 3, parameter RS = $clog2(N))
 (
     input logic signed [N-1:0] In,
     output logic signed Sign,
-    output logic signed [RS+1:0] k,
+    output logic signed [RS:0] k,
     output logic [ES-1:0] Exponent,
     output logic [N-1:0] Mantissa,
     output logic signed [N-2:0] InRemain,
