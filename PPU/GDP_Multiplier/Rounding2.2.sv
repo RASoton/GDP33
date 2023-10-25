@@ -28,20 +28,20 @@ module Rounding2_2 #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N
     // output logic [3:0] rounding_map
 );
 
-logic [(N+ES+N+3)-1:0] tmp_o;
-logic [(N+N+ES+N+3)-1:0]sft_tmp_o;
-logic check;
-// logic L,G,R,S,ulp;
-logic [N-1:0] rnd_ulp; 
-logic [N:0] sft_tmp_o_rnd_ulp;
-logic [N-1:0] sft_tmp_o_rnd;
-logic [N-1:0] sft_tmp_oN;
+// logic [(N+ES+N+3)-1:0] tmp_o;
+// logic [(N+N+ES+N+3)-1:0]sft_tmp_o;
+// logic check;
+// // logic L,G,R,S,ulp;
+// logic [N-1:0] rnd_ulp; 
+// logic [N:0] sft_tmp_o_rnd_ulp;
+// logic [N-1:0] sft_tmp_o_rnd;
+// logic [N-1:0] sft_tmp_oN;
 // Letian Chen 
 logic round, L, G, G2, R, S, round_overflow, round_condition;
 logic [2*N-1:0] regime_temp_output; // store regime and sign
 logic [N-1:0] regime_output;
 logic [N-1:0] exp_frac_output, exp_frac_output1, exp_frac_temp_output;
-logic [N+1:0] exp_frac_combine_output, rounding_temp, rounding_temp1, rounding_temp2;
+logic [2*N+1:0] exp_frac_combine_output, rounding_temp, rounding_temp1, rounding_temp2;
 logic signed [N-1:0] temp_output, temp_output1;
 logic [1:0] overflow_shift;
 logic [N-1:0] OUT_neg;
@@ -60,7 +60,7 @@ logic [N-1:0] check_regime;
 always_comb
 begin
     //////      ROUNDING        //////
-    exp_frac_combine_output = {1'b0,E_O[ES-1:0],Mult_Mant_N[2*N-2:N]}; // combine 1-Overflow bit, 2-Exponent bit, 31-fraction bit
+    exp_frac_combine_output = {1'b0,E_O[ES-1:0],Mult_Mant_N[2*N-2:0]}; // combine 1-Overflow bit, 2-Exponent bit, 31-fraction bit
    
     // rounding_temp = exp_frac_combine_output << (N-R_O+1);
 
@@ -68,11 +68,11 @@ begin
     rounding_temp = exp_frac_combine_output << (N-R_O-2);
     // rounding_temp1 = rounding_temp >> (N-R_O+1);
     // rounding_temp1 = rounding_temp;
-    L = rounding_temp[N+1];
-    G = rounding_temp[N];
-    G2 = |rounding_temp[N:0];
-    R = rounding_temp[N-1];
-    S = |rounding_temp[N-1:0];
+    L = rounding_temp[2*N+1];
+    G = rounding_temp[2*N];
+    // G2 = |rounding_temp[2*N:0];
+    // R = rounding_temp[N-1];
+    S = |rounding_temp[2*N-1:0];
     // rounding_map = {L,G,R,S};
     // rounding_temp2 = exp_frac_combine_output >> R_O;
     
@@ -120,9 +120,9 @@ begin
     // Finish Rounding
     
     // Pick usefull bit from rounded object
-    exp_frac_temp_output = exp_frac_combine_output[N+1:2] + (R_O_fin+1);
+    exp_frac_temp_output = exp_frac_combine_output[2*N+1:N+2] + (R_O_fin+1);
     round_overflow = exp_frac_temp_output[N-1];
-    exp_frac_output1 = exp_frac_combine_output[N+1:2] >> (R_O_fin+1); // Shift the Exponent bit and Fration bit to match the regime and sign region
+    exp_frac_output1 = exp_frac_combine_output[2*N+1:N+2] >> (R_O_fin+1); // Shift the Exponent bit and Fration bit to match the regime and sign region
     exp_frac_output = exp_frac_output1;
     // round_overflow = exp_frac_temp_output[N-1];
     // overflow_shift = {round_overflow, 0};
