@@ -3,17 +3,17 @@
 //            :
 // File name  : Optimised_Adder_top_level.sv
 //            :
-// Description: Parameterized Posit Adder/Subtractor
-//            : with larger intermediate register for rounding 
+// Description: Parameterized Posit Multiplier
+//            : 
 //            :
-// Limitations: 
+// Limitations: None
 //            : 
 // System     : SystemVerilog IEEE 1800-2005
 //            :
 // Author     : Xiaoan He (Jasper)
 //            : xh2g20@soton.ac.uk
 //
-// Revision   : Version 1.3 24/03/2023
+// Revision   : Version 1.3 24/10/2023
 /////////////////////////////////////////////////////////////////////
 
 module Optimised_PM #(parameter N = 32, parameter ES = 4, parameter RS = $clog2(N)) 

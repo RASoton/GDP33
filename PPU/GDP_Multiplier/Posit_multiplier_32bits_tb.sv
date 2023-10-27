@@ -3,7 +3,7 @@
 //            :
 // File name  : Posit_multiplier_32bits_tb.sv
 //            :
-// Description: Test 32-bit Posit Multiplier
+// Description: Test N-bit Posit Multiplier with ES-bit Exponent
 //            :
 // Limitations: None
 //            : 
@@ -12,14 +12,12 @@
 // Author     : Xiaoan(Jasper) He 
 //            : xh2g20@ecs.soton.ac.uk
 //
-// Revision   : Version 1.0 20/02/2023
+// Revision   : Version 1.2 25/10/2023
 /////////////////////////////////////////////////////////////////////
-
 timeunit 1ns; timeprecision 1ps;
 
-module Posit_Adder_32Bit_ES4_tb;
+module Posit_Multiplier_32Bit_ES2_tb;
 parameter N = 32, RS = $clog2(N), ES = 2;
-
 
 //input logic
 logic signed [N-1:0] IN1, IN2;
@@ -35,10 +33,10 @@ integer outfile;
 logic start;
 logic [N-1:0] data1 [1:210000];
 logic [N-1:0] data2 [1:210000];
-initial $readmemb("IN1_2.1.txt",data1);
-initial $readmemb("IN2_2.1.txt",data2);
+initial $readmemb("IN1_210k_Posit.txt",data1);
+initial $readmemb("IN2_210k_Posit.txt",data2);
 
-logic [17:0] i;
+logic [18:0] i;
 logic [15:0] error_count;
 	initial begin
 		// Initialize Inputs
@@ -52,7 +50,7 @@ logic [15:0] error_count;
 		#100 i=0;
         error_count = 0;
 		#20 start = 1;
-                #26214500 start = 0;
+                #210011500 start = 0;
 		#100;
 		
 		$fclose(outfile);
@@ -65,7 +63,7 @@ logic [15:0] error_count;
   begin			
  	IN1=data1[i];	
 	IN2=data2[i];
-	if(i==18'h3FFFF)
+	if(i==19'd210002)
   	      $finish;
 	else i = i + 1;
  end
@@ -75,7 +73,7 @@ initial outfile = $fopen("error_32bit.txt", "wb");
 
 logic [N-1:0] result [1:210000];
 logic [N-1:0] show_result, show_result_neg;
-initial $readmemb("mult_result_210k.txt",result);
+initial $readmemb("Mult_R210k.txt",result);
 logic [N-1:0] diff;
 assign diff = (result[i-1] > OUT) ? result[i-1]-OUT : OUT-result[i-1];
 always @(posedge clk) 
