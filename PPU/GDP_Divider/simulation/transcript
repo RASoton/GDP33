@@ -1,0 +1,40 @@
+# Compile of Posit_multiplier_32bits_tb.sv was successful.
+vsim -voptargs=+acc work.Posit_Multiplier_32Bit_ES2_tb
+# vsim -voptargs="+acc" work.Posit_Multiplier_32Bit_ES2_tb 
+# Start time: 23:16:45 on Oct 25,2023
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading sv_std.std
+# Loading work.Posit_Multiplier_32Bit_ES2_tb(fast)
+# Loading work.Optimised_PM(fast)
+# Loading work.Data_Extraction(fast)
+# Loading work.Leading_Bit_Detector(fast)
+# Loading work.Mult(fast)
+# Loading work.Rounding2_2(fast)
+# ** Warning: (vsim-3015) [PCDPC] - Port size (6) does not match connection size (1) for port 'k'. The port definition is at: H:/INDIVIDUAL PROJECT/Posit/Individual_Project/Test/Project Code/Optimised_PM/Posit_Extraction.sv(22).
+#    Time: 0 ps  Iteration: 0  Instance: /Posit_Multiplier_32Bit_ES2_tb/Posit_Mult/Round/Extract_IN_result File: H:/INDIVIDUAL PROJECT/Posit/Individual_Project/Test/Project Code/Optimised_PM/Rounding2.2.sv Line: 57
+add wave -position insertpoint  \
+sim:/Posit_Multiplier_32Bit_ES2_tb/error_count
+add wave -position insertpoint  \
+sim:/Posit_Multiplier_32Bit_ES2_tb/i
+add wave -position insertpoint  \
+sim:/Posit_Multiplier_32Bit_ES2_tb/IN1
+add wave -position insertpoint  \
+sim:/Posit_Multiplier_32Bit_ES2_tb/IN2
+add wave -position insertpoint  \
+sim:/Posit_Multiplier_32Bit_ES2_tb/OUT
+add wave -position insertpoint  \
+sim:/Posit_Multiplier_32Bit_ES2_tb/show_result
+add wave -position insertpoint  \
+sim:/Posit_Multiplier_32Bit_ES2_tb/diff
+run -all
+# ** Note: $finish    : H:/INDIVIDUAL PROJECT/Posit/Individual_Project/Test/Project Code/Optimised_PM/Posit_multiplier_32bits_tb.sv(68)
+#    Time: 2100125 ns  Iteration: 1  Instance: /Posit_Multiplier_32Bit_ES2_tb
+# 1
+# Break in Module Posit_Multiplier_32Bit_ES2_tb at H:/INDIVIDUAL PROJECT/Posit/Individual_Project/Test/Project Code/Optimised_PM/Posit_multiplier_32bits_tb.sv line 68
+# End time: 23:21:42 on Oct 25,2023, Elapsed time: 0:04:57
+# Errors: 0, Warnings: 5
+# Closing project H:/INDIVIDUAL PROJECT/Posit/Individual_Project/Test/Project Code/Optimised_PM/Simulation/OPM.mpf
+# reading H:/Questa/questa_fse/win64/../modelsim.ini
+# Loading project PPU_AddSub
