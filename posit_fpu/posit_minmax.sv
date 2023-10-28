@@ -1,43 +1,51 @@
 module posit_minmax #(
-    localparam unsigned int WIDTH = 32
+    localparam unsigned int WIDTH = 32 //(N = 32)
 ) (
-  input logic [1:0][WIDTH-1:0]     operands_i, // 2 operands
-  input posit_pkg::operation_e     op_i,
-  input posit_pkg::status_t        minmax_status;
+  input logic [N-1:0] posit_a, // First operand
+  input logic [N-1:0] posit_b, // Second operand 
   input posit_pkg::roundmode_e     rnd_mode_i,
   output logic minmax_result;
-        logic               minmax_extension_bit;
 );
 
+logic [31:0] invalid_input;
+logic signed [WIDTH-1:0] src1; 
+logic signed [WIDTH-1:0] src2;
 
-  signed logic [WIDTH-1:0] src1;
-  signed logic [WIDTH-1:0] src2;
+logic min
+logic max
 
-always_comb begin : min_max
-// Default assignment
-minmax_status = '0;
+posit_pkg::status_t        minmax_status;
 
-invalid_input =
+assign invalid_input = (posit_pkg::POSIT_NAR == posit_a) || (posit_pkg::POSIT_NAR == posit_b);
+assign src1 = posit_a;
+assign src2 = posit_b;
 
-    // Both NaN inputs cause a NaN output
-    if (info_a.is_nan && info_b.is_nan)
-      minmax_result = '{sign: 1'b0, exponent: '1, mantissa: 2**(MAN_BITS-1)}; // canonical qNaN
-    // If one operand is NaN, the non-NaN operand is returned
-    else if (info_a.is_nan) minmax_result = operand_b;
-    else if (info_b.is_nan) minmax_result = operand_a;
-    // Otherwise decide according to the operation
-    else begin
-      unique case (inp_pipe_rnd_mode_q[NUM_INP_REGS])
-        fpnew_pkg::RNE: minmax_result = operand_a_smaller ? operand_a : operand_b; // MIN
-        fpnew_pkg::RTZ: minmax_result = operand_a_smaller ? operand_b : operand_a; // MAX
-        default: minmax_result = '{default: fpnew_pkg::DONT_CARE}; // don't care
-      endcase
-    end
-    
-  assign minmax_extension_bit = 1'b1; // NaN-box as result is always a float value
+always_ff @(*) 
+begin : min_max
 
+ min = (src1 < src2);
+ max = (src1 > src2);
 
+ // Default assignment
+ minmax_status = '0;
+
+ // Both NaR inputs cause a NaR output
+ if (info_o[a].is_NaR && info_o[b].is_NaR)
+   minmax_result = invalid_input
+ // If one operand is NaR, the non-NaR operand is returned
+ else if (info_o[a].is_NaR) minmax_result = posit_b;
+ else if (info_o[b].is_NaR) minmax_result = posit_a;
+ // Otherwise decide according to the operation
+ else begin
+   unique case (rnd_mode_i)
+     posit_pkg::RNE: begin minmax_result = 32'(unsigned'(max)); end // Max
+     posit_pkg::RTZ: begin minmax_result = 32'(unsigned'(min)); end // Min
+     default: minmax_result = '{default: posit_pkg::DONT_CARE}; // don't care
+   endcase
+end
 
 end
 endmodule
+
+
 
