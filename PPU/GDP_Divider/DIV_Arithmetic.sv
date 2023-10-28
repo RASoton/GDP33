@@ -25,15 +25,19 @@ module Div #(parameter N = 8, parameter ES = 4, parameter RS = $clog2(N))
     input  logic inf1, inf2,
     input  logic zero1, zero2,
     output logic [2*N-1:0] Div_Mant_N,
+    output logic [RS+ES+4:0] Total_EO,
     output logic [ES-1:0] E_O,
-    output logic signed [RS+2:0] R_O, sumR,
+    output logic signed [RS+4:0] R_O, sumR,
     output logic inf, zero, Sign
   );
   int i;
-  logic [2*N-1:0] Div_Mant;
+  logic [2*N-1:0] Div_Mant, Div_Mant_temp;
   logic [2*N-1:0] dividend, divisor; //被除数, 除数
   logic signed [1:0]sumE_Ovf;
-  logic [ES:0] sumE;  // 1 more bit then Exponent for Ovf
+  logic signed[ES+2:0] sumE; // 2 more bit: ES+1 for sign, ES for overflow
+  logic [RS+ES+4:0] Total_EON;
+  logic signed [ES+1:0]signed_E1, signed_E2;
+  logic signed [1:0]Div_Mant_underflow;
 
   always_comb
   begin
@@ -46,32 +50,58 @@ module Div #(parameter N = 8, parameter ES = 4, parameter RS = $clog2(N))
     // dividend = {Mantissa1, {N-1{0}}};
     dividend = Mantissa1 << N;
     divisor = Mantissa2;
-    //  Mantissa Diviplication Handling
+
+    signed_E1 = {2'b00, Exponent1};
+    signed_E2 = {2'b00, Exponent2};
+
+    //  Mantissa Division Handling
     Div_Mant = dividend / divisor;
+    Div_Mant_temp = Div_Mant << N-1;
 
-    if(Div_Mant[2*N-1])
-    Div_Mant_N = Div_Mant;
-    else
-    Div_Mant_N = Div_Mant << 1;
+    if(Div_Mant_temp[2*N-1])  // DMT's MSB is 1 => divisor's fraction < dividend's
+    begin
+      Div_Mant_N = Div_Mant_temp;
+      Div_Mant_underflow = '0;
+    end
+    else  // divisor's fraction > dividend's
+      begin
+      Div_Mant_N = Div_Mant_temp << 1;  //  normalise it
+      Div_Mant_underflow = 2'b11; //  will be taking 1 away from exponent 
+      end
 
-    if(sumR[RS+2])
-    sumE = Exponent1-Exponent2 + Div_Mant[2*N-1];
-    else
-    sumE = Exponent1-Exponent2 + Div_Mant[2*N-1];
-
-
+    sumE = signed_E1 - signed_E2 + Div_Mant_underflow;  // signed 2'b11 is -1
     sumE_Ovf = {1'b0, sumE[ES]};
-    sumR = k1-k2+sumE_Ovf;
+    sumR = k1-k2;
 
-    if(sumR[RS+2]) // negative exponent
-    begin
+    Total_EO = (sumR<<ES)+ sumE;
+
+    // //--
+    // if(sumE[ES+1])
+    // begin
+    //   E_O = -sumE[ES-1:0];
+    // end
+    // else
+    //   E_O = sumE[ES-1:0];
+
+    // // if(sumE)
+    // //--
+
+    if(sumE[ES+2])
+      E_O = -sumE[ES-1:0];
+    else
       E_O = sumE[ES-1:0];
-      R_O = -sumR;
-    end
+
+    if(Total_EO[RS+ES+4]) // negative Total_EO
+      Total_EON = -Total_EO;
     else            // positive exponent
-    begin
-      E_O = sumE[ES-1:0];
-      R_O = sumR + 1;
+      Total_EON = Total_EO;
+
+    if(~Total_EO[RS+ES+4])  //+ve Total_EO
+        R_O = Total_EON[ES+RS+3:ES] + 1; // +1 due to K = m-1 w/1
+    else if (Total_EO[RS+ES+4] & |(Total_EON[ES-1:0]))
+        R_O = Total_EON[ES+RS+3:ES] + 1;
+    else
+        R_O = Total_EON[RS+ES+3:ES];
+
     end
-  end
 endmodule

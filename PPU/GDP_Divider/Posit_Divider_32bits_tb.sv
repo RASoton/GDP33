@@ -75,7 +75,7 @@ logic [15:0] error_count;
 
 initial outfile = $fopen("error_32bit.txt", "wb");
 
-logic [N-1:0] result [1:210000];
+logic [N-1:0] result [1:8200];
 logic [N-1:0] show_result, show_result_neg;
 initial $readmemb("divider_result_raw.txt",result);
 logic [N-1:0] diff;
