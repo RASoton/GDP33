@@ -77,7 +77,7 @@ begin
     round_condition = 1;
 
     //  set the limit of max R_O
-    if(R_O > 31 && ~Total_EO[RS+2]) // when regime sequence w/0
+    if(R_O > 31 && ~Total_EO[RS+ES+1]) // when regime sequence w/0
       R_O_fin = 31;
     else if(R_O > 30 && sumR[RS+2]) // when regime sequence w/1
       R_O_fin = 30;
@@ -104,7 +104,7 @@ begin
     // overflow_shift = {round_overflow, 0};
 
     // Handle Regime
-    if(sumR[RS+2]) // When the exponents is -ve
+    if(Total_EO[RS+ES+1]) // When the exponents is -ve
     regime_temp_output = 1 << (2*N-R_O_fin-2);
     else // When the exponents is +ve
     regime_temp_output = ~(1) << (2*N-R_O_fin-2);

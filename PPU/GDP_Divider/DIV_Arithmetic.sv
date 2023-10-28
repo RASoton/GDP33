@@ -87,7 +87,7 @@ module Div #(parameter N = 8, parameter ES = 4, parameter RS = $clog2(N))
     // //--
 
     if(sumE[ES+2])
-      E_O = -sumE[ES-1:0];
+      E_O = sumE[ES-1:0];
     else
       E_O = sumE[ES-1:0];
 
