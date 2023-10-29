@@ -45,7 +45,8 @@ begin : Comp
     posit_pkg::RNE: begin compare_result = 32'(unsigned'(equal | less)); end
     posit_pkg::RTZ: begin compare_result = 32'(unsigned'(less)); end
     posit_pkg::RDN: begin compare_result = 32'(unsigned'(equal)); end
-    default : result_o = 0;
+
+    default : compare_result = 32'b0;
   endcase
 end
 
@@ -56,7 +57,7 @@ begin : Output
   case (op_i)
     posit_pkg::SGN: begin result_o = sign_result; end
     posit_pkg::CMP: begin result_o = compare_result; end
-    default: result_o = 32'0;
+    default: result_o = 32'b0;
   endcase
 end
 
