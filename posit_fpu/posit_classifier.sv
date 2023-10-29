@@ -8,27 +8,36 @@ module posit_classifier #(
   output posit_pkg::posit_info_t [NumOperands-1:0]            info_o
 );
 
-  localparam int unsigned EXP_BITS = posit_pkg::exp_bits(pFormat);
-  localparam int unsigned MAX_REGIME_BITS = posit_pkg::max_regime_bits(pFormat);
+  localparam int unsigned ES = posit_pkg::exp_bits(pFormat);
+  posit_extractor #(WIDTH, ES) extractor ();
+
+  typedef struct packed {
+    logic signed sign;
+    logic signed [$clog2(WIDTH):0] regime;
+    logic [ES-1:0] exponent;
+    logic [WIDTH-1:0] fraction;
+    logic signed [WIDTH-2:0] remain;
+    logic NaR;
+    logic zero;
+  } posit_result_t;
 
   // Iterate through all operands
   for (genvar op = 0; op < int'(NumOperands); op++) begin : gen_num_values
-    logic sign;
-    logic signed [MAX_REGIME_BITS:0] regime;
-    logic [EXP_BITS-1:0] exponent;
-    logic [WIDTH-1:0] fraction; 
-    logic signed [WIDTH-2:0] remain;
+    posit_result_t posit;
     logic is_zero;
     logic is_NaR;
     logic is_pos;
     logic is_neg;
-	 posit_extraction #(.N(WIDTH), .ES(EXP_BITS)) Extract_IN1 (.In(operands_i[op]), .Sign(sign), .k(regime), .Exponent(exponent), .Mantissa(fraction), .InRemain(remain), .inf(is_NaR), .zero(is_zero));
+    
     // ---------------
     // Classify Input
     // ---------------
     always_comb begin : classify_input
-      is_pos 		  = (sign == '0) && ~is_zero;
-      is_neg		  = (sign == '1) && ~is_NaR;
+      posit         = extractor.extract(operands_i[op]);
+      is_zero       = posit.zero;
+      is_NaR        = posit.NaR;
+      is_pos 		  = (posit.sign == '0) && ~is_zero;
+      is_neg		  = (posit.sign == '1) && ~is_NaR;
       // Assign output for current input
       info_o[op].is_zero = is_zero;
       info_o[op].is_NaR = is_NaR;
