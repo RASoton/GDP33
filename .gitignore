@@ -1,3 +1,4 @@
+# ignore file with specific extensions
 *.o
 *.exe
 *.bak
@@ -5,3 +6,11 @@
 *.dat
 *.mti
 *.mpf
+*.do
+*.wlf
+
+# ignore file with the name
+transcript
+
+#ignore "work" folder, regardless of its location
+**/work/

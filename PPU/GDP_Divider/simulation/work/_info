@@ -1,0 +1,229 @@
+m255
+K4
+z2
+Z0 !s12c _opt
+Z1 !s99 nomlopt
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+R0
+R1
+!s11f vlog 2023.2 2023.04, Apr 11 2023
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dH:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/simulation
+T_opt
+!s110 1698268907
+VNaHMSGlM9andT<T3RmjS11
+04 26 4 work Posit_Divider_32Bit_ES2_tb fast 0
+=14-3024a93af669-653986eb-46-9a4
+R1
+!s12b OEM100
+!s124 OEM10U10 
+o-quiet -auto_acc_if_foreign -work work +acc
+Z2 tCvgOpt 0
+n@_opt
+OL;O;2023.2;77
+vData_Extraction
+2H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Extraction.sv
+Z3 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z4 !s110 1698268891
+!i10b 1
+!s100 K0eKXMMX_S3?`j0R6[4NH2
+IaikK^U=fX79j9an_3ZMl31
+S1
+Z5 dH:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/simulation
+w1698077588
+8H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Extraction.sv
+FH:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Extraction.sv
+!i122 84
+L0 18 57
+Z6 VDg1SIo80bB@j0V0VzS_@n1
+Z7 OL;L;2023.2;77
+r1
+!s85 0
+31
+Z8 !s108 1698268891.000000
+!s107 H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Extraction.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Extraction.sv|
+!i113 0
+Z9 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+n@data_@extraction
+vDiv
+2H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/DIV_Arithmetic.sv
+R3
+Z10 !s110 1698268890
+!i10b 1
+!s100 Ji7^Jek:kADYkBTnXH7hY1
+Ih3XP_eeYa[6@2ZLXOD11M0
+S1
+R5
+w1698268888
+8H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/DIV_Arithmetic.sv
+FH:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/DIV_Arithmetic.sv
+!i122 81
+L0 18 60
+R6
+R7
+r1
+!s85 0
+31
+Z11 !s108 1698268890.000000
+!s107 H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/DIV_Arithmetic.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/DIV_Arithmetic.sv|
+!i113 0
+R9
+R2
+n@div
+vDivider
+2H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Divider_top_level.sv
+R3
+R4
+!i10b 1
+!s100 5ai=L3LThaK>6i<2KHkd?2
+IzAb:jH=`A^:gVm3g]bB[N3
+S1
+R5
+w1698265418
+8H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Divider_top_level.sv
+FH:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Divider_top_level.sv
+!i122 83
+L0 19 28
+R6
+R7
+r1
+!s85 0
+31
+R8
+!s107 H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Divider_top_level.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Divider_top_level.sv|
+!i113 0
+R9
+R2
+n@divider
+vLeading_Bit_Detector
+2H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Leading_Bit_Detector.sv
+R3
+R4
+!i10b 1
+!s100 Kz0CmDD3HDoOm2ZS[IlHH2
+IHAY_[YG>Y6_n6Fi4RecF>3
+S1
+R5
+w1684217585
+8H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Leading_Bit_Detector.sv
+FH:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Leading_Bit_Detector.sv
+!i122 85
+L0 19 34
+R6
+R7
+r1
+!s85 0
+31
+R8
+!s107 H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Leading_Bit_Detector.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Leading_Bit_Detector.sv|
+!i113 0
+R9
+R2
+n@leading_@bit_@detector
+vPosit_Divider_32Bit_ES2_tb
+2H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Divider_32bits_tb.sv
+R3
+R10
+!i10b 1
+!s100 @CFDmFJ^AgXP<S4;9FFO80
+IfOh4TQ`cd9ChBb]5l40aY2
+S1
+R5
+w1698266977
+8H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Divider_32bits_tb.sv
+FH:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Divider_32bits_tb.sv
+!i122 80
+L0 20 76
+R6
+R7
+r1
+!s85 0
+31
+R11
+!s107 H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Divider_32bits_tb.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Divider_32bits_tb.sv|
+!i113 0
+R9
+R2
+n@posit_@divider_32@bit_@e@s2_tb
+vPosit_Divider_8B_tb
+2H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Divider_tb.sv
+R3
+!s110 1698266288
+!i10b 1
+!s100 8XNU<o6YdMRUEM>o@?;3M2
+IB]FDeB6[>F>R<NTP23OSK1
+S1
+R5
+w1698265523
+8H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Divider_tb.sv
+FH:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Divider_tb.sv
+!i122 16
+L0 19 148
+R6
+R7
+r1
+!s85 0
+31
+!s108 1698266288.000000
+!s107 H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Divider_tb.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Divider_tb.sv|
+!i113 0
+R9
+R2
+n@posit_@divider_8@b_tb
+vRounding2_2
+2H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Rounding2.2.sv
+R3
+R4
+!i10b 1
+!s100 Ro_=5JEVAFm;L;HW`kK2_3
+I5OmJHgl_aRj4hNbZ<?;D11
+S1
+R5
+w1698265427
+8H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Rounding2.2.sv
+FH:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Rounding2.2.sv
+!i122 82
+L0 18 190
+R6
+R7
+r1
+!s85 0
+31
+R11
+!s107 H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Rounding2.2.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Rounding2.2.sv|
+!i113 0
+R9
+R2
+n@rounding2_2
