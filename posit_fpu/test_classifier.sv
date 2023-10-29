@@ -24,6 +24,6 @@ module test_classifier;
                i, test_info[i].is_zero, test_info[i].is_NaR, test_info[i].is_pos, test_info[i].is_neg);
     end
 
-    $finish;
+    $stop;
   end
 endmodule
