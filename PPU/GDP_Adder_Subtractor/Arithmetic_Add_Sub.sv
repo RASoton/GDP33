@@ -10,10 +10,10 @@
 //            : 
 // System     : SystemVerilog IEEE 1800-2005
 //            :
-// Author     : Xiaoan He (Jasper)
+// Author     : Xiaoan(Jasper) He 
 //            : xh2g20@soton.ac.uk
 //
-// Revision   : Version 1.3 23/03/2023
+// Revision   : Version 1.3 /10/2023
 /////////////////////////////////////////////////////////////////////
 
 module Add_Subtract #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
@@ -32,8 +32,7 @@ module Add_Subtract #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(
     output logic signed [RS:0] R_O,
     output logic LS
 );
-logic inf, zero;
-logic Operation;
+logic inf, zero, op, SM_add,cond;
 
 // components to corresponding logic, L - Large S - Small
 logic signed [N-2:0] LIn, SIn;
@@ -41,10 +40,11 @@ logic SS;
 logic [RS:0] LR, SR;
 logic LRC, SRC;
 logic [ES-1:0]LE, SE;
-logic [N-1:0]LM, SM, SM_tmp;
+logic [N-1:0]LM, SM, SM_sft, debug;
 
 logic [N-1:0] E_diff;
 logic [N-1:0] Add_Mant_sft;
+logic [N:0] Add_Mant_tmp;
 logic [N-1:0] LBD_in;
 logic Greater_Than;
 logic signed [RS:0] R_diff;
@@ -58,13 +58,12 @@ always_comb
 begin
     // check infinity and zero
     inf = inf1 | inf2;
-	zero = zero1 & zero2;
-
+    zero = zero1 & zero2;
 
     //////      ADDITION ARITHMETIC     //////
 
-    // Confirm the operation (s1 XNOR s2)
-    Operation = Sign1 ~^ Sign2 ;
+    // Confirm  addition or subtraction (s1 XNOR s2)
+    op = Sign1 ~^ Sign2 ;
 
     // Find the greater InRemain
     Greater_Than = (InRemain1[N-2:0] >  InRemain2[N-2:0])? 1'b1 : 1'b0;
@@ -75,15 +74,13 @@ begin
     LR = Greater_Than ? k1 : k2;
     LRC = Greater_Than? InRemain1[N-2] : InRemain2[N-2];
     LE = Greater_Than ? Exponent1 : Exponent2;
-    LM = Greater_Than ? Mantissa1 : Mantissa2; // the first bit (0) is reserved for overflow detection
-    
+    LM = Greater_Than ? Mantissa1 : Mantissa2; // the MSB is reserved for overflow detection
     SIn = Greater_Than ? InRemain2 : InRemain1;
     SS = Greater_Than ? Sign2 : Sign1;
     SR = Greater_Than ? k2 : k1;
     SRC = Greater_Than? InRemain2[N-2] : InRemain1[N-2];
     SE = Greater_Than ? Exponent2 : Exponent1;
     SM = Greater_Than ? Mantissa2 : Mantissa1;
-
 
     //// Mantissa Addition ////
     // find the regime difference
@@ -101,11 +98,24 @@ begin
 
     E_diff = (R_diff*(2**(ES))) + (LE - SE); 
 
-    SM_tmp = SM >> E_diff;
-    if (Operation)
-        Add_Mant = LM + SM_tmp;
+    SM_sft = SM >> E_diff;
+    
+
+    if(op)
+    debug = (SM << (N-E_diff));
     else
-        Add_Mant = LM - SM_tmp;
+    debug = (({N-1{1'b1}}-SM) << (N-E_diff));
+
+    SM_add = |debug;
+
+    if(op)
+        Add_Mant_tmp = LM + SM_sft;
+    else
+        Add_Mant_tmp = LM - SM_sft;
+
+        // Add_Mant ={Add_Mant_tmp[N:1],(Add_Mant_tmp[0]|SM_add)};
+        Add_Mant = Add_Mant_tmp;
+        
     
     // check for Mantissa Overflow
     Mant_Ovf = Add_Mant[N];
@@ -118,12 +128,6 @@ begin
     
     // (MSB OR 2nd MSB) bit since LBD_IN is for leading bit
     LBD_in = {(Add_Mant[N] | Add_Mant[N-1]), Add_Mant[N-2:0]}; 
-    // --------------------CHECK------------------------------------
-    // Add_Mant_sft = Add_Mant[N:1] << shift; // FIXME
-    // if(Add_Mant_sft[N-1])
-    //     Add_Mant_N = Add_Mant_sft[N-1:0];
-    // else
-    //     Add_Mant_N = {Add_Mant_sft[N-2:0],1'b0};
 
         if(Mant_Ovf)
         begin
@@ -134,28 +138,30 @@ begin
             Add_Mant_sft = Add_Mant[N-1:0] << shift;           
         end
         Add_Mant_N = Add_Mant_sft;
-    // -----------------------------------CHECK END-----------------------------
+        // Add_Mant_N[0] = Add_Mant_N[0]|Add_Mant[0];
 
     // Compute regime and exponent of final result
     
     /* 
-    The exponent is mainly based on the larger input
+    Output exponent is mainly based on larger input
     also taking overflow and left shift into account
     */
     LE_O = {LR, LE} + Mant_Ovf - shift; 
-    if (LE_O[RS+ES])
+    if (LE_O[RS+ES])    // -ve exponent
         LE_ON = -LE_O;
-    else
+    else                // +ve exponent
         LE_ON = LE_O;
 
-    if (LE_O[ES+RS] & |(LE_ON[ES-1:0]))
+    if (LE_O[ES+RS] & |(LE_ON[ES-1:0])) // if -ve LE_O, last ES bits in LE_ON are not '0
         E_O = (1<<ES)-LE_ON[ES-1:0];
     else
         E_O = LE_ON[ES-1:0];
 
-    if (~LE_O[ES+RS] || (LE_O[ES+RS] & |(LE_ON[ES-1:0])))
-        R_O = LE_ON[ES+RS-1:ES] + 1'b1;
-    else
-        R_O = LE_ON[ES+RS-1:ES];
+    if (~LE_O[ES+RS]) // +ve exponent, regime sequence w/1
+    R_O = LE_ON[ES+RS-1:ES] + 1; // +1 due to K = m-1 w/1
+    else if ((LE_O[ES+RS] & |(LE_ON[ES-1:0]))) // -ve exponent, regime sequence w/0, last ES bits in LE_ON are not '0
+        R_O = LE_ON[ES+RS-1:ES] + 1'b1; // compensate 1 
+    else    //-ve exponent, last ES bits in LE_ON are '0
+        R_O = LE_ON[ES+RS-1:ES];    //  no compensation since 2's comp of 00 is 100, automatically conpensate
 end
 endmodule

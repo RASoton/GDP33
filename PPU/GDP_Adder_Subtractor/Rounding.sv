@@ -31,7 +31,7 @@ module Rounding #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N))
 
 logic [(N+ES+N+3)-1:0] tmp_o;
 logic [(N+N+ES+N+3)-1:0]sft_tmp_o;
-logic L,G,R,S,ulp;
+logic L,G,R,S,ulp, rounding_condition;
 logic [N-1:0] rnd_ulp; 
 logic [N:0] sft_tmp_o_rnd_ulp;
 logic [N-1:0] sft_tmp_o_rnd;
@@ -45,6 +45,10 @@ begin
     tmp_o = { {N{~LE_O[ES+RS]}}, LE_O[ES+RS], E_O, Add_Mant_N[N-2:0], 3'b0 };
     sft_tmp_o = {tmp_o, {N{1'b0}}};
     sft_tmp_o = sft_tmp_o >> R_O;
+    if(R_O > 31)
+    rounding_condition = 0;
+    else
+    rounding_condition = 1;
 
     L = sft_tmp_o[N+4+(N-(N-ES))]; 
     G = sft_tmp_o[N+3+(N-(N-ES))]; // Guard bit
@@ -52,11 +56,11 @@ begin
     S = |sft_tmp_o[N+1+(N-(N-ES)):0];  // sticky bit
     // ulp = ((G & (R | S)) | (L & G & ~(R | S)));
         ulp = ((G & (R | S)) | (L & G & ~(R)));
-    rnd_ulp= {{N-1{1'b0}},ulp};
+    rnd_ulp= {{N-1{1'b0}},ulp} - (~S&G&~R);
 
     
     // sft_tmp_o_rnd_ulp = sft_tmp_o[2*N-1+3+(N-(N-ES)):N+3+(N-(N-ES))] + rnd_ulp;
-        sft_tmp_o_rnd_ulp = sft_tmp_o[2*N-1+3+(N-(N-ES)):N+3+(N-(N-ES))] + rnd_ulp - (~S&G&~R);
+        sft_tmp_o_rnd_ulp = sft_tmp_o[2*N-1+3+(N-(N-ES)):N+3+(N-(N-ES))] + (rnd_ulp & rounding_condition);
 
     if ((R_O < N-ES-2))
         sft_tmp_o_rnd = sft_tmp_o_rnd_ulp[N-1:0];

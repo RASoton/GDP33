@@ -1,18 +1,18 @@
 /////////////////////////////////////////////////////////////////////
-// Design unit: Data Extraction
+// Design unit: DataExtraction
 //            :
 // File name  : Posit_Extraction.sv
 //            :
-// Description: Extracting posit element from N bits  posit input
+// Description: Extracting Posit element from N-bit bit pattern 
 //            :
-// Limitations: 
+// Limitations: None
 //            : 
 // System     : SystemVerilog IEEE 1800-2005
 //            :
-// Author     : Xiaoan He (Jasper)
+// Author     : Xiaoan(Jasper) He 
 //            : xh2g20@ecs.soton.ac.uk
 //
-// Revision   : Version 1.2 23/03/2023
+// Revision   : Version 1.0 22/11/2022
 /////////////////////////////////////////////////////////////////////
 
 module Data_Extraction #( parameter N = 32, parameter ES = 2, parameter RS = $clog2(N))
