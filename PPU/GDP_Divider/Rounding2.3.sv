@@ -15,7 +15,7 @@
 // Revision   : Version 1.0 10/2023
 /////////////////////////////////////////////////////////////////////
 
-module Rounding2_2 #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
+module Rounding2_3 #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
 (
     input  logic [N-1:0] IN1, IN2,
     input  logic [RS+ES+4:0]Total_EO, Total_EON,
@@ -41,7 +41,7 @@ logic round, L, G, G2, R, S, round_overflow, round_condition;
 logic [2*N-1:0] regime_temp_output; // store regime and sign
 logic [N-1:0] regime_output;
 logic [N-1:0] exp_frac_output, exp_frac_output1, exp_frac_temp_output;
-logic [N+1:0] exp_frac_combine_output, rounding_temp, rounding_temp1, rounding_temp2;
+logic [2*N+1:0] exp_frac_combine_output, rounding_temp, rounding_temp1, rounding_temp2;
 logic [N-1:0] temp_output, temp_output1;
 logic [1:0] overflow_shift;
 logic [N-1:0] OUT_neg;
@@ -60,15 +60,15 @@ logic [N-1:0] check_regime;
 always_comb
 begin
     //////      ROUNDING        //////
-    exp_frac_combine_output = {1'b0,E_O[ES-1:0],Div_Mant_N[2*N-2:N]}; // combine 1-Overflow bit, 2-Exponent bit, 31-fraction bit
+    exp_frac_combine_output = {1'b0,E_O[ES-1:0],Div_Mant_N[2*N-2:0]}; // combine 1-Overflow bit, 2-Exponent bit, 31-fraction bit
    
     // Do rounding Here
     rounding_temp = exp_frac_combine_output << (N-R_O-2);
-    L = rounding_temp[N+1];
-    G = rounding_temp[N];
+    L = rounding_temp[2*N+1];
+    G = rounding_temp[2*N];
     G2 = |rounding_temp[N:0];
     R = rounding_temp[N-1];
-    S = |rounding_temp[N-1:0];
+    S = |rounding_temp[2*N-1:0];
     // ---------- round half to even
 
     if(R_O>31)
@@ -96,9 +96,9 @@ begin
     // Finish Rounding
     
     // Pick usefull bit from rounded object
-    exp_frac_temp_output = exp_frac_combine_output[N+1:2] + (R_O_fin+1);
+    exp_frac_temp_output = exp_frac_combine_output[2*N+1:N+2] + (R_O_fin+1);
     round_overflow = exp_frac_temp_output[N-1];
-    exp_frac_output1 = exp_frac_combine_output[N+1:2] >> (R_O_fin+1); // Shift the Exponent bit and Fration bit to match the regime and sign region
+    exp_frac_output1 = exp_frac_combine_output[2*N+1:N+2] >> (R_O_fin+1); // Shift the Exponent bit and Fration bit to match the regime and sign region
     exp_frac_output = exp_frac_output1;
     // round_overflow = exp_frac_temp_output[N-1];
     // overflow_shift = {round_overflow, 0};
@@ -112,7 +112,7 @@ begin
     regime_output = regime_temp_output[2*N-1:N];
     regime_output[N-1] = 1'b0; // Keep 1st bit of the output = 0 before handle sign
 
-    temp_output1 = (regime_output | exp_frac_output) + round; // conbine regime + exponent_fraction
+    temp_output1 = (regime_output | exp_frac_output1) + round; // conbine regime + exponent_fraction
 
     // Change the Sign of the final result
     if(Sign)
