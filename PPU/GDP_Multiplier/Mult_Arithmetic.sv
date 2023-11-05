@@ -69,7 +69,7 @@ module Mult #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N))
     else            // psotive exponent
     begin
       E_O = sumE[ES-1:0];
-      R_O = sumR + 1'b1;
+      R_O = sumR + 1;
     end
   end
 endmodule
