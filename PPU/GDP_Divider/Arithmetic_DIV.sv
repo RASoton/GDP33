@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////
 timeunit 1ns;
 timeprecision 1ps;
-module Div #(parameter N = 8, parameter ES = 4, parameter RS = $clog2(N))
+module Div #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N))
     (
         input  logic signed Sign1, Sign2,
         input  logic signed [N-2:0] InRemain1, InRemain2,

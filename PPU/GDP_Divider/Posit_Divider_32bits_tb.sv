@@ -15,7 +15,7 @@
 // Revision   : Version 1.0 20/02/2023
 /////////////////////////////////////////////////////////////////////
 
-timeunit 1ns; timeprecision 1ps;
+timeunit 1ns; timeprecision 100ps;
 
 module Posit_Divider_32Bit_ES2_tb;
 parameter N = 32, RS = $clog2(N), ES = 2;
@@ -33,12 +33,16 @@ Divider #(.N(N), .ES(ES)) Posit_Div (.*);
 logic clk;
 integer outfile;
 logic start;
-logic [N-1:0] data1 [1:8200];
-logic [N-1:0] data2 [1:8200];
-initial $readmemb("IN1_8200_Posit.txt",data1);
-initial $readmemb("IN2_8200_Posit.txt",data2);
+// logic [N-1:0] data1 [1:8200];
+// logic [N-1:0] data2 [1:8200];
+ logic [N-1:0] data1 [1:400000];
+ logic [N-1:0] data2 [1:400000];
+//logic [N-1:0] data1 [1:800000];
+//logic [N-1:0] data2 [1:800000];
+initial $readmemb("mid_range_in1.txt",data1);
+initial $readmemb("mid_range_in2.txt",data2);
 
-logic [17:0] i;
+logic [20:0] i;
 logic [15:0] error_count;
 	initial begin
 		// Initialize Inputs
@@ -53,7 +57,7 @@ logic [15:0] error_count;
         error_count = 0;
 		#20 start = 1;
                 // #26214500 start = 0;
-                #6555000 start = 0;
+		#810011500 start = 0;
 
 		#100;
 		
@@ -67,17 +71,19 @@ logic [15:0] error_count;
   begin			
  	IN1=data1[i];	
 	IN2=data2[i];
-	if(i==18'h3FFFF)
-  	      $finish;
-	else i = i + 1;
+	if(i==21'd400010)
+		$stop;
+  	else i = i + 1;
  end
 
 
 initial outfile = $fopen("error_32bit.txt", "wb");
 
-logic [N-1:0] result [1:8200];
+// logic [N-1:0] result [1:8200];
+logic signed [N-1:0] result [1:400000];
+//logic signed [N-1:0] result [1:800000];
 logic [N-1:0] show_result, show_result_neg;
-initial $readmemb("divider_result_raw.txt",result);
+initial $readmemb("mid_range_mult_result.txt",result);
 logic [N-1:0] diff;
 assign diff = (result[i-1] > OUT) ? result[i-1]-OUT : OUT-result[i-1];
 always @(posedge clk) 
