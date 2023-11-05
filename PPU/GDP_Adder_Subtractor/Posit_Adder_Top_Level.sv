@@ -12,17 +12,17 @@
 // Author     : Xiaoan He (Jasper)
 //            : xh2g20@soton.ac.uk
 //
-// Revision   : Version 1.3 24/03/2023
+// Revision   : Version 1.3 03/11/2023  New Rounding module
 /////////////////////////////////////////////////////////////////////
 
-module Optimised_PA #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
+module GDP_AddSub #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
 (
     input logic[N-1:0] IN1, IN2,
     output logic [N-1:0] OUT
 );
 
                                         //////////                  BITS    EXTRACTION                  //////////
-logic Sign1, Sign2;
+logic signed Sign1, Sign2;
 logic signed [RS:0] k1,k2;
 logic [ES-1:0] Exponent1, Exponent2;
 logic [N-1:0] Mantissa1, Mantissa2;
@@ -35,13 +35,13 @@ Data_Extraction #(.N(N), .ES(ES)) Extract_IN2 (.In(IN2), .Sign(Sign2), .k(k2), .
                                         //////////                  ADDITION ARITHMETIC                  //////////
 logic signed [ES+RS:0] LE_O;
 logic [ES-1:0] E_O;
-logic [N:0] Add_Mant;
-logic [N-1:0] Add_Mant_N;
+logic [2*N:0] Add_Mant;
+logic [2*N-1:0] Add_Mant_N;
 logic signed [RS:0] R_O;
-logic LS;
+logic LS, inf, zero, Sign;
 
 Add_Subtract #(.N(N), .ES(ES)) Add_Sub(.*);
 
                                         //////////                  ROUNDING                  //////////
-Rounding2_2 #(.N(N), .ES(ES)) Round(.*);
+Rounding #(.N(N), .ES(ES)) Round(.*);
 endmodule

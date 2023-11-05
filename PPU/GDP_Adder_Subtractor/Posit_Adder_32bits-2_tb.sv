@@ -14,7 +14,7 @@
 //
 // Revision   : Version 1.2 25/10/2023
 /////////////////////////////////////////////////////////////////////
-timeunit 1ns; timeprecision 1ps;
+timeunit 1ns; timeprecision 100ps;
 
 module Posit_Adder_32Bit_es2_tb;
 parameter N = 32, RS = $clog2(N), ES = 2;
@@ -30,15 +30,18 @@ Optimised_PA #(.N(N), .ES(ES)) OPA_tb (.*);
 //	Other Logic
 logic clk;
 logic start;
-logic [18:0] i;
+logic [20:0] i;
 logic [15:0] error_count;
-logic [N-1:0] data1 [1:210000];
-logic [N-1:0] data2 [1:210000];
-initial $readmemb("IN1_210k_Posit.txt",data1);
-initial $readmemb("IN2_210k_Posit.txt",data2);
-logic signed [N-1:0] result [1:210000];
+// logic [N-1:0] data1 [1:400000];
+// logic [N-1:0] data2 [1:400000];
+logic [N-1:0] data1 [1:800000];
+logic [N-1:0] data2 [1:800000];
+initial $readmemb("full_range_in1.txt",data1);
+initial $readmemb("full_range_in2.txt",data2);
+// logic signed [N-1:0] result [1:400000];
+logic signed [N-1:0] result [1:800000];
 logic [N-1:0] show_result, show_result_neg;
-initial $readmemb("AddSub_R210k.txt",result);
+initial $readmemb("full_range_add_result.txt",result);
 logic signed [N-1:0] diff;
 integer outfile;
 integer outfile2;
@@ -56,7 +59,7 @@ integer outfile2;
 		#100 i=0;
              error_count = 0;
 		#20 start = 1;
-                #210011500 start = 0;
+                #810011500 start = 0;
 		#100;
 		
 		$fclose(outfile);
@@ -83,7 +86,7 @@ assign diff = (result[i-1] > OUT) ? result[i-1]-OUT : OUT-result[i-1];
     error_count = error_count;
     $fwrite(outfile, "%d\n",diff);
 	// $fwrite(outfile2, "%b -------- %b\n", OUT, show_result);
-	if(i==19'd210002)
+	if(i==21'd800010)
 	begin
 		$stop;
   	    $finish;
