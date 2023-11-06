@@ -1,4 +1,4 @@
-#   Posit Adder/Subtractor
+#   Posit Multiplier
 
 ---
 
@@ -43,4 +43,4 @@ These three files are mainly focus on ranges other than the range above up to ±
 Generated from the testbench, show the difference (in bits) between our outcome and softposit result,
 
 ---
-**The Adder/Subtractor module are ready for synthesis**
+**The Multiplier module are ready for synthesis**
