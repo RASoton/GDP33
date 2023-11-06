@@ -4,8 +4,8 @@
 
 ##  Implementation
 
-### Top_Level_Posit_Adder
-Top level of Adder/Subtractor.
+### Top_Level_Posit_Multiplier
+Top level of Multiplier.
 
 ### Posit_Extraction
 Taking 32-bit Posit input, whose exponent size is 2 bits.
