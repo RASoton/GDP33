@@ -5,7 +5,7 @@
 //            :
 // Description:
 //            :
-// Limitations: None
+// Limitations:
 //            :
 // System     : SystemVerilog IEEE 1800-2005
 //            :
@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////
 timeunit 1ns;
 timeprecision 1ps;
-module Mult #(parameter N = 8, parameter ES = 4, parameter RS = $clog2(N))
+module Mult #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N))
   (
     input  logic signed Sign1, Sign2,
     input  logic signed [RS:0] k1,k2,
@@ -69,7 +69,7 @@ module Mult #(parameter N = 8, parameter ES = 4, parameter RS = $clog2(N))
     else            // psotive exponent
     begin
       E_O = sumE[ES-1:0];
-      R_O = sumR + 1;
+      R_O = sumR + 1'b1;
     end
   end
 endmodule

@@ -3,7 +3,7 @@
 //            :
 // File name  : Posit_multiplier_32bits_tb.sv
 //            :
-// Description: Test N-bit Posit Multiplier with ES-bit Exponent
+// Description: Test 32-bit Posit Multiplier
 //            :
 // Limitations: None
 //            : 
@@ -12,9 +12,10 @@
 // Author     : Xiaoan(Jasper) He 
 //            : xh2g20@ecs.soton.ac.uk
 //
-// Revision   : Version 1.2 25/10/2023
+// Revision   : Version 1.0 20/02/2023
 /////////////////////////////////////////////////////////////////////
-timeunit 1ns; timeprecision 1ps;
+
+timeunit 1ns; timeprecision 100ps;
 
 module Posit_Multiplier_32Bit_ES2_tb;
 parameter N = 32, RS = $clog2(N), ES = 2;
@@ -31,12 +32,16 @@ Optimised_PM #(.N(N), .ES(ES)) Posit_Mult (.*);
 logic clk;
 integer outfile;
 logic start;
-logic [N-1:0] data1 [1:210000];
-logic [N-1:0] data2 [1:210000];
-initial $readmemb("IN1_210k_Posit.txt",data1);
-initial $readmemb("IN2_210k_Posit.txt",data2);
+// logic [N-1:0] data1 [1:210000];
+// logic [N-1:0] data2 [1:210000];
+logic [N-1:0] data1 [1:400000];
+logic [N-1:0] data2 [1:400000];
+// logic [N-1:0] data1 [1:800000];
+// logic [N-1:0] data2 [1:800000];
+initial $readmemb("mid_range_in1.txt",data1);
+initial $readmemb("mid_range_in2.txt",data2);
 
-logic [18:0] i;
+logic [20:0] i;
 logic [15:0] error_count;
 	initial begin
 		// Initialize Inputs
@@ -50,11 +55,13 @@ logic [15:0] error_count;
 		#100 i=0;
         error_count = 0;
 		#20 start = 1;
-                #210011500 start = 0;
+                #4100115 start = 0;
 		#100;
 		
 		$fclose(outfile);
-		$finish;
+		$stop;
+		// $finish;
+		
 	end
 
  always #5 clk=~clk;
@@ -63,17 +70,20 @@ logic [15:0] error_count;
   begin			
  	IN1=data1[i];	
 	IN2=data2[i];
-	if(i==19'd210002)
-  	      $finish;
+	if(i==20'd400002)
+	$stop;
+  	    //   $finish;
 	else i = i + 1;
  end
 
 
 initial outfile = $fopen("error_32bit.txt", "wb");
 
-logic [N-1:0] result [1:210000];
+// logic [N-1:0] result [1:210000];
+logic [N-1:0] result [1:400000];
+// logic [N-1:0] result [1:800000];
 logic [N-1:0] show_result, show_result_neg;
-initial $readmemb("Mult_R210k.txt",result);
+initial $readmemb("mid_range_mult_result.txt",result);
 logic [N-1:0] diff;
 assign diff = (result[i-1] > OUT) ? result[i-1]-OUT : OUT-result[i-1];
 always @(posedge clk) 
