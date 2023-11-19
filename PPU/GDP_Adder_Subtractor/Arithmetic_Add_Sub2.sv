@@ -48,7 +48,6 @@ logic [2*N-1:0] LM1, SM1;
 logic signed [RS:0] R_diff;
 logic [N-1:0] E_diff;
 // shifting accordingly and mantissa addition
-logic [3*N-1:0]SM_sft_temp;
 logic [2*N-1:0]SM_sft, Mant_Kper;
 logic SM_add;
 logic [2*N-1:0] Add_Mant_sft;
@@ -92,13 +91,10 @@ begin
     LM1 = {LM, {N{1'b0}}};
     SM1 = {SM, {N{1'b0}}};
 
-    if(E_diff > 2*N)
-        SM_sft_temp = {SM1, {N{1'b0}}} >> 2*N;
+    if(E_diff > 64)
+        SM_sft = SM1 >> 64;
     else
-        SM_sft_temp = {SM1, {N{1'b0}}} >> E_diff;
-
-    SM_sft = {SM_sft_temp[3*N-1:N+1], |SM_sft_temp[N:0]};
-        
+        SM_sft = SM1 >> E_diff;
 
     if(op)
         Add_Mant = LM1 + SM_sft;

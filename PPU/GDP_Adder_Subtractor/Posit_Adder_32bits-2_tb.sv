@@ -25,7 +25,7 @@ logic signed [N-1:0] IN1, IN2, tmp_in1, tmp_in2, OUT1,OUT2;
 //	Output logic
 logic signed [N-1:0] OUT;
 
-Optimised_PA #(.N(N), .ES(ES)) OPA_tb (.*);
+GDP_AddSub #(.N(N), .ES(ES)) AddSub_tb (.*);
 
 //	Other Logic
 logic clk;
