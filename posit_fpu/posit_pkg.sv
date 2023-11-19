@@ -304,4 +304,15 @@ package posit_pkg;
     endcase
   endfunction
 
+  typedef enum logic  [1:0] {
+    SGNJ    = 2'b00,
+    NAR     = 2'b01,
+    POS     = 2'b10,
+  } signinject_e;// SIGN injection
+
+  typedef enum logic [1:0] {
+    RNE    = 2'b00,
+    RTZ    = 2'b01,
+  } minmax_e;// MIN MAX
+
 endpackage
