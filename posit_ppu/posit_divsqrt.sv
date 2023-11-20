@@ -1,7 +1,7 @@
 
 `include "registers.svh"
 
-module posit_divsqrt_multi #(
+module posit_divsqrt #(
   parameter posit_pkg::fmt_logic_t   positFmtConfig  = '1,
   // positU configuration
   parameter int unsigned             NumPipeRegs = 0,
@@ -10,7 +10,7 @@ module posit_divsqrt_multi #(
   parameter type                     AuxType     = logic,
   // Do not change
   localparam int unsigned WIDTH       = posit_pkg::max_posit_width(positFmtConfig),
-  localparam int unsigned NUM_FORMATS = posit_pkg::NUM_POSIT_FORMATS,
+  localparam int unsigned NUM_FORMATS = 1,
   localparam int unsigned ExtRegEnaWidth = NumPipeRegs == 0 ? 1 : NumPipeRegs
 ) (
   input  logic                        clk_i,
@@ -20,7 +20,7 @@ module posit_divsqrt_multi #(
   input  logic [NUM_FORMATS-1:0][1:0] is_boxed_i, // 2 operands
   input  posit_pkg::roundmode_e       rnd_mode_i,
   input  posit_pkg::operation_e       op_i,
-  input  posit_pkg::posit_format_e       dst_fmt_i,
+  input  posit_pkg::posit_format_e    dst_fmt_i,
   input  TagType                      tag_i,
   input  logic                        mask_i,
   input  AuxType                      aux_i,
@@ -78,7 +78,7 @@ module posit_divsqrt_multi #(
   logic                  [0:NUM_INP_REGS][1:0][WIDTH-1:0]       inp_pipe_operands_q;
   posit_pkg::roundmode_e [0:NUM_INP_REGS]                       inp_pipe_rnd_mode_q;
   posit_pkg::operation_e [0:NUM_INP_REGS]                       inp_pipe_op_q;
-  posit_pkg::posit_format_e [0:NUM_INP_REGS]                       inp_pipe_dst_fmt_q;
+  posit_pkg::posit_format_e [0:NUM_INP_REGS]                    inp_pipe_dst_fmt_q;
   TagType                [0:NUM_INP_REGS]                       inp_pipe_tag_q;
   logic                  [0:NUM_INP_REGS]                       inp_pipe_mask_q;
   AuxType                [0:NUM_INP_REGS]                       inp_pipe_aux_q;
@@ -132,7 +132,7 @@ module posit_divsqrt_multi #(
   // Input processing
   // -----------------
   logic [1:0]       divsqrt_fmt;
-  logic [1:0][63:0] divsqrt_operands; // those are fixed to 32bit
+  logic [1:0][WIDTH-1:0] divsqrt_operands; // those are fixed to 32bit
 
   // Translate posit formats into divsqrt formats
   always_comb begin : translate_fmt
@@ -141,7 +141,13 @@ module posit_divsqrt_multi #(
  
       default:            divsqrt_fmt = 2'b00; // maps also posit8 to posit16
     endcase
+
+  	divsqrt_operands[0] = operands_q[0];
+  	divsqrt_operands[1] = operands_q[1];
+
   end
+
+
 
   // ------------
   // Control FSM
@@ -257,7 +263,7 @@ module posit_divsqrt_multi #(
   // -----------------
   // DIVSQRT instance
   // -----------------
-  logic [63:0]        unit_result;
+  logic [WIDTH-1:0]   unit_result;
   logic [WIDTH-1:0]   adjusted_result, held_result_q;
   posit_pkg::status_t unit_status, held_status_q;
   logic               hold_en;

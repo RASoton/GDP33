@@ -7,15 +7,12 @@ package posit_pkg;
   // | Enumerator | Format           | Width  | REGIME | EXP_BITS | FRAC_BITS
   // |:----------:|------------------|-------:|:------:|:--------:|:--------:
   // | POSIT32    | POSIT binary32   | 32 bit | r      | 2        | 29-r
-  
-  // Max array size for allocation
+ 
+  // Encoding for a format
   typedef struct packed {
-    int unsigned total_bits;
-	 int unsigned max_regime_bits;
-	 int unsigned exp_bits;
-    int unsigned max_frac_bits;
-  } posit_size_t;
-
+    int unsigned width;
+    int unsigned exp_bits;
+  } posit_encoding_t;
 
   localparam int unsigned NUM_POSIT_FORMATS = 1; // change me to add formats
   localparam int unsigned POSIT_FORMAT_BITS = $clog2(NUM_POSIT_FORMATS);
@@ -26,9 +23,9 @@ package posit_pkg;
     // add new formats here
   } posit_format_e;
 
-  // Encodings for supported POSIT formats
-  localparam posit_size_t [0:NUM_POSIT_FORMATS-1] POSIT_SIZES  = '{
-    '{32, 5, 2, 27} // total bits, max_regime_bits, exp_bits, max_frac_bits
+  // Encodings for supported posit formats
+  localparam posit_encoding_t [0:NUM_POSIT_FORMATS-1] POSIT_ENCODINGS  = '{
+    '{32,  2} // POSIT 32-bit with 2-bit exponent
     // add new formats here
   };
 
@@ -101,14 +98,14 @@ package posit_pkg;
   // -------------------
   // RISC-V POSIT-SPECIFIC
   // -------------------
-  // Rounding modes (need change)
+  // Rounding modes 
   typedef enum logic [2:0] {
     RNE = 3'b000,
     RTZ = 3'b001,
     RDN = 3'b010,
     RUP = 3'b011,
     RMM = 3'b100,
-    ROD = 3'b101,  // This mode is not defined in RISC-V POSIT-SPEC
+    ROD = 3'b101,  // This mode is not defined in RISC-V FP-SPEC
     DYN = 3'b111
   } roundmode_e;
 
@@ -172,7 +169,7 @@ package posit_pkg;
   typedef struct packed {
     int unsigned Width;
     logic        EnableVectors;
-    logic        EnableNaRBox;
+    logic        EnableNanBox;
     fmt_logic_t  PositFmtMask;
     ifmt_logic_t IntFmtMask;
   } posit_features_t;
@@ -180,7 +177,7 @@ package posit_pkg;
   localparam posit_features_t POSIT32_CONFIG = '{
     Width:         32,
     EnableVectors: 1'b0,
-    EnableNaRBox:  1'b0,
+    EnableNanBox:  1'b0,
     PositFmtMask:  5'b00001,
     IntFmtMask:    4'b0000
   };
@@ -231,7 +228,12 @@ package posit_pkg;
   // -------------------------------------------
   // Returns the width of a POSIT format
   function automatic int unsigned posit_width(posit_format_e fmt);
-    return POSIT_SIZES[fmt].total_bits;
+    return POSIT_ENCODINGS[fmt].width;
+  endfunction
+
+  // Returns the number of exponent bits for a format
+  function automatic int unsigned exp_bits(posit_format_e fmt);
+    return POSIT_ENCODINGS[fmt].exp_bits;
   endfunction
 
   // Returns the widest POSIT format present
@@ -249,33 +251,6 @@ package posit_pkg;
     for (int unsigned i = 0; i < NUM_POSIT_FORMATS; i++)
       if (cfg[i])
         res = unsigned'(minimum(res, posit_width(posit_format_e'(i))));
-    return res;
-  endfunction
-
-  // Returns the maximum number of regime bits for a format
-  function automatic int unsigned max_regime_bits(posit_format_e fmt);
-    return POSIT_SIZES[fmt].max_regime_bits;
-  endfunction
-
-  // Returns the number of exponent bits for a format
-  function automatic int unsigned exp_bits(posit_format_e fmt);
-    return POSIT_SIZES[fmt].exp_bits;
-  endfunction
-
-  // Returns the maximum number of fraction bits for a format
-  function automatic int unsigned max_frac_bits(posit_format_e fmt);
-    return POSIT_SIZES[fmt].max_frac_bits;
-  endfunction
- 
-  // -------------------------------------------
-  // Helper functions for INT formats and values
-  // -------------------------------------------
-  // Returns the widest INT format present
-  function automatic int unsigned max_int_width(ifmt_logic_t cfg);
-    automatic int unsigned res = 0;
-    for (int ifmt = 0; ifmt < NUM_INT_FORMATS; ifmt++) begin
-      if (cfg[ifmt]) res = maximum(res, int_width(int_format_e'(ifmt)));
-    end
     return res;
   endfunction
 
@@ -302,6 +277,53 @@ package posit_pkg;
       CONV:    return 3; // vectorial casts use 3 operands
       default: return 0;
     endcase
+  endfunction
+
+  // Returns the number of lanes according to width, format and vectors
+  function automatic int unsigned num_lanes(int unsigned width, posit_format_e fmt, logic vec);
+    return vec ? width / posit_width(fmt) : 1; // if no vectors, only one lane
+  endfunction
+
+  // Returns the maximum number of lanes in the FPU according to width, format config and vectors
+  function automatic int unsigned max_num_lanes(int unsigned width, fmt_logic_t cfg, logic vec);
+    return vec ? width / min_posit_width(cfg) : 1; // if no vectors, only one lane
+  endfunction
+
+  // Return whether any active format is set as MERGED
+  function automatic logic any_enabled_multi(fmt_unit_types_t types, fmt_logic_t cfg);
+    for (int unsigned i = 0; i < NUM_POSIT_FORMATS; i++)
+      if (cfg[i] && types[i] == MERGED)
+        return 1'b1;
+      return 1'b0;
+  endfunction
+
+  // Return whether the given format is the first active one set as MERGED
+  function automatic logic is_first_enabled_multi(posit_format_e fmt,
+                                                  fmt_unit_types_t types,
+                                                  fmt_logic_t cfg);
+    for (int unsigned i = 0; i < NUM_POSIT_FORMATS; i++) begin
+      if (cfg[i] && types[i] == MERGED) return (posit_format_e'(i) == fmt);
+    end
+    return 1'b0;
+  endfunction
+
+  // Returns the first format that is active and is set as MERGED
+  function automatic posit_format_e get_first_enabled_multi(fmt_unit_types_t types, fmt_logic_t cfg);
+    for (int unsigned i = 0; i < NUM_POSIT_FORMATS; i++)
+      if (cfg[i] && types[i] == MERGED)
+        return posit_format_e'(i);
+      return posit_format_e'(0);
+  endfunction
+
+  // Returns the largest number of regs that is active and is set as MERGED
+  function automatic int unsigned get_num_regs_multi(fmt_unsigned_t regs,
+                                                     fmt_unit_types_t types,
+                                                     fmt_logic_t cfg);
+    automatic int unsigned res = 0;
+    for (int unsigned i = 0; i < NUM_POSIT_FORMATS; i++) begin
+      if (cfg[i] && types[i] == MERGED) res = maximum(res, regs[i]);
+    end
+    return res;
   endfunction
 
 endpackage

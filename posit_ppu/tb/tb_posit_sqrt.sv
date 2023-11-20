@@ -5,48 +5,70 @@ module tb_posit_sqrt;
     parameter RS = $clog2(N);
 
     logic signed [N-1:0] posit_input;
-    logic signed [N-1:0] posit_output;
 
     logic signed sign;
     logic signed [RS:0] regime;
     logic [ES-1:0] exponent;
     logic [N-1:0] fraction;
     logic signed [N-2:0] InRemain;
-    logic NaR;
+    logic NaR1, NaR;
     logic zero;
+  	logic [ES-1:0] E_O;
+	logic [RS+4:0] R_O;
+	logic [2*N-1:0] Sqrt_Mant;
+  	logic [RS+ES+4:0] Total_EO;
+	logic [N-1:0] result;
+	logic enable_sqrt, enable_rnd, done_sqrt, done_rnd;
 
-    logic [N-1:0] sqrt_result;
-
-    posit_extraction #(.N(N), .ES(ES), .RS(RS)) u0 (
+    posit_extraction u0 (
       .In(posit_input),
       .Sign(sign),
       .k(regime),
       .Exponent(exponent),
       .Mantissa(fraction),
       .InRemain(InRemain),
-      .inf(NaR),
+      .NaR(NaR1),
       .zero(zero)
     );
 
-    posit_sqrt #(N, ES, RS) sqrt(
-        .sign(sign), 
-        .regime(regime), 
-        .exponent(exponent), 
-        .fraction(fraction), 
-        .result(sqrt_result)
+    posit_sqrt sqrt(
+		.Enable(enable_sqrt),
+		.Done(done_sqrt),
+        .Sign(sign), 
+        .Regime(regime), 
+        .Exponent(exponent), 
+        .Mantissa(fraction), 
+		.E_O(E_O),
+		.R_O(R_O),
+		.Total_EO(Total_EO),
+		.Sqrt_Mant(Sqrt_Mant),
+		.NaR(NaR)
     );
+
+	posit_rounding rnd(
+		.Enable(enable_rnd),
+		.Done(done_rnd),
+		.Sign(sign),
+		.R_O(R_O),
+		.E_O(E_O),
+		.Mant(Sqrt_Mant),
+		.Total_EO(Total_EO),
+		.NaR(NaR),
+		.zero(zero),
+		.OUT(result)
+	);
 
     integer input_fd, output_fd, scan_file;
 
     initial begin
-
-        input_fd = $fopen("C:/Users/sywon/OneDrive/Desktop/sqrt_test/sqrt_test.txt", "r");
+/*
+        input_fd = $fopen("C:/Users/sywon/OneDrive/Desktop/test/test_range_sqrt.txt", "r");
         if (input_fd == 0) begin
             $display("Failed to open input file.");
             $finish;
         end
 
-        output_fd = $fopen("C:/Users/sywon/OneDrive/Desktop/sqrt_test/sqrt_output.txt", "w");
+        output_fd = $fopen("C:/Users/sywon/OneDrive/Desktop/test/sqrt_output.txt", "w");
         if (output_fd == 0) begin
             $display("Failed to open output file.");
             $finish;
@@ -75,5 +97,24 @@ module tb_posit_sqrt;
         $fclose(input_fd);
         $fclose(output_fd);
 
+	end
+*/
+		enable_sqrt = 1'b1;
+		enable_rnd = 1'b1;
+		posit_input = 32'h0;
+		#10;
+		posit_input = 32'h80000000;
+		#10;
+		posit_input = 32'b01101011001100011100011100101010;
+		#10;
+		posit_input = 32'b01111111111011000111111101001001;
+		#10;
+
     end
+
+	initial begin
+		$monitor("Input=%b, Sign=%b, R_O=%b, E_O=%b, Sqrt_Mant=%b, Total_EO=%b, Result=%b",
+				  posit_input, sign, R_O, E_O, Sqrt_Mant, Total_EO, result);
+	end
+
 endmodule
