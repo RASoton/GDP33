@@ -1,5 +1,8 @@
 module posit_noncomp #(
-    localparam int unsigned WIDTH = 32
+    parameter posit_pkg::posit_format_e   pFormat = posit_pkg::posit_format_e'(0),
+	localparam int unsigned WIDTH = posit_pkg::posit_width(pFormat), 
+	localparam int unsigned ES = posit_pkg::exp_bits(pFormat), 
+	localparam int unsigned RS = $clog2(N)
 ) (
   input logic                  clk_i,
   input logic                  rst_ni,

@@ -15,15 +15,20 @@
 // Revision   : Version 1.2 23/03/2023
 /////////////////////////////////////////////////////////////////////
 
-module posit_extraction #( parameter N = 32, parameter ES = 2, parameter RS = $clog2(N))
-(
+module posit_extraction #
+( 
+    parameter posit_pkg::posit_format_e   pFormat = posit_pkg::posit_format_e'(0),
+	localparam int unsigned N = posit_pkg::posit_width(pFormat), 
+	localparam int unsigned ES = posit_pkg::exp_bits(pFormat), 
+	localparam int unsigned RS = $clog2(N)
+) (
     input  logic signed [N-1:0] In,
     output logic signed Sign,
     output logic signed [RS:0] k,
     output logic [ES-1:0] Exponent,
     output logic [N-1:0] Mantissa,
     output logic signed [N-2:0] InRemain,
-    output logic inf,
+    output logic NaR,
     output logic zero
 );
 
@@ -34,13 +39,13 @@ logic [N-2:0] ShiftedRemain;
 // 8 bits - 1-bit hidden 1, N-ES-2 bit mant from ShiftedRemain, and compensate zeros afterwards
 logic [(N-1)-1-(N-ES-2)-1:0] ZEROs= '0;
 int i;
-posit_LB_detector #(.N(N), .ES(ES)) LBD1 (.*);
+posit_LB_detector #(pFormat) LBD1 (.*);
 
 always_comb
 begin
     //infinity & zero check;
     zero_check = |In[N-2:0];
-    inf = In[N-1] & (~zero_check);
+    NaR = In[N-1] & (~zero_check);
     zero = ~(In[N-1] | zero_check);
 
     // Sign Bit Extraction

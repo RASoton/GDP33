@@ -17,7 +17,7 @@ module posit_operations_extended #(
   logic NaR, zero;
 
    // Instantiate the posit_extraction module
-   posit_extraction #(.N(WIDTH), .ES(ES)) extractor (
+   posit_extraction #(pFormat) extractor (
         .In(In),
         .Sign(sign),
         .k(regime),
