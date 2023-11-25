@@ -79,11 +79,12 @@ package posit_pkg;
   // POSIT OPERATIONS
   // --------------
 
-  localparam int unsigned NUM_OPGROUPS = 4;
+  localparam int unsigned NUM_OPGROUPS = 1;
 
   // Each POSIT operation belongs to an operation group
   typedef enum logic [1:0] {
-    ADDMUL, DIVSQRT, NONCOMP, CONV
+	DIVSQRT
+    //ADDMUL, DIVSQRT, NONCOMP, CONV
   } opgroup_e;
 
   localparam int unsigned OP_BITS = 4;
@@ -177,7 +178,7 @@ package posit_pkg;
   localparam posit_features_t POSIT32_CONFIG = '{
     Width:         32,
     EnableVectors: 1'b0,
-    EnableNanBox:  1'b0,
+    EnableNanBox:  1'b1,
     PositFmtMask:  5'b00001,
     IntFmtMask:    4'b0000
   };
@@ -192,20 +193,12 @@ package posit_pkg;
   localparam posit_implementation_t DEFAULT_NOREGS = '{
     PipeRegs:   '{default: 0},
     UnitTypes:  '{'{default: PARALLEL}, // ADDMUL
-                  '{default: MERGED},   // DIVSQRT
+                  '{default: PARALLEL},   // DIVSQRT
                   '{default: PARALLEL}, // NONCOMP
-                  '{default: MERGED}},  // CONV
+                  '{default: PARALLEL}},  // CONV
     PipeConfig: BEFORE
   };
 
-  localparam posit_implementation_t DEFAULT_SNITCH = '{
-    PipeRegs:   '{default: 1},
-    UnitTypes:  '{'{default: PARALLEL}, // ADDMUL
-                  '{default: DISABLED}, // DIVSQRT
-                  '{default: PARALLEL}, // NONCOMP
-                  '{default: MERGED}},  // CONV
-    PipeConfig: BEFORE
-  };
 
   // -----------------------
   // Synthesis optimization
@@ -260,70 +253,23 @@ package posit_pkg;
   // Returns the operation group of the given operation
   function automatic opgroup_e get_opgroup(operation_e op);
     unique case (op)
-      FMADD, FNMSUB, ADD, MUL:     return ADDMUL;
+      //FMADD, FNMSUB, ADD, MUL:     return ADDMUL;
       DIV, SQRT:                   return DIVSQRT;
-      SGN, MINMAX, CMP, CLASSIFY: return NONCOMP;
-      F2F, F2I, I2F, CPKAB, CPKCD: return CONV;
-      default:                     return NONCOMP;
+      //SGN, MINMAX, CMP, CLASSIFY:  return NONCOMP;
+      //F2F, F2I, I2F, CPKAB, CPKCD: return CONV;
+      //default:                     return NONCOMP;
     endcase
   endfunction
 
   // Returns the number of operands by operation group
   function automatic int unsigned num_operands(opgroup_e grp);
     unique case (grp)
-      ADDMUL:  return 3;
+      //ADDMUL:  return 3;
       DIVSQRT: return 2;
-      NONCOMP: return 2;
-      CONV:    return 3; // vectorial casts use 3 operands
+      //NONCOMP: return 2;
+      //CONV:    return 2; 
       default: return 0;
     endcase
-  endfunction
-
-  // Returns the number of lanes according to width, format and vectors
-  function automatic int unsigned num_lanes(int unsigned width, posit_format_e fmt, logic vec);
-    return vec ? width / posit_width(fmt) : 1; // if no vectors, only one lane
-  endfunction
-
-  // Returns the maximum number of lanes in the FPU according to width, format config and vectors
-  function automatic int unsigned max_num_lanes(int unsigned width, fmt_logic_t cfg, logic vec);
-    return vec ? width / min_posit_width(cfg) : 1; // if no vectors, only one lane
-  endfunction
-
-  // Return whether any active format is set as MERGED
-  function automatic logic any_enabled_multi(fmt_unit_types_t types, fmt_logic_t cfg);
-    for (int unsigned i = 0; i < NUM_POSIT_FORMATS; i++)
-      if (cfg[i] && types[i] == MERGED)
-        return 1'b1;
-      return 1'b0;
-  endfunction
-
-  // Return whether the given format is the first active one set as MERGED
-  function automatic logic is_first_enabled_multi(posit_format_e fmt,
-                                                  fmt_unit_types_t types,
-                                                  fmt_logic_t cfg);
-    for (int unsigned i = 0; i < NUM_POSIT_FORMATS; i++) begin
-      if (cfg[i] && types[i] == MERGED) return (posit_format_e'(i) == fmt);
-    end
-    return 1'b0;
-  endfunction
-
-  // Returns the first format that is active and is set as MERGED
-  function automatic posit_format_e get_first_enabled_multi(fmt_unit_types_t types, fmt_logic_t cfg);
-    for (int unsigned i = 0; i < NUM_POSIT_FORMATS; i++)
-      if (cfg[i] && types[i] == MERGED)
-        return posit_format_e'(i);
-      return posit_format_e'(0);
-  endfunction
-
-  // Returns the largest number of regs that is active and is set as MERGED
-  function automatic int unsigned get_num_regs_multi(fmt_unsigned_t regs,
-                                                     fmt_unit_types_t types,
-                                                     fmt_logic_t cfg);
-    automatic int unsigned res = 0;
-    for (int unsigned i = 0; i < NUM_POSIT_FORMATS; i++) begin
-      if (cfg[i] && types[i] == MERGED) res = maximum(res, regs[i]);
-    end
-    return res;
   endfunction
 
 endpackage
