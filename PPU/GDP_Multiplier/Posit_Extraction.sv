@@ -3,13 +3,13 @@
 //            :
 // File name  : Posit_Extraction.sv
 //            :
-// Description: Extracting Posit element from N-bit bit pattern 
+// Description: Extracting posit element from n bits binary number
 //            :
 // Limitations: None
 //            : 
 // System     : SystemVerilog IEEE 1800-2005
 //            :
-// Author     : Xiaoan(Jasper) He 
+// Author     : Xiaoan He (Jasper)
 //            : xh2g20@ecs.soton.ac.uk
 //
 // Revision   : Version 1.0 22/11/2022

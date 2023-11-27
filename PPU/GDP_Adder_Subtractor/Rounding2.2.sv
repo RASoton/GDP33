@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////
 // Design unit: Rounding
 //            :
-// File name  : Rounding.sv
+// File name  : Rounding2.2.sv
 //            :
 // Description: Round to nearest representable value
 //            :
@@ -9,10 +9,10 @@
 //            : 
 // System     : SystemVerilog IEEE 1800-2005
 //            :
-// Author     : Xiaoan He (Jasper)
-//            : xh2g20@soton.ac.uk
+// Author     : Letian(Brian) Chen
+//            : lc1e20
 //
-// Revision   : Version 1.3 23/03/2023
+// Revision   : Version 1.1 25/10/2023
 /////////////////////////////////////////////////////////////////////
 
 module Rounding2_2 #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
@@ -33,6 +33,7 @@ module Rounding2_2 #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N
 logic [(N+ES+N+3)-1:0] tmp_o;
 logic [(N+N+ES+N+3)-1:0]sft_tmp_o;
 logic check;
+logic signed [RS:0] R_O_fin;
 // logic L,G,R,S,ulp;
 logic [N-1:0] rnd_ulp; 
 logic [N:0] sft_tmp_o_rnd_ulp;
@@ -44,7 +45,7 @@ logic [2*N-1:0] regime_temp_output; // store regime and sign
 logic [N-1:0] regime_output;
 logic [N-1:0] exp_frac_output, exp_frac_output1, exp_frac_temp_output;
 logic [N+1:0] exp_frac_combine_output, rounding_temp, rounding_temp1, rounding_temp2;
-logic [N-1:0] temp_output, temp_output1;
+logic [N-1:0] temp_output, temp_output1, OUT_neg;
 logic [1:0] overflow_shift;
 
 always_comb
@@ -64,26 +65,22 @@ begin
     // rounding_map = {L,G,R,S};
     rounding_temp2 = exp_frac_combine_output >> R_O;
     
-    // if(G==1'b0)
-    // round = 1'b0;
-    // else if(L==1'b0 && G==1'b1)
-    // round = 1'b0;
-    // else
-    // round = 1'b1;
-    // round = (G&(R|S)) | (L&G&(~(R|S)));
-    // round = (~L&~G&~S)|(~L&~G&~R)|(~R&~S)|(L&G&R);
-    // ---------- Banker's Rounding
-    // if(G2 == 1'b1 && L == 1'b1)
-    // round = 1;
-    // else if(S == 1'b1 && L == 1'b0)
-    // round = 1;
-    // else if(R&S ==1'b1 && L == 1'b1)
-    // round = 1;
-    // else
-    // round = 0;
     // ---------- round half to even
-    round_condition = G;
-    if(round_condition)
+    if(R_O>31)
+    round_condition = 0;
+    else
+    round_condition = 1;
+
+    //  set the limit of max R_O
+    if(R_O > 31 && ~LE_O[RS+ES]) // when regime sequence w/0
+    R_O_fin = 31;
+    else if(R_O > 30 && LE_O[RS+ES]) // when regime sequence w/1
+        R_O_fin = 30;
+    else
+        R_O_fin = R_O;
+
+    if(G & round_condition)
+    // if(G)
     begin
         if(S)
         round = 1'b1;
@@ -95,18 +92,18 @@ begin
     // Finish Rounding
     
     // Pick usefull bit from rounded object
-    exp_frac_temp_output = exp_frac_combine_output[N+1:2] + (R_O+1);
+    exp_frac_temp_output = exp_frac_combine_output[N+1:2] + (R_O_fin+1);
     round_overflow = exp_frac_temp_output[N-1];
-    exp_frac_output1 = exp_frac_combine_output[N+1:2] >> (R_O+1); // Shift the Exponent bit and Fration bit to mach the regime and sign region
+    exp_frac_output1 = exp_frac_combine_output[N+1:2] >> (R_O_fin+1); // Shift the Exponent bit and Fration bit to mach the regime and sign region
     exp_frac_output = exp_frac_output1;
     // round_overflow = exp_frac_temp_output[N-1];
     // overflow_shift = {round_overflow, 0};
 
     // Handle Regime
     if(LE_O[ES+RS]) // When the exponents is 
-    regime_temp_output = 1 << (2*N-R_O-2);
+    regime_temp_output = 1 << (2*N-R_O_fin-2);
     else // When the exponents is 
-    regime_temp_output = ~(1) << (2*N-R_O-2);
+    regime_temp_output = ~(1) << (2*N-R_O_fin-2);
 
     regime_output = regime_temp_output[2*N-1:N];
     regime_output[N-1] = 1'b0; // Keep 1st bit of the output = 0 before handle sign
@@ -119,38 +116,7 @@ begin
     else
     temp_output = temp_output1;
 
-
-    // //  N bits 0 or 1, following a terminating bit, exponent bits, (N-ES-1) bits mantissa, 3 bits for rounding
-    // tmp_o = { {N{~LE_O[ES+RS]}}, LE_O[ES+RS], E_O, Add_Mant_N[N-2:0], 3'b0 };
-    // sft_tmp_o = {tmp_o, {N{1'b0}}};
-    // sft_tmp_o = sft_tmp_o >> R_O;
-
-    // L = sft_tmp_o[N+4+(N-(N-ES))]; 
-    // G = sft_tmp_o[N+3+(N-(N-ES))]; // Guard bit
-    // R = sft_tmp_o[N+2+(N-(N-ES))]; // round bit
-    // S = |sft_tmp_o[N+1+(N-(N-ES)):0];  // sticky bit
-    // // ulp = ((G & (R | S)) | (L & G & ~(R | S)));
-    // ulp = ((G & (R | S)) | (L & G & ~(R)));
-    
-
-    // rnd_ulp= {{N-1{1'b0}},ulp};
-
-    
-    // sft_tmp_o_rnd_ulp = sft_tmp_o[2*N-1+3+(N-(N-ES)):N+3+(N-(N-ES))] + rnd_ulp - (~S&G&~R);
-
-    // if ((R_O < N-ES-2))
-    //     sft_tmp_o_rnd = sft_tmp_o_rnd_ulp[N-1:0];
-    // else
-    //     sft_tmp_o_rnd = sft_tmp_o[2*N-1+3+(N-(N-ES)):N+3+(N-(N-ES))];
-    
-    // if(LS)
-    //     sft_tmp_oN = -sft_tmp_o_rnd;
-    // else
-    //     sft_tmp_oN = sft_tmp_o_rnd+1;
-
-
     //////      FINAL OUTPUT        //////
-
     if (zero1)
         OUT = IN2;
     else if (zero2) 
@@ -164,5 +130,6 @@ begin
     else
         // OUT = {LS, sft_tmp_oN[N-1:1]};
         OUT = temp_output;
+        OUT_neg = -OUT;
 end
 endmodule

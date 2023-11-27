@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////
 // Design unit: Posit Adder Testbench
 //            :
-// File name  : Posit_Adder_32bits_tb-4.sv
+// File name  : Posit_Adder_32bits_tb-2.sv
 //            :
-// Description: Test Posit Adder
+// Description: Test N-bit Posit Adder/Subtractor with ES-bit Exponent
 //            :
 // Limitations: None
 //            : 
@@ -12,41 +12,40 @@
 // Author     : Xiaoan(Jasper) He 
 //            : xh2g20@ecs.soton.ac.uk
 //
-// Revision   : Version 1.0 20/02/2023
+// Revision   : Version 1.2 25/10/2023
 /////////////////////////////////////////////////////////////////////
-
-timeunit 1ns; timeprecision 1ps;
+timeunit 1ns; timeprecision 100ps;
 
 module Posit_Adder_32Bit_es2_tb;
 parameter N = 32, RS = $clog2(N), ES = 2;
 
+//	Input logic
+logic signed [N-1:0] IN1, IN2, tmp_in1, tmp_in2, OUT1,OUT2;
 
-
-logic [15:0] error_count;
-//input logic
-logic signed [N-1:0] IN1, IN2, tmp_in1, tmp_in2, OUT1,OUT2,diff;
-
-//output logic
+//	Output logic
 logic signed [N-1:0] OUT;
 
 Optimised_PA #(.N(N), .ES(ES)) OPA_tb (.*);
 
+//	Other Logic
 logic clk;
-// bit [N-1:0]outf [100];
+logic start;
+logic [20:0] i;
+logic [15:0] error_count;
+// logic [N-1:0] data1 [1:400000];
+// logic [N-1:0] data2 [1:400000];
+logic [N-1:0] data1 [1:800000];
+logic [N-1:0] data2 [1:800000];
+initial $readmemb("full_range_in1.txt",data1);
+initial $readmemb("full_range_in2.txt",data2);
+// logic signed [N-1:0] result [1:400000];
+logic signed [N-1:0] result [1:800000];
+logic [N-1:0] show_result, show_result_neg;
+initial $readmemb("full_range_add_result.txt",result);
+logic signed [N-1:0] diff;
 integer outfile;
 integer outfile2;
 
-logic start;
-logic [N-1:0] data1 [1:210000];
-logic [N-1:0] data2 [1:210000];
-initial $readmemb("IN1_2.1.csv",data1);
-initial $readmemb("IN2_2.1.csv",data2);
-logic [N-1:0] result [1:210000];
-logic [N-1:0] show_result;
-initial $readmemb("210k_v1.txt",result);
-
-logic [17:0] i;
-	
 	initial 
     begin
 		// Initialize Inputs
@@ -60,11 +59,11 @@ logic [17:0] i;
 		#100 i=0;
              error_count = 0;
 		#20 start = 1;
-                #26214500 start = 0;
+                #810011500 start = 0;
 		#100;
 		
 		$fclose(outfile);
-		$fclose(outfile2);
+		// $fclose(outfile2);
 		$finish;
 	end
 
@@ -73,34 +72,25 @@ logic [17:0] i;
 initial outfile = $fopen("adder_error_32bit.txt", "wb");
 initial outfile2 = $fopen("adder_error_full_32bit.txt", "wb");
 
+assign diff = (result[i-1] > OUT) ? result[i-1]-OUT : OUT-result[i-1];
   always @(posedge clk) 
   begin			
  	IN1=data1[i];	
 	IN2=data2[i];
     show_result = result[i];
-    diff = (result[i-1] > OUT) ? result[i-1]-OUT : OUT-result[i-1];
+	show_result_neg = -result[i];
+    // diff = result[i-1]-OUT;
     if(diff)
     error_count = error_count+1;
     else
     error_count = error_count;
     $fwrite(outfile, "%d\n",diff);
-	$fwrite(outfile2, "%b -------- %b\n", OUT, show_result);
-	if(i==18'h3FFFF)
-  	      $finish;
+	// $fwrite(outfile2, "%b -------- %b\n", OUT, show_result);
+	if(i==21'd800010)
+	begin
+		$stop;
+  	    $finish;
+	end
 	else i = i + 1;
     end
-
-// reg [N-1:0] result [1:65536];
-// reg [N-1:0] show_result;
-// initial $readmemb("answer_32e2.txt",result);
-// always @(posedge clk) 
-// begin
-// 	if(start)
-//     begin
-//         show_result = result[i-1];
-//      	diff = (result[i-1] > OUT) ? result[i-1]-OUT : OUT-result[i-1];
-//      	//$fwrite(outfile, "%h\t%h\t%h\t%h\t%d\n",in1, in2, out,result[i-1],diff);
-//      	$fwrite(outfile, "%d\n",diff);
-//      	end
-// end
 endmodule

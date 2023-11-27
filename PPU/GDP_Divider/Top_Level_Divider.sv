@@ -16,10 +16,10 @@
 // Revision   : Version 1.3 24/03/2023
 /////////////////////////////////////////////////////////////////////
 
-module Divider #(parameter N = 32, parameter ES = 4, parameter RS = $clog2(N)) 
+module GDP_DIV #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
 (
     input logic[N-1:0] IN1, IN2,
-    output logic signed[N-1:0] OUT
+    output logic [N-1:0] OUT
 );
 
                                         //////////                  BITS    EXTRACTION                  //////////
@@ -35,12 +35,12 @@ Data_Extraction #(.N(N), .ES(ES)) Extract_IN2 (.In(IN2), .Sign(Sign2), .k(k2), .
 
                                         //////////                  ADDITION ARITHMETIC                  //////////                        
 logic [2*N-1:0] Div_Mant_N;
-logic [RS+ES:0]Total_EO, Total_EON;
+logic [RS+ES+4:0]Total_EO, Total_EON;
 logic [ES-1:0] E_O;
 logic signed [RS+4:0] R_O,sumR;
 logic inf, zero, Sign;
 
 Div #(.N(N), .ES(ES)) Divide(.*);
                                         //////////                  ROUNDING                  //////////
-Rounding2_2 #(.N(N), .ES(ES)) Round(.*);
+Rounding2_3 #(.N(N), .ES(ES)) Round(.*);
 endmodule

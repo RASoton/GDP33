@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////
 // Design unit: Rounding
 //            :
-// File name  : Rounding2.2.sv
+// File name  : Rounding.sv
 //            :
 // Description: Round to nearest representable value
 //            :
@@ -12,7 +12,7 @@
 // Author     : Letian(Brian) Chen
 //            : lc1e20
 //
-// Revision   : Version 1.1 25/10/2023
+// Revision   : Version 1.0 10/2023
 /////////////////////////////////////////////////////////////////////
 
 module Rounding2_2 #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
@@ -46,6 +46,16 @@ logic signed [N-1:0] temp_output, temp_output1;
 logic [1:0] overflow_shift;
 logic [N-1:0] OUT_neg;
 logic signed [RS+2:0] R_O_fin;
+
+// Debug
+logic signed Sign_result;
+logic signed k_result;
+logic [ES-1:0] Exponent_result;
+logic [N-1:0] Mantissa_result;
+logic signed [N-2:0] InRemain_result;
+logic zero_result,inf_result;
+Data_Extraction #(.N(N), .ES(ES)) Extract_IN_result (.In(OUT), .Sign(Sign_result), .k(k_result), .Exponent(Exponent_result), .Mantissa(Mantissa_result), .InRemain(InRemain_result), .inf(inf_result), .zero(zero_result));
+logic [N-1:0] check_regime;
 
 always_comb
 begin
@@ -134,11 +144,51 @@ begin
     else
     temp_output = temp_output1;
 
-    // Debug R_O_fin
-    if(R_O_fin != k_result)
-    check_regime = check_regime + 1;
-    else
-    check_regime = check_regime;
+
+    // //  N bits 0 or 1, following a terminating bit, exponent bits, (N-ES-1) bits mantissa, 3 bits for rounding
+    // tmp_o = { {N{~LE_O[ES+RS]}}, LE_O[ES+RS], E_O, Add_Mant_N[N-2:0], 3'b0 };
+    // sft_tmp_o = {tmp_o, {N{1'b0}}};
+    // sft_tmp_o = sft_tmp_o >> R_O_fin;
+
+    // L = sft_tmp_o[N+4+(N-(N-ES))]; 
+    // G = sft_tmp_o[N+3+(N-(N-ES))]; // Guard bit
+    // R = sft_tmp_o[N+2+(N-(N-ES))]; // round bit
+    // S = |sft_tmp_o[N+1+(N-(N-ES)):0];  // sticky bit
+    // // ulp = ((G & (R | S)) | (L & G & ~(R | S)));
+    // ulp = ((G & (R | S)) | (L & G & ~(R)));
+    
+
+    // rnd_ulp= {{N-1{1'b0}},ulp};
+
+    
+    // sft_tmp_o_rnd_ulp = sft_tmp_o[2*N-1+3+(N-(N-ES)):N+3+(N-(N-ES))] + rnd_ulp - (~S&G&~R);
+
+    // if ((R_O_fin < N-ES-2))
+    //     sft_tmp_o_rnd = sft_tmp_o_rnd_ulp[N-1:0];
+    // else
+    //     sft_tmp_o_rnd = sft_tmp_o[2*N-1+3+(N-(N-ES)):N+3+(N-(N-ES))];
+    
+    // if(LS)
+    //     sft_tmp_oN = -sft_tmp_o_rnd;
+    // else
+    //     sft_tmp_oN = sft_tmp_o_rnd+1;
+
+
+    //////      FINAL OUTPUT        //////
+
+    // if (zero1)
+    //     OUT = IN2;
+    // else if (zero2) 
+    //     OUT = IN1;
+    // else if (inf1)          
+    //     OUT = IN1;
+    // else if (inf2)             
+    //     OUT = IN2;
+    // else if (IN1 == -IN2)
+    //     OUT = {N{1'b0}};
+    // else
+    //     // OUT = {LS, sft_tmp_oN[N-1:1]};
+    //     OUT = temp_output;
 
 
     if(zero|inf)
