@@ -21,7 +21,6 @@ module posit_rounding #(
 	localparam int unsigned ES = posit_pkg::exp_bits(pFormat), 
 	localparam int unsigned RS = $clog2(N)
 ) (
-	input logic Enable,
     input logic [RS+ES+4:0]Total_EO,
     input logic [ES-1:0] E_O,
     input logic [2*N-1:0] Mant,
@@ -29,7 +28,7 @@ module posit_rounding #(
     input logic Sign,
     input logic NaR, zero,
     output logic [N-1:0] OUT,
-	output logic Done
+	output logic NX
     // output logic [3:0] rounding_map
 );
 
@@ -63,7 +62,7 @@ module posit_rounding #(
 	logic [N-1:0] check_regime;
 
 	always_comb begin
-		if (Enable) begin
+
     		//////      ROUNDING        //////
     		exp_frac_combine_output = {1'b0,E_O[ES-1:0],Mant[2*N-2:0]}; // combine 1-Overflow bit, 2-Exponent bit, 31-fraction bit
    
@@ -134,11 +133,9 @@ module posit_rounding #(
     			OUT = {NaR,{N-1{1'b0}}};
     		else
     			OUT = temp_output;
+
+			NX = (round == 0)? 0:1;
     		OUT_neg = -OUT;
-			Done = 1'b1;
-		end else begin
-			OUT = '0;
-			Done = 1'b0;
-		end
+
 	end
 endmodule

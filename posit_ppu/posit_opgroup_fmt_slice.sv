@@ -11,23 +11,19 @@
 //
 // SPDX-License-Identifier: SHL-0.51
 
-// Author: Stefan Mach <smach@iis.ee.ethz.ch>
+// Author: Stefan Mach <smach@iis.ee.ethz.ch> 
 
 module posit_opgroup_fmt_slice #(
-  parameter posit_pkg::opgroup_e     OpGroup       = posit_pkg::ADDMUL,
-  parameter posit_pkg::posit_format_e   PositFormat   = posit_pkg::posit_format_e'(0),
+  parameter posit_pkg::opgroup_e        OpGroup       = posit_pkg::DIVSQRT,
+  parameter posit_pkg::posit_format_e   pFormat       = posit_pkg::posit_format_e'(0),
   // FPU configuration
-  parameter int unsigned             Width         = 32,
-  parameter logic                    EnableVectors = 1'b1,
-  parameter int unsigned             NumPipeRegs   = 0,
-  parameter posit_pkg::pipe_config_t PipeConfig    = posit_pkg::BEFORE,
-  parameter logic                    ExtRegEna     = 1'b0,
-  parameter type                     TagType       = logic,
-  parameter int unsigned             TrueSIMDClass = 0,
+  parameter int unsigned                Width         = 32,
+  parameter int unsigned                NumPipeRegs   = 0,
+  parameter posit_pkg::pipe_config_t    PipeConfig    = posit_pkg::BEFORE,
+  parameter logic                       ExtRegEna     = 1'b0,
+  parameter type                        TagType       = logic,
   // Do not change
-  localparam int unsigned NUM_OPERANDS = posit_pkg::num_operands(OpGroup),
-  localparam int unsigned NUM_LANES    = posit_pkg::num_lanes(Width, PositFormat, EnableVectors),
-  localparam type         MaskType     = logic [NUM_LANES-1:0],
+  localparam int unsigned NUM_OPERANDS   = posit_pkg::num_operands(OpGroup),
   localparam int unsigned ExtRegEnaWidth = NumPipeRegs == 0 ? 1 : NumPipeRegs
 ) (
   input logic                               clk_i,
@@ -38,9 +34,7 @@ module posit_opgroup_fmt_slice #(
   input posit_pkg::roundmode_e              rnd_mode_i,
   input posit_pkg::operation_e              op_i,
   input logic                               op_mod_i,
-  input logic                               vectorial_op_i,
   input TagType                             tag_i,
-  input MaskType                            simd_mask_i,
   // Input Handshake
   input  logic                              in_valid_i,
   output logic                              in_ready_o,
@@ -59,230 +53,150 @@ module posit_opgroup_fmt_slice #(
   input  logic [ExtRegEnaWidth-1:0]         reg_ena_i
 );
 
-  localparam int unsigned POSIT_WIDTH  = posit_pkg::posit_width(PositFormat);
-  localparam int unsigned SIMD_WIDTH = unsigned'(Width/NUM_LANES);
+  localparam int unsigned POSIT_WIDTH  = posit_pkg::posit_width(pFormat);
 
+  logic [POSIT_WIDTH-1:0] 		 slice_result;
+  logic [Width-1:0]              slice_regular_result, slice_class_result;
 
-  logic [NUM_LANES-1:0] lane_in_ready, lane_out_valid; // Handshake signals for the lanes
-  logic                 vectorial_op;
+  posit_pkg::status_t     status;
+  logic                   ext_bit; 
+  posit_pkg::classmask_e  class_result;
+  TagType                 tags; 
+  logic                   busy;
 
-  logic [NUM_LANES*POSIT_WIDTH-1:0] slice_result;
-  logic [Width-1:0]              slice_regular_result, slice_class_result, slice_vec_class_result;
-
-  posit_pkg::status_t    [NUM_LANES-1:0] lane_status;
-  logic                  [NUM_LANES-1:0] lane_ext_bit; // only the first one is actually used
-  posit_pkg::classmask_e [NUM_LANES-1:0] lane_class_mask;
-  TagType                [NUM_LANES-1:0] lane_tags; // only the first one is actually used
-  logic                  [NUM_LANES-1:0] lane_masks;
-  logic                  [NUM_LANES-1:0] lane_vectorial, lane_busy, lane_is_class; // dito
-
-  logic result_is_vector, result_is_class;
+  logic result_is_class;
 
   // -----------
   // Input Side
   // -----------
-  assign in_ready_o   = lane_in_ready[0]; // Upstream ready is given by first lane
-  assign vectorial_op = vectorial_op_i & EnableVectors; // only do vectorial stuff if enabled
 
-  // ---------------
-  // Generate Lanes
-  // ---------------
-  for (genvar lane = 0; lane < int'(NUM_LANES); lane++) begin : gen_num_lanes
-    logic [POSIT_WIDTH-1:0] local_result; // lane-local results
-    logic                local_sign;
+  logic [POSIT_WIDTH-1:0] local_result; 
+  logic                   local_sign;
 
-    // Generate instances only if needed, lane 0 always generated
-    if ((lane == 0) || EnableVectors) begin : active_lane
-      logic in_valid, out_valid, out_ready; // lane-local handshake
+  logic [NUM_OPERANDS-1:0][POSIT_WIDTH-1:0] local_operands; 
+  logic [POSIT_WIDTH-1:0]                   op_result;      
+  posit_pkg::status_t                       op_status;
 
-      logic [NUM_OPERANDS-1:0][POSIT_WIDTH-1:0] local_operands; // lane-local operands
-      logic [POSIT_WIDTH-1:0]                   op_result;      // lane-local results
-      posit_pkg::status_t                    op_status;
 
-      assign in_valid = in_valid_i & ((lane == 0) | vectorial_op); // upper lanes only for vectors
-      // Slice out the operands for this lane
-      always_comb begin : prepare_input
-        for (int i = 0; i < int'(NUM_OPERANDS); i++) begin
-          local_operands[i] = operands_i[i][(unsigned'(lane)+1)*POSIT_WIDTH-1:unsigned'(lane)*POSIT_WIDTH];
-        end
-      end
-
-      // Instantiate the operation from the selected opgroup
-      if (OpGroup == posit_pkg::ADDMUL) begin : lane_instance
-        posit_fma #(
-          .PositFormat ( PositFormat ),
-          .NumPipeRegs ( NumPipeRegs ),
-          .PipeConfig  ( PipeConfig  ),
-          .TagType     ( TagType     ),
-          .AuxType     ( logic       )
-        ) i_fma (
-          .clk_i,
-          .rst_ni,
-          .operands_i      ( local_operands               ),
-          .is_boxed_i      ( is_boxed_i[NUM_OPERANDS-1:0] ),
-          .rnd_mode_i,
-          .op_i,
-          .op_mod_i,
-          .tag_i,
-          .mask_i          ( simd_mask_i[lane]    ),
-          .aux_i           ( vectorial_op         ), // Remember whether operation was vectorial
-          .in_valid_i      ( in_valid             ),
-          .in_ready_o      ( lane_in_ready[lane]  ),
-          .flush_i,
-          .result_o        ( op_result            ),
-          .status_o        ( op_status            ),
-          .extension_bit_o ( lane_ext_bit[lane]   ),
-          .tag_o           ( lane_tags[lane]      ),
-          .mask_o          ( lane_masks[lane]     ),
-          .aux_o           ( lane_vectorial[lane] ),
-          .out_valid_o     ( out_valid            ),
-          .out_ready_i     ( out_ready            ),
-          .busy_o          ( lane_busy[lane]      ),
-          .reg_ena_i
-        );
-        assign lane_is_class[lane]   = 1'b0;
-        assign lane_class_mask[lane] = posit_pkg::NAR;
-      end else if (OpGroup == posit_pkg::DIVSQRT) begin : lane_instance
-        posit_divsqrt #(
-          .PositFormat   (PositFormat),
-          .NumPipeRegs(NumPipeRegs),
-          .PipeConfig (PipeConfig),
-          .TagType    (TagType),
-          .AuxType    (logic)
-        ) i_divsqrt (
-          .clk_i,
-          .rst_ni,
-          .operands_i      ( local_operands               ),
-          .is_boxed_i      ( is_boxed_i[NUM_OPERANDS-1:0] ),
-          .rnd_mode_i,
-          .op_i,
-          .op_mod_i,
-          .tag_i,
-          .aux_i           ( vectorial_op         ), // Remember whether operation was vectorial
-          .in_valid_i      ( in_valid             ),
-          .in_ready_o      ( lane_in_ready[lane]  ),
-          .flush_i,
-          .result_o        ( op_result            ),
-          .status_o        ( op_status            ),
-          .extension_bit_o ( lane_ext_bit[lane]   ),
-          .tag_o           ( lane_tags[lane]      ),
-          .aux_o           ( lane_vectorial[lane] ),
-          .out_valid_o     ( out_valid            ),
-          .out_ready_i     ( out_ready            ),
-          .busy_o          ( lane_busy[lane]      ),
-          .reg_ena_i
-        );
-        assign lane_is_class[lane] = 1'b0;
-      end else if (OpGroup == posit_pkg::NONCOMP) begin : lane_instance
-        posit_noncomp #(
-          .PositFormat   (PositFormat),
-          .NumPipeRegs(NumPipeRegs),
-          .PipeConfig (PipeConfig),
-          .TagType    (TagType),
-          .AuxType    (logic)
-        ) i_noncomp (
-          .clk_i,
-          .rst_ni,
-          .operands_i      ( local_operands               ),
-          .is_boxed_i      ( is_boxed_i[NUM_OPERANDS-1:0] ),
-          .rnd_mode_i,
-          .op_i,
-          .op_mod_i,
-          .tag_i,
-          .mask_i          ( simd_mask_i[lane]     ),
-          .aux_i           ( vectorial_op          ), // Remember whether operation was vectorial
-          .in_valid_i      ( in_valid              ),
-          .in_ready_o      ( lane_in_ready[lane]   ),
-          .flush_i,
-          .result_o        ( op_result             ),
-          .status_o        ( op_status             ),
-          .extension_bit_o ( lane_ext_bit[lane]    ),
-          .class_mask_o    ( lane_class_mask[lane] ),
-          .is_class_o      ( lane_is_class[lane]   ),
-          .tag_o           ( lane_tags[lane]       ),
-          .mask_o          ( lane_masks[lane]      ),
-          .aux_o           ( lane_vectorial[lane]  ),
-          .out_valid_o     ( out_valid             ),
-          .out_ready_i     ( out_ready             ),
-          .busy_o          ( lane_busy[lane]       ),
-          .reg_ena_i
-        );
-      end // ADD OTHER OPTIONS HERE
-
-      // Handshakes are only done if the lane is actually used
-      assign out_ready            = out_ready_i & ((lane == 0) | result_is_vector);
-      assign lane_out_valid[lane] = out_valid   & ((lane == 0) | result_is_vector);
-
-      // Properly NaN-box or sign-extend the slice result if not in use
-      assign local_result      = (lane_out_valid[lane] | ExtRegEna) ? op_result : '{default: lane_ext_bit[0]};
-      assign lane_status[lane] = (lane_out_valid[lane] | ExtRegEna) ? op_status : '0;
-
-    // Otherwise generate constant sign-extension
-    end else begin
-      assign lane_out_valid[lane] = 1'b0; // unused lane
-      assign lane_in_ready[lane]  = 1'b0; // unused lane
-      assign local_result         = '{default: lane_ext_bit[0]}; // sign-extend/nan box
-      assign lane_status[lane]    = '0;
-      assign lane_busy[lane]      = 1'b0;
-      assign lane_is_class[lane]  = 1'b0;
-    end
-
-    // Insert lane result into slice result
-    assign slice_result[(unsigned'(lane)+1)*POSIT_WIDTH-1:unsigned'(lane)*POSIT_WIDTH] = local_result;
-
-    // Create Classification results
-    if (TrueSIMDClass && SIMD_WIDTH >= 10) begin : vectorial_true_class // true vectorial class blocks are 10bits in size
-      assign slice_vec_class_result[lane*SIMD_WIDTH +: 10] = lane_class_mask[lane];
-      assign slice_vec_class_result[(lane+1)*SIMD_WIDTH-1 -: SIMD_WIDTH-10] = '0;
-    end else if ((lane+1)*4 <= Width) begin : vectorial_class // vectorial class blocks are 4bits in size
-      assign local_sign = (lane_class_mask[lane] == posit_pkg::NEG);
-      // Write the current block segment
-      assign slice_vec_class_result[(lane+1)*4-1:lane*4] = {
-        local_sign,  // BIT 3
-        ~local_sign, // BIT 2
-        lane_class_mask[lane] == posit_pkg::NAR, // BIT 1
-        lane_class_mask[lane] == posit_pkg::ZERO // BIT 0
-      };
+  // Slice out the operands 
+  always_comb begin : prepare_input
+    for (int i = 0; i < int'(NUM_OPERANDS); i++) begin
+      local_operands[i] = operands_i[i][POSIT_WIDTH-1:0];
     end
   end
+
+  // Instantiate the operation from the selected opgroup
+  if (OpGroup == 123 /*posit_pkg::ADDMUL*/) begin : slice_instance
+/*
+    posit_fma #(
+      .PositFormat ( pFormat     ),
+      .NumPipeRegs ( NumPipeRegs ),
+      .PipeConfig  ( PipeConfig  ),
+      .TagType     ( TagType     )
+    ) i_fma (
+      .clk_i,
+      .rst_ni,
+      .operands_i      ( local_operands               ),
+      .is_boxed_i      ( is_boxed_i[NUM_OPERANDS-1:0] ),
+      .rnd_mode_i,
+      .op_i,
+      .op_mod_i,
+      .tag_i,
+      .in_valid_i      ( in_valid_i   ),
+      .in_ready_o      ( in_ready_o   ),
+      .flush_i,
+      .result_o        ( op_result    ),
+      .status_o        ( op_status    ),
+      .extension_bit_o ( ext_bit      ),
+      .tag_o           ( tags         ),
+      .out_valid_o     ( out_valid_o  ),
+      .out_ready_i     ( out_ready_i  ),
+      .busy_o          ( busy         ),
+      .reg_ena_i
+    );
+    assign result_is_class   = 1'b0;
+*/
+  end else if (OpGroup == posit_pkg::DIVSQRT) begin : slice_instance
+    posit_divsqrt #(
+      .pFormat   ( pFormat     ),
+      .NumPipeRegs   ( NumPipeRegs ),
+      .PipeConfig    ( PipeConfig  ),
+      .TagType       ( TagType     )
+    ) i_divsqrt (
+      .clk_i,
+      .rst_ni,
+      .operands_i      ( local_operands               ),
+      .is_boxed_i      ( is_boxed_i[NUM_OPERANDS-1:0] ),
+      .rnd_mode_i,
+      .op_i,
+      .tag_i,
+      .in_valid_i      ( in_valid_i    ),
+      .in_ready_o      ( in_ready_o    ),
+      .flush_i,
+      .result_o        ( op_result     ),
+      .status_o        ( op_status     ),
+      .extension_bit_o ( ext_bit       ),
+      .tag_o           ( tags          ),
+      .out_valid_o     ( out_valid_o   ),
+      .out_ready_i     ( out_ready_i   ),
+      .busy_o          ( busy          ),
+      .reg_ena_i
+    );
+    assign result_is_class = 1'b0;
+  end else if (OpGroup == 456/* posit_pkg::NONCOMP */) begin : lane_instance
+/*
+    posit_noncomp #(
+      .PositFormat   ( pFormat     ),
+      .NumPipeRegs   ( NumPipeRegs ),
+      .PipeConfig    ( PipeConfig  ),
+      .TagType       ( TagType     )
+    ) i_noncomp (
+      .clk_i,
+      .rst_ni,
+      .operands_i      ( local_operands               ),
+      .is_boxed_i      ( is_boxed_i[NUM_OPERANDS-1:0] ),
+      .rnd_mode_i,
+      .op_i,
+      .op_mod_i,
+      .tag_i,
+      .in_valid_i      ( in_valid_i      ),
+      .in_ready_o      ( in_ready_o      ),
+      .flush_i,
+      .result_o        ( op_result       ),
+      .status_o        ( op_status       ),
+      .extension_bit_o ( ext_bit         ),
+      .class_mask_o    ( class_result    ),
+      .is_class_o      ( result_is_class ),
+      .tag_o           ( tags            ),
+      .out_valid_o     ( out_valid_o     ),
+      .out_ready_i     ( out_ready_i     ),
+      .busy_o          ( busy            ),
+      .reg_ena_i
+    );
+*/
+  end
+
+  // Properly NaN-box or sign-extend the slice result if not in use
+  assign local_result  = (out_valid_o | ExtRegEna) ? op_result : '{default: ext_bit};
+  assign status   = (out_valid_o | ExtRegEna) ? op_status : '0;
+
+  // Insert lane result into slice result
+  assign slice_result[POSIT_WIDTH-1:0] = local_result;
 
   // ------------
   // Output Side
   // ------------
-  assign result_is_vector = lane_vectorial[0];
-  assign result_is_class  = lane_is_class[0];
 
   assign slice_regular_result = $signed({extension_bit_o, slice_result});
 
-  localparam int unsigned CLASS_VEC_BITS = (NUM_LANES*4 > Width) ? 4 * (Width / 4) : NUM_LANES*4;
-
-  // Pad out unused vec_class bits if each classify result is on 4 bits
-  if (!(TrueSIMDClass && SIMD_WIDTH >= 10)) begin
-    if (CLASS_VEC_BITS < Width) begin : pad_vectorial_class
-      assign slice_vec_class_result[Width-1:CLASS_VEC_BITS] = '0;
-    end
-  end
-
-  // localparam logic [Width-1:0] CLASS_VEC_MASK = 2**CLASS_VEC_BITS - 1;
-
-  assign slice_class_result = result_is_vector ? slice_vec_class_result : lane_class_mask[0];
+  assign slice_class_result = class_result;
 
   // Select the proper result
   assign result_o = result_is_class ? slice_class_result : slice_regular_result;
 
-  assign extension_bit_o                              = lane_ext_bit[0]; // upper lanes unused
-  assign tag_o                                        = lane_tags[0];    // upper lanes unused
-  assign busy_o                                       = (| lane_busy);
-  assign out_valid_o                                  = lane_out_valid[0]; // upper lanes unused
-
-
-  // Collapse the lane status
-  always_comb begin : output_processing
-    // Collapse the status
-    automatic posit_pkg::status_t temp_status;
-    temp_status = '0;
-    for (int i = 0; i < int'(NUM_LANES); i++)
-      temp_status |= lane_status[i] & {5{lane_masks[i]}};
-    status_o = temp_status;
-  end
+  assign extension_bit_o   = ext_bit; 
+  assign tag_o             = tags;    
+  assign busy_o            = (| busy);
+  assign status_o          = op_status;
+  
 endmodule

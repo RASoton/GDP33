@@ -14,23 +14,18 @@
 // Author: Stefan Mach <smach@iis.ee.ethz.ch>
 
 module posit_opgroup_block #(
-  parameter posit_pkg::opgroup_e        OpGroup       = posit_pkg::ADDMUL,
+  parameter posit_pkg::opgroup_e        OpGroup       = posit_pkg::DIVSQRT,
   // FPU configuration
   parameter int unsigned                Width         = 32,
-  parameter logic                       EnableVectors = 1'b1,
-  parameter logic                       PulpDivsqrt   = 1'b1,
   parameter posit_pkg::fmt_logic_t      PositFmtMask  = '1,
   parameter posit_pkg::ifmt_logic_t     IntFmtMask    = '1,
   parameter posit_pkg::fmt_unsigned_t   FmtPipeRegs   = '{default: 0},
   parameter posit_pkg::fmt_unit_types_t FmtUnitTypes  = '{default: posit_pkg::PARALLEL},
   parameter posit_pkg::pipe_config_t    PipeConfig    = posit_pkg::BEFORE,
   parameter type                        TagType       = logic,
-  parameter int unsigned                TrueSIMDClass = 0,
   // Do not change
   localparam int unsigned NUM_FORMATS  = posit_pkg::NUM_POSIT_FORMATS,
-  localparam int unsigned NUM_OPERANDS = posit_pkg::num_operands(OpGroup),
-  localparam int unsigned NUM_LANES    = posit_pkg::max_num_lanes(Width, PositFmtMask, EnableVectors),
-  localparam type         MaskType     = logic [NUM_LANES-1:0]
+  localparam int unsigned NUM_OPERANDS = posit_pkg::num_operands(OpGroup)
 ) (
   input logic                                     clk_i,
   input logic                                     rst_ni,
@@ -40,12 +35,10 @@ module posit_opgroup_block #(
   input posit_pkg::roundmode_e                    rnd_mode_i,
   input posit_pkg::operation_e                    op_i,
   input logic                                     op_mod_i,
-  input posit_pkg::posit_format_e                    src_fmt_i,
-  input posit_pkg::posit_format_e                    dst_fmt_i,
+  input posit_pkg::posit_format_e                 src_fmt_i,
+  input posit_pkg::posit_format_e                 dst_fmt_i,
   input posit_pkg::int_format_e                   int_fmt_i,
-  input logic                                     vectorial_op_i,
   input TagType                                   tag_i,
-  input MaskType                                  simd_mask_i,
   // Input Handshake
   input  logic                                    in_valid_i,
   output logic                                    in_ready_o,
@@ -85,10 +78,6 @@ module posit_opgroup_block #(
   // Generate Parallel Slices
   // -------------------------
   for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : gen_parallel_slices
-    // Some constants for this format
-    localparam logic ANY_MERGED = posit_pkg::any_enabled_multi(FmtUnitTypes, PositFmtMask);
-    localparam logic IS_FIRST_MERGED =
-        posit_pkg::is_first_enabled_multi(posit_pkg::posit_format_e'(fmt), FmtUnitTypes, PositFmtMask);
 
     // Generate slice only if format enabled
     if (PositFmtMask[fmt] && (FmtUnitTypes[fmt] == posit_pkg::PARALLEL)) begin : active_format
@@ -97,20 +86,13 @@ module posit_opgroup_block #(
 
       assign in_valid = in_valid_i & (dst_fmt_i == fmt); // enable selected format
 
-      // Forward masks related to the right SIMD lane
-      localparam int unsigned INTERNAL_LANES = posit_pkg::num_lanes(Width, posit_pkg::posit_format_e'(fmt), EnableVectors);
-      logic [INTERNAL_LANES-1:0] mask_slice;
-      always_comb for (int b = 0; b < INTERNAL_LANES; b++) mask_slice[b] = simd_mask_i[(NUM_LANES/INTERNAL_LANES)*b];
-
       posit_opgroup_fmt_slice #(
         .OpGroup       ( OpGroup                      ),
-        .PositFormat   ( posit_pkg::posit_format_e'(fmt) ),
+        .pFormat       ( posit_pkg::posit_format_e'(fmt) ),
         .Width         ( Width                        ),
-        .EnableVectors ( EnableVectors                ),
         .NumPipeRegs   ( FmtPipeRegs[fmt]             ),
         .PipeConfig    ( PipeConfig                   ),
-        .TagType       ( TagType                      ),
-        .TrueSIMDClass ( TrueSIMDClass                )
+        .TagType       ( TagType                      )
       ) i_fmt_slice (
         .clk_i,
         .rst_ni,
@@ -119,9 +101,7 @@ module posit_opgroup_block #(
         .rnd_mode_i,
         .op_i,
         .op_mod_i,
-        .vectorial_op_i,
         .tag_i,
-        .simd_mask_i    ( mask_slice               ),
         .in_valid_i     ( in_valid                 ),
         .in_ready_o     ( fmt_in_ready[fmt]        ),
         .flush_i,
@@ -134,84 +114,9 @@ module posit_opgroup_block #(
         .busy_o         ( fmt_busy[fmt]            ),
         .reg_ena_i      ( '0                       )
       );
-    // If the format wants to use merged ops, tie off the dangling ones not used here
-    end else if (PositFmtMask[fmt] && ANY_MERGED && !IS_FIRST_MERGED) begin : merged_unused
-
-      localparam FMT = posit_pkg::get_first_enabled_multi(FmtUnitTypes, PositFmtMask);
-      // Ready is split up into formats
-      assign fmt_in_ready[fmt]  = fmt_in_ready[int'(FMT)];
-
-      assign fmt_out_valid[fmt] = 1'b0; // don't emit values
-      assign fmt_busy[fmt]      = 1'b0; // never busy
-      // Outputs are don't care
-      assign fmt_outputs[fmt].result  = '{default: posit_pkg::DONT_CARE};
-      assign fmt_outputs[fmt].status  = '{default: posit_pkg::DONT_CARE};
-      assign fmt_outputs[fmt].ext_bit = posit_pkg::DONT_CARE;
-      assign fmt_outputs[fmt].tag     = TagType'(posit_pkg::DONT_CARE);
-
-    // Tie off disabled formats
-    end else if (!PositFmtMask[fmt] || (FmtUnitTypes[fmt] == posit_pkg::DISABLED)) begin : disable_fmt
-      assign fmt_in_ready[fmt]  = 1'b0; // don't accept operations
-      assign fmt_out_valid[fmt] = 1'b0; // don't emit values
-      assign fmt_busy[fmt]      = 1'b0; // never busy
-      // Outputs are don't care
-      assign fmt_outputs[fmt].result  = '{default: posit_pkg::DONT_CARE};
-      assign fmt_outputs[fmt].status  = '{default: posit_pkg::DONT_CARE};
-      assign fmt_outputs[fmt].ext_bit = posit_pkg::DONT_CARE;
-      assign fmt_outputs[fmt].tag     = TagType'(posit_pkg::DONT_CARE);
     end
   end
 
-  // ----------------------
-  // Generate Merged Slice
-  // ----------------------
-  if (posit_pkg::any_enabled_multi(FmtUnitTypes, PositFmtMask)) begin : gen_merged_slice
-
-    localparam FMT = posit_pkg::get_first_enabled_multi(FmtUnitTypes, PositFmtMask);
-    localparam REG = posit_pkg::get_num_regs_multi(FmtPipeRegs, FmtUnitTypes, PositFmtMask);
-
-    logic in_valid;
-
-    assign in_valid = in_valid_i & (FmtUnitTypes[dst_fmt_i] == posit_pkg::MERGED);
-
-    posit_opgroup_multifmt_slice #(
-      .OpGroup       ( OpGroup          ),
-      .Width         ( Width            ),
-      .PositFmtConfig( PositFmtMask        ),
-      .IntFmtConfig  ( IntFmtMask       ),
-      .EnableVectors ( EnableVectors    ),
-      .PulpDivsqrt   ( PulpDivsqrt      ),
-      .NumPipeRegs   ( REG              ),
-      .PipeConfig    ( PipeConfig       ),
-      .TagType       ( TagType          )
-    ) i_multifmt_slice (
-      .clk_i,
-      .rst_ni,
-      .operands_i,
-      .is_boxed_i,
-      .rnd_mode_i,
-      .op_i,
-      .op_mod_i,
-      .src_fmt_i,
-      .dst_fmt_i,
-      .int_fmt_i,
-      .vectorial_op_i,
-      .tag_i,
-      .simd_mask_i     ( simd_mask_i              ),
-      .in_valid_i      ( in_valid                 ),
-      .in_ready_o      ( fmt_in_ready[FMT]        ),
-      .flush_i,
-      .result_o        ( fmt_outputs[FMT].result  ),
-      .status_o        ( fmt_outputs[FMT].status  ),
-      .extension_bit_o ( fmt_outputs[FMT].ext_bit ),
-      .tag_o           ( fmt_outputs[FMT].tag     ),
-      .out_valid_o     ( fmt_out_valid[FMT]       ),
-      .out_ready_i     ( fmt_out_ready[FMT]       ),
-      .busy_o          ( fmt_busy[FMT]            ),
-      .reg_ena_i       ( '0                       )
-    );
-
-  end
 
   // ------------------
   // Arbitrate Outputs

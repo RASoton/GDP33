@@ -1,13 +1,30 @@
+// Copyright 2019 ETH Zurich and University of Bologna.
+//
+// Copyright and related rights are licensed under the Solderpad Hardware
+// License, Version 0.51 (the "License"); you may not use this file except in
+// compliance with the License. You may obtain a copy of the License at
+// http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law
+// or agreed to in writing, software, hardware and materials distributed under
+// this License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the
+// specific language governing permissions and limitations under the License.
+//
+// SPDX-License-Identifier: SHL-0.51
 
+// Author: Stefan Mach <smach@iis.ee.ethz.ch>
 
-module posit_top #(
-  parameter posit_pkg::posit_features_t       Features       = posit_pkg::POSIT32_CONFIG,
-  parameter posit_pkg::posit_implementation_t Implementation = posit_pkg::DEFAULT_NOREGS,
+module fpnew_top #(
+  // FPU configuration
+  parameter fpnew_pkg::fpu_features_t       Features       = fpnew_pkg::RV64D_Xsflt,
+  parameter fpnew_pkg::fpu_implementation_t Implementation = fpnew_pkg::DEFAULT_NOREGS,
   // PulpDivSqrt = 0 enables T-head-based DivSqrt unit. Supported only for FP32-only instances of Fpnew
-  parameter logic                           PulpDivsqrt    = 1'b1, // Unused
+  parameter logic                           PulpDivsqrt    = 1'b1,
   parameter type                            TagType        = logic,
-  parameter int unsigned                    TrueSIMDClass  = 0, // Unused
-  parameter int unsigned                    EnableSIMDMask = 0, // Unused
+  parameter int unsigned                    TrueSIMDClass  = 0,
+  parameter int unsigned                    EnableSIMDMask = 0,
+  // Do not change
+  localparam int unsigned NumLanes     = fpnew_pkg::max_num_lanes(Features.Width, Features.FpFmtMask, Features.EnableVectors),
+  localparam type         MaskType     = logic [NumLanes-1:0],
   localparam int unsigned WIDTH        = Features.Width,
   localparam int unsigned NUM_OPERANDS = 3
 ) (
@@ -15,22 +32,22 @@ module posit_top #(
   input logic                               rst_ni,
   // Input signals
   input logic [NUM_OPERANDS-1:0][WIDTH-1:0] operands_i,
-  input posit_pkg::roundmode_e              rnd_mode_i, // Unused
-  input posit_pkg::operation_e              op_i,
-  input logic                               op_mod_i, // Unused
-  input posit_pkg::posit_format_e           src_fmt_i,
-  input posit_pkg::posit_format_e           dst_fmt_i,
-  input posit_pkg::int_format_e             int_fmt_i,
-  input logic                               vectorial_op_i, // Unused
+  input fpnew_pkg::roundmode_e              rnd_mode_i,
+  input fpnew_pkg::operation_e              op_i,
+  input logic                               op_mod_i,
+  input fpnew_pkg::fp_format_e              src_fmt_i,
+  input fpnew_pkg::fp_format_e              dst_fmt_i,
+  input fpnew_pkg::int_format_e             int_fmt_i,
+  input logic                               vectorial_op_i,
   input TagType                             tag_i,
-  input logic                               simd_mask_i, // Unused
+  input MaskType                            simd_mask_i,
   // Input Handshake
   input  logic                              in_valid_i,
   output logic                              in_ready_o,
   input  logic                              flush_i,
   // Output signals
   output logic [WIDTH-1:0]                  result_o,
-  output posit_pkg::status_t                status_o,
+  output fpnew_pkg::status_t                status_o,
   output TagType                            tag_o,
   // Output handshake
   output logic                              out_valid_o,
@@ -39,15 +56,15 @@ module posit_top #(
   output logic                              busy_o
 );
 
-  localparam int unsigned NUM_OPGROUPS = posit_pkg::NUM_OPGROUPS;
-  localparam int unsigned NUM_FORMATS  = posit_pkg::NUM_POSIT_FORMATS;
+  localparam int unsigned NUM_OPGROUPS = fpnew_pkg::NUM_OPGROUPS;
+  localparam int unsigned NUM_FORMATS  = fpnew_pkg::NUM_FP_FORMATS;
 
   // ----------------
   // Type Definition
   // ----------------
   typedef struct packed {
     logic [WIDTH-1:0]   result;
-    posit_pkg::status_t status;
+    fpnew_pkg::status_t status;
     TagType             tag;
   } output_t;
 
@@ -60,31 +77,37 @@ module posit_top #(
   // -----------
   // Input Side
   // -----------
-  assign in_ready_o = in_valid_i & opgrp_in_ready[posit_pkg::get_opgroup(op_i)];
+  assign in_ready_o = in_valid_i & opgrp_in_ready[fpnew_pkg::get_opgroup(op_i)];
 
   // NaN-boxing check
   for (genvar fmt = 0; fmt < int'(NUM_FORMATS); fmt++) begin : gen_nanbox_check
-    localparam int unsigned POSIT_WIDTH = posit_pkg::posit_width(posit_pkg::posit_format_e'(fmt));
+    localparam int unsigned FP_WIDTH = fpnew_pkg::fp_width(fpnew_pkg::fp_format_e'(fmt));
     // NaN boxing is only generated if it's enabled and needed
-    if (Features.EnableNanBox && (POSIT_WIDTH < WIDTH)) begin : check
+    if (Features.EnableNanBox && (FP_WIDTH < WIDTH)) begin : check
       for (genvar op = 0; op < int'(NUM_OPERANDS); op++) begin : operands
-        assign is_boxed[fmt][op] = operands_i[op][WIDTH-1:POSIT_WIDTH] == '1;
+        assign is_boxed[fmt][op] = (!vectorial_op_i)
+                                   ? operands_i[op][WIDTH-1:FP_WIDTH] == '1
+                                   : 1'b1;
       end
     end else begin : no_check
       assign is_boxed[fmt] = '1;
     end
   end
 
+  // Filter out the mask if not used
+  MaskType simd_mask;
+  assign simd_mask = simd_mask_i | ~{NumLanes{logic'(EnableSIMDMask)}};
+
   // -------------------------
   // Generate Operation Blocks
   // -------------------------
   for (genvar opgrp = 0; opgrp < int'(NUM_OPGROUPS); opgrp++) begin : gen_operation_groups
-    localparam int unsigned NUM_OPS = posit_pkg::num_operands(posit_pkg::opgroup_e'(opgrp));
+    localparam int unsigned NUM_OPS = fpnew_pkg::num_operands(fpnew_pkg::opgroup_e'(opgrp));
 
     logic in_valid;
     logic [NUM_FORMATS-1:0][NUM_OPS-1:0] input_boxed;
 
-    assign in_valid = in_valid_i & (posit_pkg::get_opgroup(op_i) == posit_pkg::opgroup_e'(opgrp));
+    assign in_valid = in_valid_i & (fpnew_pkg::get_opgroup(op_i) == fpnew_pkg::opgroup_e'(opgrp));
 
     // slice out input boxing
     always_comb begin : slice_inputs
@@ -92,15 +115,18 @@ module posit_top #(
         input_boxed[fmt] = is_boxed[fmt][NUM_OPS-1:0];
     end
 
-    posit_opgroup_block #(
-      .OpGroup       ( posit_pkg::opgroup_e'(opgrp)    ),
+    fpnew_opgroup_block #(
+      .OpGroup       ( fpnew_pkg::opgroup_e'(opgrp)    ),
       .Width         ( WIDTH                           ),
-      .PositFmtMask  ( Features.PositFmtMask           ),
+      .EnableVectors ( Features.EnableVectors          ),
+      .PulpDivsqrt   ( PulpDivsqrt                     ),
+      .FpFmtMask     ( Features.FpFmtMask              ),
       .IntFmtMask    ( Features.IntFmtMask             ),
       .FmtPipeRegs   ( Implementation.PipeRegs[opgrp]  ),
       .FmtUnitTypes  ( Implementation.UnitTypes[opgrp] ),
       .PipeConfig    ( Implementation.PipeConfig       ),
-      .TagType       ( TagType                         )            
+      .TagType       ( TagType                         ),
+      .TrueSIMDClass ( TrueSIMDClass                   )
     ) i_opgroup_block (
       .clk_i,
       .rst_ni,
@@ -112,7 +138,9 @@ module posit_top #(
       .src_fmt_i,
       .dst_fmt_i,
       .int_fmt_i,
+      .vectorial_op_i,
       .tag_i,
+      .simd_mask_i     ( simd_mask             ),
       .in_valid_i      ( in_valid              ),
       .in_ready_o      ( opgrp_in_ready[opgrp] ),
       .flush_i,
