@@ -87,6 +87,17 @@ package posit_pkg;
     //ADDMUL, DIVSQRT, NONCOMP, CONV
   } opgroup_e;
 
+  typedef enum logic  [1:0] {
+    SGNJ    = 2'b00,
+    SGNJN     = 2'b01,
+    SGNJX     = 2'b10
+  } signinject_e;// SIGN injection
+
+  typedef enum logic [1:0] {
+    MIN    = 2'b00,
+    MAX    = 2'b01,
+  } minmax_e;// MIN MAX
+
   localparam int unsigned OP_BITS = 4;
 
   typedef enum logic [OP_BITS-1:0] {
