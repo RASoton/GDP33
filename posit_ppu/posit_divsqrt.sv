@@ -2,26 +2,19 @@
 `include "registers.svh"
 
 module posit_divsqrt #(
-  parameter posit_pkg::posit_format_e  pFormat   = posit_pkg::posit_format_e'(0),
-  // positU configuration
-  parameter int unsigned             NumPipeRegs = 0,
-  parameter posit_pkg::pipe_config_t PipeConfig  = posit_pkg::AFTER,
-  parameter type                     TagType     = logic,
+  parameter posit_pkg::posit_format_e  pFormat = posit_pkg::posit_format_e'(0),
   // Do not change
-  localparam int unsigned WIDTH          = posit_pkg::posit_width(pFormat),
-  localparam int unsigned ExtRegEnaWidth = NumPipeRegs == 0 ? 1 : NumPipeRegs,
-	localparam int unsigned N = posit_pkg::posit_width(pFormat),
-	localparam int unsigned ES = posit_pkg::exp_bits(pFormat),
-	localparam int RS = $clog2(N)
+  localparam int unsigned WIDTH = posit_pkg::posit_width(pFormat),
+	localparam int unsigned ES    = posit_pkg::exp_bits(pFormat),
+	localparam int          RS    = $clog2(WIDTH)
 ) (
   input  logic                        clk_i,
   input  logic                        rst_ni,
   // Input signals
   input  logic [1:0][WIDTH-1:0]       operands_i, // 2 operands
-  input  logic [1:0]                  is_boxed_i, // 2 operands
   input  posit_pkg::roundmode_e       rnd_mode_i,
   input  posit_pkg::operation_e       op_i,
-  input  TagType                      tag_i,
+  input  logic                        tag_i,
   // Input Handshake
   input  logic                        in_valid_i,
   output logic                        in_ready_o,
@@ -29,15 +22,12 @@ module posit_divsqrt #(
   // Output signals
   output logic [WIDTH-1:0]            result_o,
   output posit_pkg::status_t          status_o,
-  output logic                        extension_bit_o,
-  output TagType                      tag_o,
+  output logic                        tag_o,
   // Output handshake
   output logic                        out_valid_o,
   input  logic                        out_ready_i,
   // Indication of valid data in flight
-  output logic                        busy_o,
-  // External register enable override
-  input  logic [ExtRegEnaWidth-1:0]   reg_ena_i
+  output logic                        busy_o
 );
 
   assign in_ready_o = out_ready_i ;
@@ -48,16 +38,18 @@ module posit_divsqrt #(
 	logic signed Sign1, Sign2;
 	logic signed [RS:0] k1,k2;
 	logic [ES-1:0] Exponent1, Exponent2;
-	logic [N-1:0] Mantissa1, Mantissa2;
-	logic signed [N-2:0] InRemain1, InRemain2;
-	logic NaR1, NaR2, Zero1, Zero2;
+	logic [WIDTH-1:0] Mantissa1, Mantissa2;
+	logic signed [WIDTH-2:0] InRemain1, InRemain2;
+	logic NaR1, NaR2, zero1, zero2;
 
-	logic [2*N-1:0] Mant, Div_Mant_N, Sqrt_Mant_N;
+	logic [2*WIDTH-1:0] Mant, Div_Mant_N, Sqrt_Mant_N;
 	logic [RS+ES+4:0]Total_EO, Total_EO_div, Total_EO_sqrt, Total_EON;
 	logic [ES-1:0] E_O, E_O_div, E_O_sqrt;
 	logic signed [RS+4:0] R_O, R_O_div, R_O_sqrt, sumR;
-	logic Inf, Zero, Sign, sign;
-	logic [N-1:0] Result;
+	logic zero, zero_div;
+  logic NaR, NaR_div, NaR_sqrt;
+	logic Sign, Sign_div, Sign_sqrt;
+	logic [WIDTH-1:0] Result;
 	logic NV, DZ, OF, UF, NX, Done;
 	posit_pkg::status_t status;
 	logic Div_enable, Sqrt_enable;
@@ -72,7 +64,7 @@ module posit_divsqrt #(
 	 .Mantissa	(Mantissa1), 
 	 .InRemain	(InRemain1), 
 	 .NaR		    (NaR1), 
-	 .zero		  (Zero1)
+	 .zero		  (zero1)
 	);
 
     //Extraction for operand_b
@@ -85,7 +77,7 @@ module posit_divsqrt #(
 	 .Mantissa	(Mantissa2), 
 	 .InRemain	(InRemain2), 
 	 .NaR		    (NaR2), 
-	 .zero		  (Zero2)
+	 .zero		  (zero2)
 	);
 
 	//Division
@@ -104,16 +96,16 @@ module posit_divsqrt #(
 	 .InRemain2  (InRemain2),
 	 .NaR1       (NaR1),
 	 .NaR2       (NaR2),
-	 .zero1      (Zero1),
-	 .zero2      (Zero2),
-	 .Sign       (Sign),
+	 .zero1      (zero1),
+	 .zero2      (zero2),
+	 .Sign       (Sign_div),
 	 .Div_Mant_N (Div_Mant_N),
 	 .Total_EO   (Total_EO_div),
 	 .E_O        (E_O_div),
 	 .R_O        (R_O_div),
 	 .sumR       (sumR),
-	 .NaR        (NaR),
-	 .zero       (Zero),
+	 .NaR        (NaR_div),
+	 .zero       (zero_div),
 	 .OF         (OF),
 	 .UF         (UF)
 	);
@@ -129,12 +121,12 @@ module posit_divsqrt #(
 	 .R_O       (R_O_sqrt),
 	 .Total_EO  (Total_EO_sqrt),
 	 .Sqrt_Mant (Sqrt_Mant_N),
-	 .NaR       (NaR)
+	 .NaR       (NaR_sqrt)
   );
 
 	//RNE
 	posit_rounding #(pFormat) rnd(
-	 .Sign     (sign),
+	 .Sign     (Sign),
 	 .R_O      (R_O),
 	 .E_O      (E_O),
 	 .Mant     (Mant),
@@ -151,19 +143,24 @@ module posit_divsqrt #(
 		NV=0; DZ=0;
 		if (div_valid) begin
 			Div_enable = 1'b1;
-			sign = Sign;
+			Sign = Sign_div;
 			E_O = E_O_div;
 			R_O = R_O_div;
 			Mant = Div_Mant_N;
 			Total_EO = Total_EO_div;
+			zero = zero_div;
+			NaR = NaR_div;
 			NV = NaR;
-			DZ = (Zero2)? 1:0;
+			DZ = (zero2)? 1:0;
 		end else if (sqrt_valid) begin
 			Sqrt_enable = 1'b1;
+			Sign = Sign1;
 			E_O = E_O_sqrt;
 			R_O = R_O_sqrt;
 			Mant = Sqrt_Mant_N;
 			Total_EO = Total_EO_sqrt;
+			zero = zero1;
+			NaR = NaR_sqrt;
 			NV = NaR;
 			DZ = 1'b0;
 		end
