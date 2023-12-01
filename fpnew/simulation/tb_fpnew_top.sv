@@ -48,32 +48,32 @@ module tb_fpnew_top;
 	
 	initial begin
 		rst_ni = 1'b0;
-		//operands_i = {32'h0, 32'h0, 32'h0};
-		rnd_mode_i = fpnew_pkg::RNE;
-		op_i = fpnew_pkg::ADD;
-		op_mod_i = 1'b1;
+		op_mod_i = 1'b0;
 		src_fmt_i = fpnew_pkg::FP32;
 		dst_fmt_i = fpnew_pkg::FP32;
 		int_fmt_i = fpnew_pkg::INT32;
 		vectorial_op_i = 1'b0;
-		in_valid_i = 1'b1; // assume data always valid from upstream
 		flush_i = 1'b0;
+		in_valid_i = 1'b1; // assume data always valid from upstream
+		out_ready_i = 1'b1;
 
 		#10 rst_ni = 1'b1;
+		op_i = fpnew_pkg::SGNJ;
+		rnd_mode_i = fpnew_pkg::RNE;
 		operands_i = {32'h0, 32'h40a947ae, 32'h40000000};
-		out_ready_i = 1'b0;
 
-		#5;
+		#10;
+		op_i = fpnew_pkg::SGNJ;
+		rnd_mode_i = fpnew_pkg::RTZ;
 		operands_i = {32'h0, 32'h50a947ae, 32'h40040000};
-		out_ready_i = 1'b0;
 
-		#5;
-		operands_i = {32'h0, 32'h45a947ae, 32'h40005400};
-		out_ready_i = 1'b1;
+		#10;
+		op_i = fpnew_pkg::CLASSIFY;
+		rnd_mode_i = fpnew_pkg::RNE;
+		operands_i = {32'h0, 32'h45a947ae, 32'h7f800000};
 
-		#5;
+		#10;
 		operands_i = {32'h0, 32'h70a947ae, 32'h40002300};
-		out_ready_i = 1'b1;
 
 		#500;
 		$stop;
