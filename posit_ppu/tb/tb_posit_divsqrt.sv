@@ -44,33 +44,34 @@ module tb_posit_divsqrt;
 	end
   	initial begin
 		rst_ni = 1'b0;
-		op_i = posit_pkg::DIV;
 		in_valid_i = 1'b1;
-		operands_i = {32'b0, 32'b0};  
-
+		out_ready_i = 1'b1;
 		#10 rst_ni = 1'b1;
 
-   	operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000};    
-   	op_i = posit_pkg::SQRT;           
-		out_ready_i = 1'b1;
+   	operands_i = {32'b0, 32'b01001011001100011100011100101010};    
+   	op_i = posit_pkg::DIV;           
 
 		#10;
-		operands_i = {32'b01001011001100010000011100101010, 32'b01001000111000000000011100000000}; 
-   	op_i = posit_pkg::DIV;  
+   	operands_i = {32'b01001011001100011100011100101010, 32'b0};    
+   	op_i = posit_pkg::DIV;         
 
 		#10;
-		operands_i = {32'b01101011001100010000011100101010, 32'b01001000111000000011000000000000};  
-   	op_i = posit_pkg::SQRT;  
+   	operands_i = {32'b01001011001100011100011100101010, 32'b01101000001100010000011100101010};    
+   	op_i = posit_pkg::DIV;    
 
 		#10;
-		operands_i = {32'b01001011001100011100000000101010, 32'b01101000111000001100000000000000};  
-   	op_i = posit_pkg::DIV;  
+   	operands_i = {32'b01001011001100011100011100101010, 32'b0};    
+   	op_i = posit_pkg::SQRT;    
 
 		#10;
-		operands_i = {32'b01001011001100011100000100101000, 32'b01111010001111100000000000000000};  
-   	op_i = posit_pkg::SQRT;  
+   	operands_i = {32'b01001011001100011100011100101010, 32'h80000000};    
+   	op_i = posit_pkg::SQRT;      
 
-		#200; 
+		#10;
+   	operands_i = {32'b01001011001100011100011100101010, 32'h40000000};    
+   	op_i = posit_pkg::SQRT;   
+
+		#20; 
 		$stop;
     	
   	end
