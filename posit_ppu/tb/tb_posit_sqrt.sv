@@ -1,24 +1,24 @@
 module tb_posit_sqrt;
 
-    parameter N = 32;
-    parameter ES = 2;
-    parameter RS = $clog2(N);
+  localparam N = 32;
+  localparam ES = 2;
+  localparam RS = $clog2(N);
 
-    logic signed [N-1:0] posit_input;
+  logic [N-1:0] posit_input;
 
-    logic signed sign;
-    logic signed [RS:0] regime;
-    logic [ES-1:0] exponent;
-    logic [N-1:0] fraction;
-    logic signed [N-2:0] InRemain;
-    logic NaR1, NaR;
-    logic zero;
-  	logic [ES-1:0] E_O;
+  logic signed sign;
+  logic signed [RS:0] regime;
+  logic [ES-1:0] exponent;
+  logic [N-1:0] fraction;
+  logic signed [N-2:0] InRemain;
+  logic NaR1, NaR;
+  logic zero;
+  logic [ES-1:0] E_O;
 	logic [RS+4:0] R_O;
 	logic [2*N-1:0] Sqrt_Mant;
-  	logic [RS+ES+4:0] Total_EO;
+  logic [RS+ES+4:0] Total_EO;
 	logic [N-1:0] result;
-	logic enable_sqrt, enable_rnd, done_sqrt, done_rnd;
+	logic enable_sqrt;
 
     posit_extraction u0 (
       .In(posit_input),
@@ -33,11 +33,10 @@ module tb_posit_sqrt;
 
     posit_sqrt sqrt(
 		.Enable(enable_sqrt),
-		.Done(done_sqrt),
-        .Sign(sign), 
-        .Regime(regime), 
-        .Exponent(exponent), 
-        .Mantissa(fraction), 
+    .Sign(sign), 
+    .Regime(regime), 
+    .Exponent(exponent), 
+    .Mantissa(fraction), 
 		.E_O(E_O),
 		.R_O(R_O),
 		.Total_EO(Total_EO),
@@ -46,8 +45,6 @@ module tb_posit_sqrt;
     );
 
 	posit_rounding rnd(
-		.Enable(enable_rnd),
-		.Done(done_rnd),
 		.Sign(sign),
 		.R_O(R_O),
 		.E_O(E_O),
@@ -100,7 +97,6 @@ module tb_posit_sqrt;
 	end
 */
 		enable_sqrt = 1'b1;
-		enable_rnd = 1'b1;
 		posit_input = 32'h0;
 		#10;
 		posit_input = 32'h80000000;
