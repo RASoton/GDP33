@@ -79,38 +79,20 @@ package posit_pkg;
   // POSIT OPERATIONS
   // --------------
 
-  localparam int unsigned NUM_OPGROUPS = 2;
+  localparam int unsigned NUM_OPGROUPS = 1;
 
   // Each POSIT operation belongs to an operation group
   typedef enum logic [1:0] {
-		DIVSQRT, NONCOMP
+	DIVSQRT
     //ADDMUL, DIVSQRT, NONCOMP, CONV
   } opgroup_e;
-
-
-  typedef enum logic  [1:0] {
-    SGN      = 2'b00,
-    SGNJN     = 2'b01,
-    SGNJX     = 2'b10
-  } sgnj_e;// SIGN injection
-
-  typedef enum logic [1:0] {
-    MIN    = 2'b00,
-    MAX    = 2'b01
-  } minmax_e;// MIN MAX
-
-  typedef enum logic [1:0] {
-    LE    = 2'b00,
-    LT    = 2'b01,
-    EQ    = 2'b10
-  } cmp_e;
 
   localparam int unsigned OP_BITS = 4;
 
   typedef enum logic [OP_BITS-1:0] {
     FMADD, FNMSUB, ADD, MUL,     // ADDMUL operation group
     DIV, SQRT,                   // DIVSQRT operation group
-    SGNJ, MINMAX, CMP, CLASSIFY, // NONCOMP operation group
+    SGN, MINMAX, CMP, CLASSIFY, // NONCOMP operation group
     F2F, F2I, I2F, CPKAB, CPKCD  // CONV operation group
   } operation_e;
 
@@ -273,9 +255,9 @@ package posit_pkg;
     unique case (op)
       //FMADD, FNMSUB, ADD, MUL:     return ADDMUL;
       DIV, SQRT:                   return DIVSQRT;
-      SGNJ, MINMAX, CMP, CLASSIFY:  return NONCOMP;
+      //SGN, MINMAX, CMP, CLASSIFY:  return NONCOMP;
       //F2F, F2I, I2F, CPKAB, CPKCD: return CONV;
-      default:                     return NONCOMP;
+      //default:                     return NONCOMP;
     endcase
   endfunction
 
@@ -284,7 +266,7 @@ package posit_pkg;
     unique case (grp)
       //ADDMUL:  return 3;
       DIVSQRT: return 2;
-      NONCOMP: return 2;
+      //NONCOMP: return 2;
       //CONV:    return 2; 
       default: return 0;
     endcase

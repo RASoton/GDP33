@@ -4,10 +4,10 @@ module posit_top #(
   parameter posit_pkg::posit_features_t       Features       = posit_pkg::POSIT32_CONFIG,
   parameter posit_pkg::posit_implementation_t Implementation = posit_pkg::DEFAULT_NOREGS,
   // PulpDivSqrt = 0 enables T-head-based DivSqrt unit. Supported only for FP32-only instances of Fpnew
-  parameter logic                           PulpDivsqrt    = 1'b1,  // Unused
-  parameter type                            TagType        = logic, 
-  parameter int unsigned                    TrueSIMDClass  = 0,     // Unused
-  parameter int unsigned                    EnableSIMDMask = 0,     // Unused
+  parameter logic                           PulpDivsqrt    = 1'b1, // Unused
+  parameter type                            TagType        = logic,
+  parameter int unsigned                    TrueSIMDClass  = 0, // Unused
+  parameter int unsigned                    EnableSIMDMask = 0, // Unused
   localparam int unsigned WIDTH        = Features.Width,
   localparam int unsigned NUM_OPERANDS = 3
 ) (
@@ -15,9 +15,9 @@ module posit_top #(
   input logic                               rst_ni,
   // Input signals
   input logic [NUM_OPERANDS-1:0][WIDTH-1:0] operands_i,
-  input posit_pkg::roundmode_e              rnd_mode_i, 
+  input posit_pkg::roundmode_e              rnd_mode_i, // Unused
   input posit_pkg::operation_e              op_i,
-  input logic                               op_mod_i, 
+  input logic                               op_mod_i, // Unused
   input posit_pkg::posit_format_e           src_fmt_i,
   input posit_pkg::posit_format_e           dst_fmt_i,
   input posit_pkg::int_format_e             int_fmt_i,

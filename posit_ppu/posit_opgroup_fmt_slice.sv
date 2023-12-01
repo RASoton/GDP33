@@ -56,12 +56,12 @@ module posit_opgroup_fmt_slice #(
   localparam int unsigned POSIT_WIDTH  = posit_pkg::posit_width(pFormat);
 
   logic [POSIT_WIDTH-1:0] 		 slice_result;
-  logic [Width-1:0]            slice_regular_result, slice_class_result;
+  logic [Width-1:0]              slice_regular_result, slice_class_result;
 
   posit_pkg::status_t     status;
-  logic                   ext_bit = 1'b1; 
+  logic                   ext_bit; 
   posit_pkg::classmask_e  class_result;
-  TagType                 tag; 
+  TagType                 tags; 
   logic                   busy;
 
   logic result_is_class;
@@ -89,55 +89,72 @@ module posit_opgroup_fmt_slice #(
   if (OpGroup == 123 /*posit_pkg::ADDMUL*/) begin : slice_instance
 /*
     posit_fma #(
-      .PositFormat ( pFormat )
+      .PositFormat ( pFormat     ),
+      .NumPipeRegs ( NumPipeRegs ),
+      .PipeConfig  ( PipeConfig  ),
+      .TagType     ( TagType     )
     ) i_fma (
       .clk_i,
       .rst_ni,
-      .operands_i      ( local_operands ),
+      .operands_i      ( local_operands               ),
+      .is_boxed_i      ( is_boxed_i[NUM_OPERANDS-1:0] ),
       .rnd_mode_i,
       .op_i,
       .op_mod_i,
+      .tag_i,
+      .in_valid_i      ( in_valid_i   ),
+      .in_ready_o      ( in_ready_o   ),
+      .flush_i,
+      .result_o        ( op_result    ),
+      .status_o        ( op_status    ),
+      .extension_bit_o ( ext_bit      ),
+      .tag_o           ( tags         ),
+      .out_valid_o     ( out_valid_o  ),
+      .out_ready_i     ( out_ready_i  ),
+      .busy_o          ( busy         ),
+      .reg_ena_i
+    );
+    assign result_is_class   = 1'b0;
+*/
+  end else if (OpGroup == posit_pkg::DIVSQRT) begin : slice_instance
+    posit_divsqrt #(
+      .pFormat   ( pFormat     ),
+      .NumPipeRegs   ( NumPipeRegs ),
+      .PipeConfig    ( PipeConfig  ),
+      .TagType       ( TagType     )
+    ) i_divsqrt (
+      .clk_i,
+      .rst_ni,
+      .operands_i      ( local_operands               ),
+      .is_boxed_i      ( is_boxed_i[NUM_OPERANDS-1:0] ),
+      .rnd_mode_i,
+      .op_i,
       .tag_i,
       .in_valid_i      ( in_valid_i    ),
       .in_ready_o      ( in_ready_o    ),
       .flush_i,
       .result_o        ( op_result     ),
       .status_o        ( op_status     ),
+      .extension_bit_o ( ext_bit       ),
       .tag_o           ( tags          ),
       .out_valid_o     ( out_valid_o   ),
       .out_ready_i     ( out_ready_i   ),
-      .busy_o          ( busy          )
-    );
-    assign result_is_class   = 1'b0;
-*/
-  end else if (OpGroup == posit_pkg::DIVSQRT) begin : slice_instance
-    posit_divsqrt #(
-      .pFormat   ( pFormat )
-    ) i_divsqrt (
-      .clk_i,
-      .rst_ni,
-      .operands_i      ( local_operands ),
-      .rnd_mode_i,
-      .op_i,
-      .tag_i,
-      .in_valid_i      ( in_valid_i     ),
-      .in_ready_o      ( in_ready_o     ),
-      .flush_i,
-      .result_o        ( op_result      ),
-      .status_o        ( op_status      ),
-      .tag_o           ( tag            ),
-      .out_valid_o     ( out_valid_o    ),
-      .out_ready_i     ( out_ready_i    ),
-      .busy_o          ( busy           )
+      .busy_o          ( busy          ),
+      .reg_ena_i
     );
     assign result_is_class = 1'b0;
-  end else if (OpGroup == posit_pkg::NONCOMP) begin : slice_instance
+  end else if (OpGroup == 456/* posit_pkg::NONCOMP */) begin : lane_instance
+/*
     posit_noncomp #(
-      .pFormat   ( pFormat )
+      .PositFormat   ( pFormat     ),
+      .NumPipeRegs   ( NumPipeRegs ),
+      .PipeConfig    ( PipeConfig  ),
+      .TagType       ( TagType     )
     ) i_noncomp (
       .clk_i,
       .rst_ni,
-      .operands_i      ( local_operands  ),
+      .operands_i      ( local_operands               ),
+      .is_boxed_i      ( is_boxed_i[NUM_OPERANDS-1:0] ),
       .rnd_mode_i,
       .op_i,
       .op_mod_i,
@@ -147,13 +164,16 @@ module posit_opgroup_fmt_slice #(
       .flush_i,
       .result_o        ( op_result       ),
       .status_o        ( op_status       ),
+      .extension_bit_o ( ext_bit         ),
       .class_mask_o    ( class_result    ),
       .is_class_o      ( result_is_class ),
-      .tag_o           ( tag             ),
+      .tag_o           ( tags            ),
       .out_valid_o     ( out_valid_o     ),
       .out_ready_i     ( out_ready_i     ),
-      .busy_o          ( busy            )
+      .busy_o          ( busy            ),
+      .reg_ena_i
     );
+*/
   end
 
   // Properly NaN-box or sign-extend the slice result if not in use
@@ -175,7 +195,7 @@ module posit_opgroup_fmt_slice #(
   assign result_o = result_is_class ? slice_class_result : slice_regular_result;
 
   assign extension_bit_o   = ext_bit; 
-  assign tag_o             = tag;    
+  assign tag_o             = tags;    
   assign busy_o            = (| busy);
   assign status_o          = op_status;
   
