@@ -139,17 +139,19 @@ module posit_noncomp #(
   	cmp_result = '0; // false
     cmp_status = '0; // no invalid values for posits
 
+    logic both_NaR = info_a.is_NaR & info_a.isNaR;
+
     unique case (rnd_mode_i)
       posit_pkg::LE: begin // Less than or equal
-				if (is_NaR) cmp_status.NV = 1'b1;
+				if (both_NaR) cmp_status.NV = 1'b1;
         else cmp_result = (operand_a_smaller | operands_equal) ^ op_mod_i;
 			end
       posit_pkg::LT: begin // Less than
-				if (is_NaR) cmp_status.NV = 1'b1;
+				if (both_NaR) cmp_status.NV = 1'b1;
         else cmp_result = (operand_a_smaller & ~operands_equal) ^ op_mod_i;
 			end
       posit_pkg::EQ: begin // Equal
-				if (is_NaR) cmp_result = op_mod_i; // NaR always not equal
+				if (both_NaR) cmp_result = op_mod_i; // NaR always not equal
         else cmp_result = operands_equal ^ op_mod_i;
 			end
       default: cmp_result = '{default: posit_pkg::DONT_CARE}; // don't care
