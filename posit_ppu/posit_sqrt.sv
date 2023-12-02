@@ -14,7 +14,7 @@ module posit_sqrt #(
   output logic [ES-1:0] E_O,
   output logic [RS+4:0] R_O,
   output logic [2*N-1:0] Sqrt_Mant,
-  output logic [RS+ES+4:0] Total_EO
+	output logic sign_Exponent_O
 );
 
   logic signed [RS:0] sqrt_r_val;
@@ -22,7 +22,7 @@ module posit_sqrt #(
   logic [N-1:0] r, index, shift, slope, intercept;
   logic [2*N-1:0] sqr_r, mx;
   logic [4*N-1:0] error;
-  logic [RS+ES+4:0] Total_EON;
+  logic [RS+ES+4:0] Total_EO, Total_EON;
 
   localparam logic [31:0] slopes_even [0:7]      = '{32'h3a904440, 32'h318b0307, 32'h2a9f9134, 32'h252d7982, 32'h20cd01d7, 32'h1d386f55, 32'h1a3f5400, 32'h17bf1c04};
   localparam logic [31:0] intercepts_even [0:7]  = '{32'hBA904440, 32'hB06A5AE0, 32'hA7C40C98, 32'hA0472C03, 32'h99B67883, 32'h93E50A6F, 32'h8EB11A9C, 32'h8A00B1A2};
@@ -75,6 +75,7 @@ module posit_sqrt #(
 						Sqrt_Mant = Sqrt_Mant >> 1;
 					Sqrt_Mant = Sqrt_Mant << 2;
 				end
+				sign_Exponent_O = Total_EO[RS+ES+4];
      		if(Total_EO[RS+ES+4]) // negative Total_EO
         	Total_EON = -Total_EO;
      		else            // positive exponent

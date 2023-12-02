@@ -23,7 +23,7 @@ module posit_top #(
   input posit_pkg::int_format_e             int_fmt_i,
   input logic                               vectorial_op_i, // Unused
   input TagType                             tag_i,
-  input logic                               simd_mask_i, // Unused
+  input logic                               simd_mask_i,    // Unused
   // Input Handshake
   input  logic                              in_valid_i,
   output logic                              in_ready_o,

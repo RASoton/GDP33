@@ -14,7 +14,7 @@
 // Author: Stefan Mach <smach@iis.ee.ethz.ch> 
 
 module posit_opgroup_fmt_slice #(
-  parameter posit_pkg::opgroup_e        OpGroup       = posit_pkg::DIVSQRT,
+  parameter posit_pkg::opgroup_e        OpGroup       = posit_pkg::ADDMUL,
   parameter posit_pkg::posit_format_e   pFormat       = posit_pkg::posit_format_e'(0),
   // FPU configuration
   parameter int unsigned                Width         = 32,
@@ -86,15 +86,13 @@ module posit_opgroup_fmt_slice #(
   end
 
   // Instantiate the operation from the selected opgroup
-  if (OpGroup == 123 /*posit_pkg::ADDMUL*/) begin : slice_instance
-/*
+  if (OpGroup == posit_pkg::ADDMUL) begin : slice_instance
     posit_fma #(
-      .PositFormat ( pFormat )
+      .pFormat ( pFormat )
     ) i_fma (
       .clk_i,
       .rst_ni,
       .operands_i      ( local_operands ),
-      .rnd_mode_i,
       .op_i,
       .op_mod_i,
       .tag_i,
@@ -109,7 +107,7 @@ module posit_opgroup_fmt_slice #(
       .busy_o          ( busy          )
     );
     assign result_is_class   = 1'b0;
-*/
+
   end else if (OpGroup == posit_pkg::DIVSQRT) begin : slice_instance
     posit_divsqrt #(
       .pFormat   ( pFormat )
@@ -131,6 +129,7 @@ module posit_opgroup_fmt_slice #(
       .busy_o          ( busy           )
     );
     assign result_is_class = 1'b0;
+
   end else if (OpGroup == posit_pkg::NONCOMP) begin : slice_instance
     posit_noncomp #(
       .pFormat   ( pFormat )

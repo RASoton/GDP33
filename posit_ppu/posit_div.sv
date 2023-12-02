@@ -30,10 +30,10 @@ module posit_div #(
   input  logic NaR1, NaR2,
   input  logic zero1, zero2,
   output logic [2*N-1:0] Div_Mant_N,
-  output logic [RS+ES+4:0] Total_EO,
   output logic [ES-1:0] E_O,
-  output logic signed [RS+4:0] R_O, sumR,
-  output logic NaR, zero, Sign, OF, UF
+  output logic signed [RS+4:0] R_O,
+  output logic NaR, zero, Sign, OF, UF,
+	output logic sign_Exponent_O
   );
 
   int i;
@@ -42,9 +42,11 @@ module posit_div #(
   logic [3*N-1:0] dividend, divisor; 
   logic signed [1:0]sumE_Ovf;
   logic signed[ES+2:0] sumE; // 2 more bit: ES+1 for sign, ES for overflow
-  logic [RS+ES+4:0] Total_EON;
+  logic [RS+ES+4:0] Total_EON, Total_EO;
+	logic signed [RS+4:0] sumR;
   logic signed [ES+1:0]signed_E1, signed_E2;
   logic signed [1:0]Div_Mant_underflow;
+	logic sign_Exponent_o;
 
   always_comb begin
 	 Sign = 0;
@@ -90,10 +92,10 @@ module posit_div #(
 
      Total_EO = (sumR<<ES)+ sumE;
 
-     if(sumE[ES+2])
-       E_O = sumE[ES-1:0];
-     else
-       E_O = sumE[ES-1:0];
+
+     E_O = sumE[ES-1:0];
+
+     sign_Exponent_O = Total_EO[RS+ES+4];
 
      if(Total_EO[RS+ES+4]) // negative Total_EO
        Total_EON = -Total_EO;
@@ -106,6 +108,7 @@ module posit_div #(
        R_O = Total_EON[ES+RS+3:ES] + 1;
      else
      R_O = Total_EON[RS+ES+3:ES];
+
 		 OF = (sumR > 31)? 1:0;
 		 UF = (sumR < -30)? 1:0;
 		end

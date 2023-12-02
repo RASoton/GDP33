@@ -14,7 +14,7 @@
 // Author: Stefan Mach <smach@iis.ee.ethz.ch>
 
 module posit_opgroup_block #(
-  parameter posit_pkg::opgroup_e        OpGroup       = posit_pkg::DIVSQRT,
+  parameter posit_pkg::opgroup_e        OpGroup       = posit_pkg::ADDMUL,
   // FPU configuration
   parameter int unsigned                Width         = 32,
   parameter posit_pkg::fmt_logic_t      PositFmtMask  = '1,

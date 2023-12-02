@@ -141,16 +141,13 @@ module posit_noncomp #(
 
     unique case (rnd_mode_i)
       posit_pkg::LE: begin // Less than or equal
-				if (is_NaR) cmp_status.NV = 1'b1;
-        else cmp_result = (operand_a_smaller | operands_equal) ^ op_mod_i;
+        cmp_result = (operand_a_smaller | operands_equal) ^ op_mod_i;
 			end
       posit_pkg::LT: begin // Less than
-				if (is_NaR) cmp_status.NV = 1'b1;
-        else cmp_result = (operand_a_smaller & ~operands_equal) ^ op_mod_i;
+        cmp_result = (operand_a_smaller & ~operands_equal) ^ op_mod_i;
 			end
       posit_pkg::EQ: begin // Equal
-				if (is_NaR) cmp_result = op_mod_i; // NaR always not equal
-        else cmp_result = operands_equal ^ op_mod_i;
+        cmp_result = operands_equal ^ op_mod_i;
 			end
       default: cmp_result = '{default: posit_pkg::DONT_CARE}; // don't care
     endcase

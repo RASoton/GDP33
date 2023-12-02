@@ -6,7 +6,7 @@ package posit_pkg;
   // ---------
   // | Enumerator | Format           | Width  | REGIME | EXP_BITS | FRAC_BITS
   // |:----------:|------------------|-------:|:------:|:--------:|:--------:
-  // | POSIT32    | POSIT binary32   | 32 bit | r      | 2        | 29-r
+  // | POSIT32    | POSIT binary32   | 32 bit | r      | 0-2      | 0-28
  
   // Encoding for a format
   typedef struct packed {
@@ -79,12 +79,11 @@ package posit_pkg;
   // POSIT OPERATIONS
   // --------------
 
-  localparam int unsigned NUM_OPGROUPS = 2;
+  localparam int unsigned NUM_OPGROUPS = 3;
 
   // Each POSIT operation belongs to an operation group
   typedef enum logic [1:0] {
-		DIVSQRT, NONCOMP
-    //ADDMUL, DIVSQRT, NONCOMP, CONV
+    ADDMUL, DIVSQRT, NONCOMP /*,CONV */
   } opgroup_e;
 
 
@@ -110,8 +109,8 @@ package posit_pkg;
   typedef enum logic [OP_BITS-1:0] {
     FMADD, FNMSUB, ADD, MUL,     // ADDMUL operation group
     DIV, SQRT,                   // DIVSQRT operation group
-    SGNJ, MINMAX, CMP, CLASSIFY, // NONCOMP operation group
-    F2F, F2I, I2F, CPKAB, CPKCD  // CONV operation group
+    SGNJ, MINMAX, CMP, CLASSIFY // NONCOMP operation group
+    //F2F, F2I, I2F, CPKAB, CPKCD  // CONV operation group
   } operation_e;
 
   // -------------------
@@ -210,9 +209,9 @@ package posit_pkg;
 
   localparam posit_implementation_t DEFAULT_NOREGS = '{
     PipeRegs:   '{default: 0},
-    UnitTypes:  '{'{default: PARALLEL}, // ADDMUL
+    UnitTypes:  '{'{default: PARALLEL},   // ADDMUL
                   '{default: PARALLEL},   // DIVSQRT
-                  '{default: PARALLEL}, // NONCOMP
+                  '{default: PARALLEL},   // NONCOMP
                   '{default: PARALLEL}},  // CONV
     PipeConfig: BEFORE
   };
@@ -271,7 +270,7 @@ package posit_pkg;
   // Returns the operation group of the given operation
   function automatic opgroup_e get_opgroup(operation_e op);
     unique case (op)
-      //FMADD, FNMSUB, ADD, MUL:     return ADDMUL;
+      FMADD, FNMSUB, ADD, MUL:     return ADDMUL;
       DIV, SQRT:                   return DIVSQRT;
       SGNJ, MINMAX, CMP, CLASSIFY:  return NONCOMP;
       //F2F, F2I, I2F, CPKAB, CPKCD: return CONV;
@@ -282,7 +281,7 @@ package posit_pkg;
   // Returns the number of operands by operation group
   function automatic int unsigned num_operands(opgroup_e grp);
     unique case (grp)
-      //ADDMUL:  return 3;
+      ADDMUL:  return 3;
       DIVSQRT: return 2;
       NONCOMP: return 2;
       //CONV:    return 2; 

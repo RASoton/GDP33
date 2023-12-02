@@ -43,16 +43,16 @@ module posit_divsqrt #(
 	logic NaR1, NaR2, zero1, zero2;
 
 	logic [2*WIDTH-1:0] Mant, Div_Mant_N, Sqrt_Mant_N;
-	logic [RS+ES+4:0]Total_EO, Total_EO_div, Total_EO_sqrt, Total_EON;
 	logic [ES-1:0] E_O, E_O_div, E_O_sqrt;
-	logic signed [RS+4:0] R_O, R_O_div, R_O_sqrt, sumR;
+	logic signed [RS+4:0] R_O, R_O_div, R_O_sqrt;
 	logic zero, zero_div;
   logic NaR, NaR_div, NaR_sqrt;
 	logic Sign, Sign_div, Sign_sqrt;
 	logic [WIDTH-1:0] Result;
-	logic NV, DZ, OF, UF, NX, Done;
+	logic NV, DZ, OF, UF, NX;
 	posit_pkg::status_t status;
 	logic Div_enable, Sqrt_enable;
+	logic sign_Exponent_O, SE_div, SE_sqrt;
 
 	//Extraction for operand_a
 	posit_extraction #(pFormat) extractor1
@@ -100,10 +100,9 @@ module posit_divsqrt #(
 	 .zero2      (zero2),
 	 .Sign       (Sign_div),
 	 .Div_Mant_N (Div_Mant_N),
-	 .Total_EO   (Total_EO_div),
+	 .sign_Exponent_O(SE_div),
 	 .E_O        (E_O_div),
 	 .R_O        (R_O_div),
-	 .sumR       (sumR),
 	 .NaR        (NaR_div),
 	 .zero       (zero_div),
 	 .OF         (OF),
@@ -119,22 +118,21 @@ module posit_divsqrt #(
    .Mantissa  (Mantissa1), 
 	 .E_O       (E_O_sqrt),
 	 .R_O       (R_O_sqrt),
-	 .Total_EO  (Total_EO_sqrt),
 	 .Sqrt_Mant (Sqrt_Mant_N),
+	 .sign_Exponent_O(SE_sqrt),
 	 .NaR       (NaR_sqrt)
   );
 
-	//RNE
+
 	posit_rounding #(pFormat) rnd(
-	 .Sign     (Sign),
-	 .R_O      (R_O),
-	 .E_O      (E_O),
-	 .Mant     (Mant),
-	 .Total_EO (Total_EO),
-	 .NaR      (NaR),
-	 .zero     (zero),
-	 .OUT      (Result),
-	 .NX       (NX)
+	 .Sign(Sign),
+   .R_O(R_O),
+	 .E_O(E_O),
+	 .Comp_Mant_N(Mant),
+	 .sign_Exponent_O(sign_Exponent_O),
+	 .NaR(NaR),
+	 .zero(zero),
+   .OUT(Result)
 	);
 
 	always_comb begin
@@ -147,22 +145,22 @@ module posit_divsqrt #(
 			E_O = E_O_div;
 			R_O = R_O_div;
 			Mant = Div_Mant_N;
-			Total_EO = Total_EO_div;
 			zero = zero_div;
 			NaR = NaR_div;
 			NV = NaR;
 			DZ = (zero2)? 1:0;
+			sign_Exponent_O = SE_div;
 		end else if (sqrt_valid) begin
 			Sqrt_enable = 1'b1;
 			Sign = Sign1;
 			E_O = E_O_sqrt;
 			R_O = R_O_sqrt;
 			Mant = Sqrt_Mant_N;
-			Total_EO = Total_EO_sqrt;
 			zero = zero1;
 			NaR = NaR_sqrt;
 			NV = NaR;
 			DZ = 1'b0;
+			sign_Exponent_O = SE_sqrt;
 		end
 	end
 
@@ -171,8 +169,7 @@ module posit_divsqrt #(
   // Output Select
   // --------------
   assign result_o        = Result;
-  assign status_o        = {NV, DZ, OF, UF, NX};
-  assign extension_bit_o = 1'b1; // always NaN-Box result
+  assign status_o        = '0;
   assign tag_o           = tag_i;
   assign out_valid_o     = in_valid_i;
   assign busy_o          = in_valid_i;

@@ -109,22 +109,54 @@ module tb_posit_top;
     operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01001000111000000000000000000000};  
 		#10 display_vals();
 
-   	op_i = posit_pkg::CLASSIFY; 
+   	op_i = posit_pkg::CLASSIFY; //CLASSIFY
 		rnd_mode_i = posit_pkg::RNE; 
     operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01101000111000000000000000000000};  
 		#10 display_vals();
 
-   	op_i = posit_pkg::DIV; 
-		rnd_mode_i = posit_pkg::RNE; 
-    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b0};  
+   	op_i = posit_pkg::ADD; //ADD
+		op_mod_i = 1'b0;
+    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01111000100000000000000110000000};  
 		#10 display_vals();
 
-   	op_i = posit_pkg::SQRT; 
-		rnd_mode_i = posit_pkg::RNE; 
-    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01000000000000000000000000000000};  
+   	op_i = posit_pkg::ADD; //SUB
+		op_mod_i = 1'b1;
+    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01001000100000000000000110000000};  
+		#10 display_vals();
+
+   	op_i = posit_pkg::MUL; //MUL
+		op_mod_i = 1'b0;
+    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01101000100000000000000110000000};  
+		#10 display_vals();
+
+   	op_i = posit_pkg::FMADD; //FMADD
+		op_mod_i = 1'b0;
+    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b00111000100000000000000110000000};  
+		#10 display_vals();
+
+   	op_i = posit_pkg::FMADD; //FMSUB
+		op_mod_i = 1'b1;
+    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01100000100000000000000110000000};  
+		#10 display_vals();
+
+   	op_i = posit_pkg::FNMSUB; //FNMADD 
+		op_mod_i = 1'b1;
+    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01100000100000000000000110000000};  
+		#10 display_vals();
+
+   	op_i = posit_pkg::FNMSUB ; //FNMSUB 
+		op_mod_i = 1'b0;
+    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01101000100000000000000110000000};  
+		#10 display_vals();
+
+   	op_i = posit_pkg::DIV; //DIV 
+    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01011000100000000000000110000000};  
+		#10 display_vals();
+
+   	op_i = posit_pkg::SQRT; //SQRT 
+    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01011000010000010000111000000000};  
 		#10 display_vals();
     
-
 		//------------------------------------------------------------ End  -----------------------------------------------------------------------
 		#10;
     $stop; 
@@ -146,11 +178,11 @@ module tb_posit_top;
     	val2 = get_real(S2, K2, E2, M2);
     	valR = get_real(SR, KR, ER, MR);
 			if(op_i == posit_pkg::CMP || op_i == posit_pkg::CLASSIFY) begin
-    		$display("IN0= %f, IN1= %f, IN2= %f, Op= %b ,Rnd= %b, Status= %b, Result= %0d",
-							  	val0, val1, val2, op_i, rnd_mode_i, status_o, result_o);
+    		$display("IN0= %8f, IN1= %8f, IN2= %8f, Op= %b ,Rnd= %b, Op_mod=%b, Status= %b, Result= %0d",
+							  	val0, val1, val2, op_i, rnd_mode_i, op_mod_i, status_o, result_o);
 			end else begin
-    		$display("IN0= %f, IN1= %f, IN2= %f, Op= %b ,Rnd= %b, Status= %b, Result= %f",
-							  	val0, val1, val2, op_i, rnd_mode_i, status_o, valR);
+    		$display("IN0= %8f, IN1= %8f, IN2= %8f, Op= %b ,Rnd= %b, Op_mod=%b, Status= %b, Result= %8f",
+							  	val0, val1, val2, op_i, rnd_mode_i, op_mod_i, status_o, valR);
 			end
 		end
 	endtask
