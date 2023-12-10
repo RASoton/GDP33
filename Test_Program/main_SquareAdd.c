@@ -17,9 +17,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define ZERO 0x00000000
-#define ONE 0x40000000
-
 union FloatBinary {
     float f;
     unsigned int i;
@@ -36,19 +33,20 @@ void print_float_binary(float num) {
 int main(int argc, char *argv[])
 {
   printf("---------------- Posit custom function start ----------------\n");
-  // custom code here
-  volatile float a, b;
-  a = ZERO; // a = 0
-  b = ONE; // b = 1
   
-  volatile float sum = ZERO; // Initial sum = 0
-  volatile float denom = ONE; // denom = 1
-  volatile float count = ONE; // initial count = 1
+  union FloatBinary ONE, ZERO;
+  ONE.i = 0x40000000;
+  ZERO.i = 0x00000000;
+
+  // custom code here
+  volatile float sum = ZERO.f; // Initial sum = 0
+  volatile float denom = ONE.f; // denom = 1
+  volatile float count = ONE.f; // initial count = 1
   
   for (int i = 0; i < 100; i++)
   {
-    sum += ONE/denom;
-    count = count + ONE;
+    sum += ONE.f/denom;
+    count = count + ONE.f;
     denom = count*count;
     
     printf("[%d] sum = ", i);
