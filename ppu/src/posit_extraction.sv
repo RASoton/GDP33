@@ -75,9 +75,9 @@ module posit_extraction #
     Exponent = ShiftedRemain[N-2:((N-1)-ES)];
 
     //Mantissa Bits Extraction
-		if (zero)
+    if(zero)
     	Mantissa = {1'b0, ShiftedRemain[N-ES-2:0], ZEROs};
-		else
-			Mantissa = {1'b1, ShiftedRemain[N-ES-2:0], ZEROs};
+    else
+    	Mantissa = {1'b1, ShiftedRemain[N-ES-2:0], ZEROs};
 end
 endmodule
