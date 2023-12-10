@@ -33,7 +33,7 @@ void printFloatBinary(float num) {
     fb.f = num;
 
     //printf("Floating-point number: %f\n", fb.f);
-    printf("Binary representation: %x\n", fb.i);
+    printf("Binary representation: %08x\n", fb.i);
 }
 
 //void activate_random_stall(void)
@@ -80,8 +80,8 @@ int main(int argc, char *argv[])
 {
   printf("---------------- Posit custom function start ----------------\n");
   // custom code here
-  volatile unsigned int test_a[5] = {0x40000000, 0.43, 0.33, 0.65, 0.55};
-  volatile unsigned int test_b[5] = {0x48000000, 0.85, 1.25, 6.88, 3.27};
+  volatile unsigned int test_a[5] = {0x40000000, 0x45882244, 0x12556763, 0x99383658, 0x94586527};
+  volatile unsigned int test_b[5] = {0x48000000, 0x91277305, 0x22625129, 0x45645234, 0x45216378};
   
   union FloatBinary a_temp, b_temp;
   
@@ -89,13 +89,12 @@ int main(int argc, char *argv[])
   volatile float b = 0.13;
   volatile float output;
   
-  // output = a[i] * b[i];
-  output = a * b;
-  printf("a * b = %x \n", output);
-  printf("binary = ");
+//  output = a * b;
+//  printf("a * b = %x \n", output);
+//  printf("binary = ");
 
-  printFloatBinary(output);
-  printf("\n");
+//  printFloatBinary(output);
+//  printf("\n");
   for(int i = 0; i < 5; i++)
   {
     a_temp.i = test_a[i];
