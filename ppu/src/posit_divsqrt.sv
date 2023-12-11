@@ -1,5 +1,5 @@
 
-`include "registers.svh"
+`include "common_cells/registers.svh"
 
 module posit_divsqrt #(
   parameter posit_pkg::posit_format_e  pFormat = posit_pkg::posit_format_e'(0),
