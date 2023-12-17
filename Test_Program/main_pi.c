@@ -1,47 +1,80 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-union posit {
-    float f;
-    unsigned int i;
+union posit
+{
+  float f;
+  unsigned int i;
 };
 
-union posit pi, ONE, P_100;
+union posit pi, ONE, P_100, Min;
 
 int main(int argc, char *argv[])
 {
-  pi.i = 0x4c90fdaa; // value of Pi = 3.141592651605606
-  ONE.i = 0x40000000; // value 1 in posit format
-  P_100.f = 0x6a400000; // value 100 in posit
+  pi.i = 0x4c90fdaa;    // value of Pi = 3.141592651605606
+  ONE.i = 0x40000000;   // value 1 in posit format
+  P_100.i = 0x6a400000; // value 100 in posit
+  Min.i = 0x00000001;   // value of minimum posit
   printf("---------------- Posit custom function start ----------------\n");
-  
-  union posit temp;
-  union posit sum, count;
-  
+
+  union posit temp, temp_count;
+volatile union posit sum, count, mid_value;
+
   sum.i = 0x00000000; // initial sum to 0
   temp.i = 0x40000000;
   count.i = 0x00000000;
-  
-  for(int i = 0;; i++)
+  temp_count.i = 0x78331115;
+
+  int i = 0;
+  for (i;; i++)
   {
-    sum.f += ONE.f/(P_100.f*count.f + pi.f);
-    
-    count.f += ONE.f;
-    
-    if(temp.f != sum.f)
+    mid_value.f = ONE.f / (P_100.f * count.f + pi.f);
+    if(temp_count.f != count.f)
     {
-      temp.f = sum.f;
-      printf("[%d], %08x \n", i, sum.i);
-      continue;
+      sum.f += mid_value.f;
     }
-    else
+  
+
+    if (mid_value.f == Min.f)
     {
-      printf("[%d], %08x, value save finish calulation), i, sum.i");
+      printf("[%d - %08x], %08x, %08x Value of mid_value reach minimum. Program finish\n", i, count.i, sum.i, mid_value.i);
       break;
     }
-    
-
+    else if (temp_count.f == count.f)
+    {
+      printf("[%d - %08x], %08x, %08x Value of n is equal to previous n. Program finish\n", i, temp.i, sum.i, mid_value.i);
+      break;
+    }
+    else if (temp.f != sum.f)
+    {
+      // printf("[%d], %08x \n", i, sum.i);
+      if (i % 5000 == 0)
+      {
+        printf("[%d - %08x], %08x, %08x \n", i, count.i, sum.i, mid_value.i);
+      }
+      //continue;
+    }
+    else if(temp.f == sum.f)
+    {
+      printf("[%d - %08x], %08x, %08x, value same finish calulation \n", i, count.i, sum.i, mid_value.i);
+      break;
+    }
+    else{
+      printf("error \n");
+    }
+    temp.f = sum.f;
+    temp_count.f = count.f;
+    count.f += ONE.f;
   }
+
+  // for (i; i >= 0; i--)
+  // {
+  //   sum.f -= ONE.f / (P_100.f * count.f + pi.f);
+  //   count.f -= ONE.f;
+  //   //    printf("[%d], %08x \n", i, sum.i);
+  // }
+  // printf("[%d], %08x \n", i, sum.i);
+  // printf("Finish reverse calculation.");
 
   printf("----------------- Posit custom function end -----------------\n");
 
