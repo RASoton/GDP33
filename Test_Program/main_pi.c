@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
   printf("---------------- Posit custom function start ----------------\n");
 
   union posit temp, temp_count;
-volatile union posit sum, count, mid_value;
+  volatile union posit sum, count, mid_value;
 
   sum.i = 0x00000000; // initial sum to 0
   temp.i = 0x40000000;
@@ -29,20 +29,19 @@ volatile union posit sum, count, mid_value;
   for (i;; i++)
   {
     mid_value.f = ONE.f / (P_100.f * count.f + pi.f);
-    if(temp_count.f != count.f)
+    if (temp_count.f != count.f)
     {
       sum.f += mid_value.f;
     }
-  
 
     if (mid_value.f == Min.f)
     {
-      printf("[%d - %08x], %08x, %08x Value of mid_value reach minimum. Program finish\n", i, count.i, sum.i, mid_value.i);
+      printf("[%d - %08x], %08x, %08x \n Value of mid_value reach minimum. Program finish\n", i, count.i, sum.i, mid_value.i);
       break;
     }
     else if (temp_count.f == count.f)
     {
-      printf("[%d - %08x], %08x, %08x Value of n is equal to previous n. Program finish\n", i, temp.i, sum.i, mid_value.i);
+      printf("[%d - %08x], %08x, %08x \n Value of n is equal to previous n. Program finish\n", i, temp.i, sum.i, mid_value.i);
       break;
     }
     else if (temp.f != sum.f)
@@ -52,14 +51,15 @@ volatile union posit sum, count, mid_value;
       {
         printf("[%d - %08x], %08x, %08x \n", i, count.i, sum.i, mid_value.i);
       }
-      //continue;
+      // continue;
     }
-    else if(temp.f == sum.f)
+    else if (temp.f == sum.f)
     {
-      printf("[%d - %08x], %08x, %08x, value same finish calulation \n", i, count.i, sum.i, mid_value.i);
+      printf("[%d - %08x], %08x, %08x \n value same finish calulation \n", i, count.i, sum.i, mid_value.i);
       break;
     }
-    else{
+    else
+    {
       printf("error \n");
     }
     temp.f = sum.f;
@@ -67,14 +67,25 @@ volatile union posit sum, count, mid_value;
     count.f += ONE.f;
   }
 
-  // for (i; i >= 0; i--)
-  // {
-  //   sum.f -= ONE.f / (P_100.f * count.f + pi.f);
-  //   count.f -= ONE.f;
-  //   //    printf("[%d], %08x \n", i, sum.i);
-  // }
-  // printf("[%d], %08x \n", i, sum.i);
-  // printf("Finish reverse calculation.");
+  i--; // as in the final loop, the value is the same.
+
+  printf("\n reverse calculation \n");
+  printf("initial [%d], %08x \n", i, sum.i);
+  for (i; i >= 0; i--)
+  {
+    count.f -= ONE.f;
+    //mid_value.f = ONE.f / (P_100.f * count.f + pi.f);
+    //sum.f -= mid_value.f;
+    if (i % 5000 == 0)
+    {
+      printf("[%d - %08x], %08x, %08x \n", i, count.i, sum.i, mid_value.i);
+    }
+    sum.f -= mid_value.f;
+    mid_value.f = ONE.f / (P_100.f * count.f + pi.f);
+    //count.f -= ONE.f;
+  }
+  //printf("\nreverse final value [%d], %08x \n", i, sum.i);
+  printf("Finish reverse calculation. \n");
 
   printf("----------------- Posit custom function end -----------------\n");
 
