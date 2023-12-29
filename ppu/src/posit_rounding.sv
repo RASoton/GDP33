@@ -1,3 +1,13 @@
+// Copyright and related rights are licensed under the Solderpad Hardware
+// License, Version 0.51 (the "License"); you may not use this file except in
+// compliance with the License.  You may obtain a copy of the License at
+// http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law
+// or agreed to in writing, software, hardware and materials distributed under
+// this License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the
+// specific language governing permissions and limitations under the License.
+
+// Language: SystemVerilog
 
 /////////////////////////////////////////////////////////////////////
 // Design unit: Rounding
@@ -19,9 +29,9 @@
 
 module posit_rounding #(
   parameter posit_pkg::posit_format_e   pFormat = posit_pkg::posit_format_e'(0),
-	localparam int unsigned N = posit_pkg::posit_width(pFormat), 
-	localparam int unsigned ES = posit_pkg::exp_bits(pFormat), 
-	localparam int unsigned RS = $clog2(N)
+  localparam int unsigned N = posit_pkg::posit_width(pFormat), 
+  localparam int unsigned ES = posit_pkg::exp_bits(pFormat), 
+  localparam int unsigned RS = $clog2(N)
 ) (
   input  logic [ES-1:0] E_O,
   input  logic [2*N-1:0] Comp_Mant_N,
@@ -33,23 +43,22 @@ module posit_rounding #(
   // output logic [3:0] rounding_map
 );
 
-	// logic L,G,R,S,ulp;
-	// Letian Chen 
-	logic round, L, G, S, round_condition;
-	logic [2*N-1:0] regime_temp_output; // store regime and sign
-	logic [N-1:0] regime_output;
-	logic [N-1:0] exp_frac_output;
-	logic [2*N+1:0] exp_frac_combine_output, rounding_temp, rounding_temp1;
-	logic [N-1:0] temp_output, temp_output1;
-	// logic [N-1:0] OUT_neg;
-	logic [RS+4:0] R_O_fin;
-
-	logic [RS+4:0] usd_ro;
-	assign usd_ro = R_O;
-
-	always_comb
-	begin
-	// exp_frac_combine_output = {3'b1, {temp2}}; // combine 1-Overflow bit, 2-Exponent bit, 63-fraction bit
+  // logic L,G,R,S,ulp;
+  // Letian Chen 
+  logic round, L, G, S, round_condition;
+  logic [2*N-1:0] regime_temp_output; // store regime and sign
+  logic [N-1:0] regime_output;
+  logic [N-1:0] exp_frac_output;
+  logic [2*N+1:0] exp_frac_combine_output, rounding_temp, rounding_temp1;
+  logic [N-1:0] temp_output, temp_output1;
+  // logic [N-1:0] OUT_neg;
+  logic [RS+4:0] R_O_fin;
+  
+  logic [RS+4:0] usd_ro;
+  assign usd_ro = R_O;
+  
+  always_comb begin
+    // exp_frac_combine_output = {3'b1, {temp2}}; // combine 1-Overflow bit, 2-Exponent bit, 63-fraction bit
     //////      ROUNDING        //////
     exp_frac_combine_output = {1'b0,E_O[ES-1:0],Comp_Mant_N[2*N-2:0]}; // combine 1-Overflow bit, 2-Exponent bit, 63-fraction bit
    
@@ -75,9 +84,9 @@ module posit_rounding #(
 
     if(G & round_condition)
     begin
-        if(S)
+      if(S)
         round = 1'b1;
-        else
+      else
         round = L;
     end
     else
