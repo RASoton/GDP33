@@ -31,7 +31,6 @@ module posit_sqrt #(
   logic [N-1:0] x, index, shift, slope, intercept;
   logic [2*N-1:0] sqr_x, mx;
   logic [3*N-1:0] error;
-  logic [RS+ES+4:0] Total_EO, Total_EON;
 
   localparam logic [31:0] slopes_even [0:7]      = '{32'h3a904440, 32'h318b0307, 32'h2a9f9134, 32'h252d7982, 32'h20cd01d7, 32'h1d386f55, 32'h1a3f5400, 32'h17bf1c04};
   localparam logic [31:0] intercepts_even [0:7]  = '{32'hBA904440, 32'hB06A5AE0, 32'hA7C40C98, 32'hA0472C03, 32'h99B67883, 32'h93E50A6F, 32'h8EB11A9C, 32'h8A00B1A2};
@@ -44,8 +43,6 @@ module posit_sqrt #(
       Sqrt_regime = Regime >>> 1;
       // square root of exponent
       E_O = (Regime & 1'b1) ? ((Exponent >> 1) + 2) : (Exponent >> 1);
-      // total exponent = 4*regime + exponent
-      Total_EO = (Sqrt_regime << ES) + E_O;
       if ((Mantissa << 1) == '0) begin
         Sqrt_Mant = (Exponent & 1'b1) ? 64'hB504F333F9DE6800 : 64'h8000000000000000;
       end else begin
@@ -70,10 +67,8 @@ module posit_sqrt #(
 		  Sqrt_Mant = Sqrt_Mant << 2;
       end
       // adjust for rounding
-      sign_Exponent_O = Total_EO[RS+ES+4];
-      Total_EON = sign_Exponent_O ? -Total_EO : Total_EO;
-      R_O = (~sign_Exponent_O || (sign_Exponent_O && |(Total_EON[ES-1:0])))
-            ? Total_EON[ES+RS+3:ES] + 1 : Total_EON[RS+ES+3:ES];	
+      sign_Exponent_O = Sqrt_regime[RS];
+      R_O = (sign_Exponent_O) ? -Sqrt_regime : Sqrt_regime;
     end
   end
 endmodule

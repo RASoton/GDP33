@@ -22,7 +22,7 @@ module posit_sqrt_NR #(
   input logic [ES-1:0] Exponent,
   input logic [N-1:0] Mantissa,     
   output logic [ES-1:0] E_O,
-  output logic [RS+4:0] R_O,
+  output logic signed [RS+4:0] R_O,
   output logic [2*N-1:0] Sqrt_Mant,
   output logic sign_Exponent_O
 );
@@ -30,20 +30,16 @@ module posit_sqrt_NR #(
   logic [2*N-1:0] Q;
   logic signed [N+1:0] R;
   logic signed [RS:0] Sqrt_regime;
-  logic [RS+ES+4:0] Total_EO, Total_EON;
 
   always_comb begin
     R_O = '0;
     E_O = '0;
     Sqrt_Mant = '0;
-    Total_EO = '0;
     if (Enable) begin 
       // square root of regime
       Sqrt_regime = Regime >>> 1; 
       // square root of exponent
       E_O = (Regime & 1'b1) ? ((Exponent >> 1) + 2) : (Exponent >> 1); 
-      // total exponent = 4*regime + exponent
-      Total_EO = (Sqrt_regime << ES) + E_O;
       // Non-restoring square root algorithm
       Q = '0; // quotient or root
       R = '0; // remainder
@@ -60,10 +56,8 @@ module posit_sqrt_NR #(
         R = (R < 0) ? (R+((Q << 1) | 1'b1)) : R;
         Sqrt_Mant = Q << 32;
         // adjust for rounding
-        sign_Exponent_O = Total_EO[RS+ES+4];
-        Total_EON = sign_Exponent_O ? -Total_EO : Total_EO;
-        R_O = (~sign_Exponent_O || (sign_Exponent_O && |(Total_EON[ES-1:0])))
-              ? Total_EON[ES+RS+3:ES] + 1 : Total_EON[RS+ES+3:ES];	
+        sign_Exponent_O = Sqrt_regime[RS];
+        R_O = (sign_Exponent_O) ? -Sqrt_regime : Sqrt_regime;
     end
   end
 endmodule

@@ -7,12 +7,8 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 
-<<<<<<< Updated upstream
-`include "registers.svh"
-=======
 // Language: SystemVerilog
 // Description: posit-based division and square root 
->>>>>>> Stashed changes
 
 module posit_divsqrt #(
   parameter posit_pkg::posit_format_e  pFormat = posit_pkg::posit_format_e'(0),

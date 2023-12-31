@@ -115,7 +115,7 @@ module tb_posit_top;
 
    	op_i = posit_pkg::ADD; //ADD
    	op_mod_i = 1'b0;
-    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b01111000100000000000000110000000};  
+    operands_i = {32'b00000001110000110001101111011111, 32'b00000001110111011111001111010001, 32'b00000000000000000000000000010000};  
     #10 display_vals();
 
    	op_i = posit_pkg::ADD; //SUB
@@ -153,7 +153,7 @@ module tb_posit_top;
     #10 display_vals();
 
    	op_i = posit_pkg::SQRT; //SQRT 
-    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'h48000000};  
+    operands_i = {32'b01001011001100011100011100101010, 32'b01001000111000000000000000000000, 32'b00000001110111011111001111010001};  
     #10 display_vals();
     
     //------------------------------------------------------------ End  -----------------------------------------------------------------------
@@ -180,7 +180,7 @@ module tb_posit_top;
       $display("IN0= %8f, IN1= %8f, IN2= %8f, Op= %b ,Rnd= %b, Op_mod=%b, Status= %b, Result= %0d",
 				val0, val1, val2, op_i, rnd_mode_i, op_mod_i, status_o, result_o);
     end else begin
-      $display("IN0= %8f, IN1= %8f, IN2= %8f, Op= %b ,Rnd= %b, Op_mod=%b, Status= %b, Result= %8f",
+      $display("IN0= %.10f, IN1= %.10f, IN2= %.10f, Op= %b ,Rnd= %b, Op_mod=%b, Status= %b, Result= %.10f",
 				val0, val1, val2, op_i, rnd_mode_i, op_mod_i, status_o, valR);
     end
   end
