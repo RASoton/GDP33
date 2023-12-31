@@ -1,9 +1,20 @@
+// Copyright and related rights are licensed under the Solderpad Hardware
+// License, Version 0.51 (the "License"); you may not use this file except in
+// compliance with the License.  You may obtain a copy of the License at
+// http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law
+// or agreed to in writing, software, hardware and materials distributed under
+// this License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the
+// specific language governing permissions and limitations under the License.
+
+// Language: SystemVerilog
+// Description: posit-based addition and multiplication related module
 
 module posit_fma #(
   parameter posit_pkg::posit_format_e   pFormat    = posit_pkg::posit_format_e'(0),
-	localparam int unsigned WIDTH  = posit_pkg::posit_width(pFormat), 
-	localparam int unsigned ES = posit_pkg::exp_bits(pFormat), 
-	localparam int unsigned RS = $clog2(WIDTH)
+  localparam int unsigned WIDTH  = posit_pkg::posit_width(pFormat), 
+  localparam int unsigned ES = posit_pkg::exp_bits(pFormat), 
+  localparam int unsigned RS = $clog2(WIDTH)
 ) (
   input logic                      clk_i,
   input logic                      rst_ni,
@@ -27,13 +38,12 @@ module posit_fma #(
   output logic                     busy_o
 );
 
-	// -----------------
+  // -----------------
   // Input processing
   // -----------------
-
-	logic [WIDTH-1:0] operand_a, operand_b, operand_c;
+  logic [WIDTH-1:0] operand_a, operand_b, operand_c;
   posit_pkg::status_t status;
-	logic op_N;
+  logic op_N;
 
   // Operation selection and operand adjustment
   // | \c op_q  | \c op_mod_q | Operation Adjustment
@@ -53,11 +63,11 @@ module posit_fma #(
     operand_a = operands_i[0];
     operand_b = operands_i[1];
     operand_c = operands_i[2];
-		op_N = 0;
-
-		if(op_mod_i)
-			operand_c = -operand_c;
-
+	op_N = 0;
+	
+	if(op_mod_i)
+	  operand_c = -operand_c;
+	  
     unique case (op_i)
       posit_pkg::FMADD: ;                 
       posit_pkg::FNMSUB: op_N = 1;
@@ -72,26 +82,24 @@ module posit_fma #(
     endcase
   end
 
-	// ----------------------------
+  // ----------------------------
   // Posit Components Extraction
   // ----------------------------
-
-	logic signed Sign1, Sign2, Sign3;
-	logic signed [RS:0] k1, k2, k3;
-	logic [ES-1:0] Exponent1, Exponent2, Exponent3;
-	logic [WIDTH-1:0] Mantissa1, Mantissa2, Mantissa3;
-	logic signed [WIDTH-2:0] InRemain1, InRemain2, InRemain3;
-	logic NaR1, NaR2, NaR3, zero1, zero2, zero3;
+  logic signed Sign1, Sign2, Sign3;
+  logic signed [RS:0] k1, k2, k3;
+  logic [ES-1:0] Exponent1, Exponent2, Exponent3;
+  logic [WIDTH-1:0] Mantissa1, Mantissa2, Mantissa3;
+  logic signed [WIDTH-2:0] InRemain1, InRemain2, InRemain3;
+  logic NaR1, NaR2, NaR3, zero1, zero2, zero3;
   logic [WIDTH-1:0] result;
-
-	posit_extraction #(.pFormat(pFormat)) Extract_IN1 (.In(operand_a), .Sign(Sign1), .k(k1), .Exponent(Exponent1), .Mantissa(Mantissa1), .InRemain(InRemain1), .NaR(NaR1), .zero(zero1));
-	posit_extraction #(.pFormat(pFormat)) Extract_IN2 (.In(operand_b), .Sign(Sign2), .k(k2), .Exponent(Exponent2), .Mantissa(Mantissa2), .InRemain(InRemain2), .NaR(NaR2), .zero(zero2));
-	posit_extraction #(.pFormat(pFormat)) Extract_IN3 (.In(operand_c), .Sign(Sign3), .k(k3), .Exponent(Exponent3), .Mantissa(Mantissa3), .InRemain(InRemain3), .NaR(NaR3), .zero(zero3));
+  
+  posit_extraction #(.pFormat(pFormat)) Extract_IN1 (.In(operand_a), .Sign(Sign1), .k(k1), .Exponent(Exponent1), .Mantissa(Mantissa1), .InRemain(InRemain1), .NaR(NaR1), .zero(zero1));
+  posit_extraction #(.pFormat(pFormat)) Extract_IN2 (.In(operand_b), .Sign(Sign2), .k(k2), .Exponent(Exponent2), .Mantissa(Mantissa2), .InRemain(InRemain2), .NaR(NaR2), .zero(zero2));
+  posit_extraction #(.pFormat(pFormat)) Extract_IN3 (.In(operand_c), .Sign(Sign3), .k(k3), .Exponent(Exponent3), .Mantissa(Mantissa3), .InRemain(InRemain3), .NaR(NaR3), .zero(zero3));
 
   // ----------------------
   // Algorithms Start Here
   // ----------------------
-
   logic LS, op, Greater_Than;
   logic inf_temp, zero_temp, Sign_temp;
   logic [2*WIDTH-1:0] Mult_Mant;
@@ -117,33 +125,32 @@ module posit_fma #(
   logic Mant_Ovf;
   logic signed [RS:0] shift;
   logic [ES+RS+1:0] LE_ON;
-	logic [2*WIDTH-1:0] FMA_Mant_N;
-	logic [ES+RS+1:0] LE_O;
-	logic [ES-1:0] E_O;
-	logic signed [RS+4:0] R_O, sumR;
-	logic NaR, zero, Sign;
-	logic check; 
-	logic signed [RS:0] EP;
-	logic sign_Exponent_O;
+  logic [2*WIDTH-1:0] FMA_Mant_N;
+  logic [ES+RS+1:0] LE_O;
+  logic [ES-1:0] E_O;
+  logic signed [RS+4:0] R_O, sumR;
+  logic NaR, zero, Sign;
+  logic check; 
+  logic signed [RS:0] EP;
+  logic sign_Exponent_O;
 
   // -------------------------
   // Multiplication & Addition
   // -------------------------
-
   always_comb begin
     // mult part
     // check infinity and zero
     inf_temp = NaR1 | NaR2;
     zero_temp = zero1 | zero2;
 
-		// --------------------------
+	// --------------------------
   	// Multiplication Arithmetic
   	// --------------------------
 
     Sign_temp = (Sign1 ^ Sign2) ^ op_N;
 
     // Mantissa Multiplication Handling
-		Mult_Mant = Mantissa1 * Mantissa2;
+    Mult_Mant = Mantissa1 * Mantissa2;
 
     if(Mult_Mant[2*WIDTH-1])
     	Mult_Mant_N = Mult_Mant ;
@@ -166,7 +173,7 @@ module posit_fma #(
       // R_O_mult = sumR_temp + 1'b1;
     end
 
-		// --------------------------
+    // --------------------------
   	// Addition Arithmetic
   	// --------------------------
 
@@ -254,7 +261,7 @@ module posit_fma #(
     FMA_Mant_N = Add_Mant_sft;
     // Add_Mant_N[0] = Add_Mant_N[0]|Add_Mant[0];
 
-		// ------------------------------
+    // ------------------------------
   	// Post Composition for Rounding
   	// ------------------------------
 
@@ -288,16 +295,16 @@ module posit_fma #(
   // Rounding
   // ------------
 
-	posit_rounding #(.pFormat(pFormat)) round (.E_O(E_O),.Comp_Mant_N(FMA_Mant_N),.R_O(R_O),.sign_Exponent_O(sign_Exponent_O),.Sign(Sign),.NaR(NaR),.zero(zero),.OUT(result));
+  posit_rounding #(.pFormat(pFormat)) round (.E_O(E_O),.Comp_Mant_N(FMA_Mant_N),.R_O(R_O),.sign_Exponent_O(sign_Exponent_O),.Sign(Sign),.NaR(NaR),.zero(zero),.OUT(result));
 
   // ------------
   // Stataus
   // ------------
-	assign status.NV = 1'b0;
-	assign status.DZ = 1'b0;
-	assign status.OF = 1'b0;
-	assign status.UF = 1'b0;
-	assign status.NX = 1'b0;
+  assign status.NV = 1'b0;
+  assign status.DZ = 1'b0;
+  assign status.OF = 1'b0;
+  assign status.UF = 1'b0;
+  assign status.NX = 1'b0;
 	
   // -------------------
   // Outputs assignment
