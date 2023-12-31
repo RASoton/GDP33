@@ -7,8 +7,10 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 
+
 // Language: SystemVerilog
 // Description: posit-based division and square root 
+`include "common_cells/registers.svh"
 
 module posit_divsqrt #(
   parameter posit_pkg::posit_format_e  pFormat = posit_pkg::posit_format_e'(0),

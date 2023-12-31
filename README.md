@@ -19,3 +19,10 @@ Create new branch: "git checkout -b <branch_name>"
 Push to remote branch: whilst on local branch "git push origin <remote_name>:<local_name>"
 
 Then go to github.com and create pull request if needed, and ask for reviewer
+
+## Clone the original CV32E40P
+```
+git clone https://github.com/openhwgroup/cv32e40p
+cd cv32e40p/ 
+git checkout fcd5968
+```
