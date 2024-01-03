@@ -19,7 +19,6 @@
 
 module Add_Subtract #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
 (
-    input  logic op_sub,
     input  logic signed Sign1, Sign2,
     input  logic signed [RS:0] k1,k2,
     input  logic [ES-1:0] Exponent1, Exponent2,
@@ -49,10 +48,10 @@ logic [2*N-1:0] LM1, SM1;
 logic signed [RS:0] R_diff;
 logic [N-1:0] E_diff;
 // shifting accordingly and mantissa addition
-logic [3*N-1:0]SM_sft_temp;
 logic [2*N-1:0]SM_sft, Mant_Kper;
 logic SM_add;
 logic [2*N-1:0] Add_Mant_sft;
+logic [2*N:0] Add_Mant_tmp;
 // post composition
 logic [N-1:0] LBD_in;
 logic Mant_Ovf;
@@ -70,7 +69,7 @@ begin
     //////          ADDITION ARITHMETIC         //////
 
     // Confirm  addition or subtraction (s1 XNOR s2)
-    op = Sign1 ~^ (op_sub^Sign2) ;
+    op = Sign1 ~^ Sign2 ;
 
     // Find the greater InRemain
     Greater_Than = (InRemain1[N-2:0] >  InRemain2[N-2:0])? 1'b1 : 1'b0;
@@ -93,13 +92,10 @@ begin
     LM1 = {LM, {N{1'b0}}};
     SM1 = {SM, {N{1'b0}}};
 
-    if(E_diff > 2*N)
-        SM_sft_temp = {SM1, {N{1'b0}}} >> 2*N;
+    if(E_diff > 64)
+        SM_sft = SM1 >> 64;
     else
-        SM_sft_temp = {SM1, {N{1'b0}}} >> E_diff;
-
-    SM_sft = {SM_sft_temp[3*N-1:N+1], |SM_sft_temp[N:0]};
-        
+        SM_sft = SM1 >> E_diff;
 
     if(op)
         Add_Mant = LM1 + SM_sft;

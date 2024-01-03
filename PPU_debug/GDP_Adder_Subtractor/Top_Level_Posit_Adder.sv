@@ -18,7 +18,6 @@
 module GDP_AddSub #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N)) 
 (
     input logic[N-1:0] IN1, IN2,
-    logic op_sub;
     output logic [N-1:0] OUT
 );
 
