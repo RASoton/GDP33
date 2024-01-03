@@ -6,16 +6,13 @@ package posit_pkg;
   // ---------
   // | Enumerator | Format           | Width  | REGIME | EXP_BITS | FRAC_BITS
   // |:----------:|------------------|-------:|:------:|:--------:|:--------:
-  // | POSIT32    | POSIT binary32   | 32 bit | r      | 2        | 29-r
-  
-  // Max array size for allocation
+  // | POSIT32    | POSIT binary32   | 32 bit | r      | 0-2      | 0-28
+ 
+  // Encoding for a format
   typedef struct packed {
-    int unsigned total_bits;
-	 int unsigned max_regime_bits;
-	 int unsigned exp_bits;
-    int unsigned max_frac_bits;
-  } posit_size_t;
-
+    int unsigned width;
+    int unsigned exp_bits;
+  } posit_encoding_t;
 
   localparam int unsigned NUM_POSIT_FORMATS = 1; // change me to add formats
   localparam int unsigned POSIT_FORMAT_BITS = $clog2(NUM_POSIT_FORMATS);
@@ -26,9 +23,9 @@ package posit_pkg;
     // add new formats here
   } posit_format_e;
 
-  // Encodings for supported POSIT formats
-  localparam posit_size_t [0:NUM_POSIT_FORMATS-1] POSIT_SIZES  = '{
-    '{32, 5, 2, 27} // total bits, max_regime_bits, exp_bits, max_frac_bits
+  // Encodings for supported posit formats
+  localparam posit_encoding_t [0:NUM_POSIT_FORMATS-1] POSIT_ENCODINGS  = '{
+    '{32,  2} // POSIT 32-bit with 2-bit exponent
     // add new formats here
   };
 
@@ -82,33 +79,51 @@ package posit_pkg;
   // POSIT OPERATIONS
   // --------------
 
-  localparam int unsigned NUM_OPGROUPS = 4;
+  localparam int unsigned NUM_OPGROUPS = 3;
 
   // Each POSIT operation belongs to an operation group
   typedef enum logic [1:0] {
-    ADDMUL, DIVSQRT, NONCOMP, CONV
+    ADDMUL, DIVSQRT, NONCOMP /*,CONV */
   } opgroup_e;
+
+
+  typedef enum logic  [1:0] {
+    SGN      = 2'b00,
+    SGNJN     = 2'b01,
+    SGNJX     = 2'b10
+  } sgnj_e;// SIGN injection
+
+  typedef enum logic [1:0] {
+    MIN    = 2'b00,
+    MAX    = 2'b01
+  } minmax_e;// MIN MAX
+
+  typedef enum logic [1:0] {
+    LE    = 2'b00,
+    LT    = 2'b01,
+    EQ    = 2'b10
+  } cmp_e;
 
   localparam int unsigned OP_BITS = 4;
 
   typedef enum logic [OP_BITS-1:0] {
     FMADD, FNMSUB, ADD, MUL,     // ADDMUL operation group
     DIV, SQRT,                   // DIVSQRT operation group
-    SGN, MINMAX, CMP, CLASSIFY, // NONCOMP operation group
-    F2F, F2I, I2F, CPKAB, CPKCD  // CONV operation group
+    SGNJ, MINMAX, CMP, CLASSIFY // NONCOMP operation group
+    //F2F, F2I, I2F, CPKAB, CPKCD  // CONV operation group
   } operation_e;
 
   // -------------------
   // RISC-V POSIT-SPECIFIC
   // -------------------
-  // Rounding modes (need change)
+  // Rounding modes 
   typedef enum logic [2:0] {
     RNE = 3'b000,
     RTZ = 3'b001,
     RDN = 3'b010,
     RUP = 3'b011,
     RMM = 3'b100,
-    ROD = 3'b101,  // This mode is not defined in RISC-V POSIT-SPEC
+    ROD = 3'b101,  // This mode is not defined in RISC-V FP-SPEC
     DYN = 3'b111
   } roundmode_e;
 
@@ -172,7 +187,7 @@ package posit_pkg;
   typedef struct packed {
     int unsigned Width;
     logic        EnableVectors;
-    logic        EnableNaRBox;
+    logic        EnableNanBox;
     fmt_logic_t  PositFmtMask;
     ifmt_logic_t IntFmtMask;
   } posit_features_t;
@@ -180,7 +195,7 @@ package posit_pkg;
   localparam posit_features_t POSIT32_CONFIG = '{
     Width:         32,
     EnableVectors: 1'b0,
-    EnableNaRBox:  1'b0,
+    EnableNanBox:  1'b1,
     PositFmtMask:  5'b00001,
     IntFmtMask:    4'b0000
   };
@@ -194,21 +209,13 @@ package posit_pkg;
 
   localparam posit_implementation_t DEFAULT_NOREGS = '{
     PipeRegs:   '{default: 0},
-    UnitTypes:  '{'{default: PARALLEL}, // ADDMUL
-                  '{default: MERGED},   // DIVSQRT
-                  '{default: PARALLEL}, // NONCOMP
-                  '{default: MERGED}},  // CONV
+    UnitTypes:  '{'{default: PARALLEL},   // ADDMUL
+                  '{default: PARALLEL},   // DIVSQRT
+                  '{default: PARALLEL},   // NONCOMP
+                  '{default: PARALLEL}},  // CONV
     PipeConfig: BEFORE
   };
 
-  localparam posit_implementation_t DEFAULT_SNITCH = '{
-    PipeRegs:   '{default: 1},
-    UnitTypes:  '{'{default: PARALLEL}, // ADDMUL
-                  '{default: DISABLED}, // DIVSQRT
-                  '{default: PARALLEL}, // NONCOMP
-                  '{default: MERGED}},  // CONV
-    PipeConfig: BEFORE
-  };
 
   // -----------------------
   // Synthesis optimization
@@ -231,7 +238,12 @@ package posit_pkg;
   // -------------------------------------------
   // Returns the width of a POSIT format
   function automatic int unsigned posit_width(posit_format_e fmt);
-    return POSIT_SIZES[fmt].total_bits;
+    return POSIT_ENCODINGS[fmt].width;
+  endfunction
+
+  // Returns the number of exponent bits for a format
+  function automatic int unsigned exp_bits(posit_format_e fmt);
+    return POSIT_ENCODINGS[fmt].exp_bits;
   endfunction
 
   // Returns the widest POSIT format present
@@ -252,33 +264,6 @@ package posit_pkg;
     return res;
   endfunction
 
-  // Returns the maximum number of regime bits for a format
-  function automatic int unsigned max_regime_bits(posit_format_e fmt);
-    return POSIT_SIZES[fmt].max_regime_bits;
-  endfunction
-
-  // Returns the number of exponent bits for a format
-  function automatic int unsigned exp_bits(posit_format_e fmt);
-    return POSIT_SIZES[fmt].exp_bits;
-  endfunction
-
-  // Returns the maximum number of fraction bits for a format
-  function automatic int unsigned max_frac_bits(posit_format_e fmt);
-    return POSIT_SIZES[fmt].max_frac_bits;
-  endfunction
- 
-  // -------------------------------------------
-  // Helper functions for INT formats and values
-  // -------------------------------------------
-  // Returns the widest INT format present
-  function automatic int unsigned max_int_width(ifmt_logic_t cfg);
-    automatic int unsigned res = 0;
-    for (int ifmt = 0; ifmt < NUM_INT_FORMATS; ifmt++) begin
-      if (cfg[ifmt]) res = maximum(res, int_width(int_format_e'(ifmt)));
-    end
-    return res;
-  endfunction
-
   // --------------------------------------------------
   // Helper functions for operations and POSIT structure
   // --------------------------------------------------
@@ -287,8 +272,8 @@ package posit_pkg;
     unique case (op)
       FMADD, FNMSUB, ADD, MUL:     return ADDMUL;
       DIV, SQRT:                   return DIVSQRT;
-      SGN, MINMAX, CMP, CLASSIFY: return NONCOMP;
-      F2F, F2I, I2F, CPKAB, CPKCD: return CONV;
+      SGNJ, MINMAX, CMP, CLASSIFY:  return NONCOMP;
+      //F2F, F2I, I2F, CPKAB, CPKCD: return CONV;
       default:                     return NONCOMP;
     endcase
   endfunction
@@ -299,7 +284,7 @@ package posit_pkg;
       ADDMUL:  return 3;
       DIVSQRT: return 2;
       NONCOMP: return 2;
-      CONV:    return 3; // vectorial casts use 3 operands
+      //CONV:    return 2; 
       default: return 0;
     endcase
   endfunction

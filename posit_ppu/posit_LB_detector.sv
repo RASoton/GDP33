@@ -15,19 +15,22 @@
 // Revision   : Version 1.1 24/03/2023
 /////////////////////////////////////////////////////////////////////
 
-module posit_LB_detector #( parameter N = 32, parameter ES = 2, parameter RS = $clog2(N))
-(
-    input  logic signed [N-2:0] InRemain,
-    output logic signed [RS:0] EndPosition,
-    output logic RegimeCheck
+module posit_LB_detector #( 
+  parameter posit_pkg::posit_format_e   pFormat = posit_pkg::posit_format_e'(0),
+	localparam int unsigned N = posit_pkg::posit_width(pFormat), 
+	localparam int unsigned ES = posit_pkg::exp_bits(pFormat), 
+	localparam int unsigned RS = $clog2(N)
+) (
+  input  logic signed [N-2:0] InRemain,
+  output logic signed [RS:0] EndPosition,
+  output logic RegimeCheck
 );
 
-//logic RegimeCheck; 
-int i;
-logic signed [RS:0] EP;
+	//logic RegimeCheck; 
+	int i;
+	logic signed [RS:0] EP;
 
-always_comb
-begin
+	always_comb begin
     RegimeCheck = InRemain[N-2]; //the MSB of InRemain (In[6])is the number to be checked
     
     EP = '0;
