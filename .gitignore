@@ -14,3 +14,5 @@ transcript
 
 #ignore "work" folder, regardless of its location
 **/work/
+
+**/.vscode/

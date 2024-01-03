@@ -224,7 +224,13 @@ module posit_fma #(
         Add_Mant = LM - SM_sft;
         
     Mant_Ovf = Add_Mant[2*WIDTH];
-    
+
+    // set zero flag when subtracting two identical numbers
+    if(LR == SR && LM == SM && LE == SE && ~op)
+    zero = 1;
+    else
+    zero = zero;
+
     // (MSB OR 2nd MSB) bit since LBD_IN is for leading bit
     LBD_in = {(Add_Mant[2*WIDTH] | Add_Mant[2*WIDTH-1]), Add_Mant[2*WIDTH-2:WIDTH]}; 
 
