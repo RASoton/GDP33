@@ -1,0 +1,375 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Tue Nov  7 19:30:35 2023
+# Process ID: 12524
+# Current directory: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/GDP_Mult/GDP_Mult.runs/synth_1
+# Command line: vivado.exe -log GDP_Mult.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source GDP_Mult.tcl
+# Log file: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/GDP_Mult/GDP_Mult.runs/synth_1/GDP_Mult.vds
+# Journal file: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/GDP_Mult/GDP_Mult.runs/synth_1\vivado.jou
+# Running On: Jaspers-OMEN, OS: Windows, CPU Frequency: 2592 MHz, CPU Physical cores: 6, Host memory: 34187 MB
+#-----------------------------------------------------------
+source GDP_Mult.tcl -notrace
+create_project: Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 473.008 ; gain = 177.984
+Command: read_checkpoint -auto_incremental -incremental {H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/GDP_Mult/GDP_Mult.srcs/utils_1/imports/synth_1/GDP_Mult.dcp}
+INFO: [Vivado 12-5825] Read reference checkpoint from H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/GDP_Mult/GDP_Mult.srcs/utils_1/imports/synth_1/GDP_Mult.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top GDP_Mult -part xc7a100tcsg324-2
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 19616
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:06 . Memory (MB): peak = 924.895 ; gain = 440.695
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'GDP_Mult' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Top_Level_Posit_Multiplier.sv:19]
+INFO: [Synth 8-6157] synthesizing module 'Data_Extraction' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Posit_Extraction.sv:18]
+	Parameter N bound to: 32 - type: integer 
+	Parameter ES bound to: 2 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'Leading_Bit_Detector' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Leading_Bit_Detector.sv:19]
+	Parameter N bound to: 32 - type: integer 
+	Parameter ES bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Leading_Bit_Detector' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Leading_Bit_Detector.sv:19]
+INFO: [Synth 8-6155] done synthesizing module 'Data_Extraction' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Posit_Extraction.sv:18]
+INFO: [Synth 8-6157] synthesizing module 'Mult' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Arithmetic_Mult.sv:19]
+	Parameter N bound to: 32 - type: integer 
+	Parameter ES bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Mult' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Arithmetic_Mult.sv:19]
+INFO: [Synth 8-6157] synthesizing module 'Rounding2_3' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.3.sv:18]
+	Parameter N bound to: 32 - type: integer 
+	Parameter ES bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Rounding2_3' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Rounding2.3.sv:18]
+INFO: [Synth 8-6155] done synthesizing module 'GDP_Mult' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/Top_Level_Posit_Multiplier.sv:19]
+WARNING: [Synth 8-7129] Port IN1[31] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[30] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[29] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[28] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[27] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[26] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[25] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[24] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[23] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[22] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[21] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[20] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[19] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[18] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[17] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[16] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[15] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[14] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[13] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[12] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[11] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[10] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[9] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[8] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[7] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[6] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[5] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[4] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[3] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[2] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[1] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[0] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[31] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[30] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[29] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[28] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[27] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[26] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[25] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[24] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[23] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[22] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[21] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[20] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[19] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[18] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[17] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[16] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[15] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[14] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[13] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[12] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[11] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[10] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[9] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[8] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[7] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[6] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[5] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[4] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[3] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[2] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[1] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[0] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Mult_Mant_N[63] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sumR[6] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sumR[5] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sumR[4] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sumR[3] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sumR[2] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sumR[1] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sumR[0] in module Rounding2_3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[30] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[29] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[28] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[27] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[26] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[25] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[24] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[23] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[22] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[21] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[20] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[19] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[18] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[17] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[16] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[15] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[14] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[13] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[12] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[11] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[10] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[9] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[8] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[7] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[6] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[5] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[4] in module Mult is either unconnected or has no load
+WARNING: [Synth 8-7129] Port InRemain1[3] in module Mult is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:08 . Memory (MB): peak = 1033.719 ; gain = 549.520
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 1033.719 ; gain = 549.520
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 1033.719 ; gain = 549.520
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a100tcsg324-2
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:09 . Memory (MB): peak = 1033.719 ; gain = 549.520
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   64 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 4     
+	   2 Input   31 Bit       Adders := 2     
+	   2 Input    9 Bit       Adders := 1     
+	   3 Input    8 Bit       Adders := 1     
+	   2 Input    8 Bit       Adders := 1     
+	   2 Input    6 Bit       Adders := 4     
+	   3 Input    3 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
++---Muxes : 
+	   2 Input   64 Bit        Muxes := 2     
+	   2 Input   32 Bit        Muxes := 2     
+	   2 Input   31 Bit        Muxes := 2     
+	   2 Input    8 Bit        Muxes := 3     
+	  31 Input    6 Bit        Muxes := 2     
+	   2 Input    6 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+DSP Report: Generating DSP Mult_Mant_N1, operation Mode is: A*B.
+DSP Report: operator Mult_Mant_N1 is absorbed into DSP Mult_Mant_N1.
+DSP Report: operator Mult_Mant_N1 is absorbed into DSP Mult_Mant_N1.
+DSP Report: Generating DSP Mult_Mant_N1, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator Mult_Mant_N1 is absorbed into DSP Mult_Mant_N1.
+DSP Report: operator Mult_Mant_N1 is absorbed into DSP Mult_Mant_N1.
+DSP Report: Generating DSP Mult_Mant_N1, operation Mode is: A*B.
+DSP Report: operator Mult_Mant_N1 is absorbed into DSP Mult_Mant_N1.
+DSP Report: operator Mult_Mant_N1 is absorbed into DSP Mult_Mant_N1.
+DSP Report: Generating DSP Mult_Mant_N1, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator Mult_Mant_N1 is absorbed into DSP Mult_Mant_N1.
+DSP Report: operator Mult_Mant_N1 is absorbed into DSP Mult_Mant_N1.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:38 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+---------------------------------------------------------------------------------
+ Sort Area is  Mult_Mant_N1_0 : 0 0 : 2701 5044 : Used 1 time 0
+ Sort Area is  Mult_Mant_N1_0 : 0 1 : 2343 5044 : Used 1 time 0
+ Sort Area is  Mult_Mant_N1_3 : 0 0 : 2339 4365 : Used 1 time 0
+ Sort Area is  Mult_Mant_N1_3 : 0 1 : 2026 4365 : Used 1 time 0
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Mult        | A*B            | 18     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Mult        | (PCIN>>17)+A*B | 16     | 16     | -      | -      | 30     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Mult        | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Mult        | (PCIN>>17)+A*B | 18     | 16     | -      | -      | 47     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:38 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:18 ; elapsed = 00:00:39 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:20 ; elapsed = 00:00:44 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:20 ; elapsed = 00:00:44 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:20 ; elapsed = 00:00:44 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:20 ; elapsed = 00:00:44 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:20 ; elapsed = 00:00:44 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:20 ; elapsed = 00:00:44 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping  | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Mult        | A*B          | 17     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Mult        | PCIN>>17+A*B | 15     | 15     | -      | -      | 30     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Mult        | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|Mult        | PCIN>>17+A*B | 0      | 15     | -      | -      | 47     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |CARRY4  |    46|
+|2     |DSP48E1 |     4|
+|3     |LUT1    |    93|
+|4     |LUT2    |    73|
+|5     |LUT3    |   126|
+|6     |LUT4    |   112|
+|7     |LUT5    |   177|
+|8     |LUT6    |   462|
+|9     |IBUF    |    64|
+|10    |OBUF    |    32|
++------+--------+------+
+
+Report Instance Areas: 
++------+-----------+-------+------+
+|      |Instance   |Module |Cells |
++------+-----------+-------+------+
+|1     |top        |       |  1189|
+|2     |  Multiply |Mult   |  1093|
++------+-----------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:20 ; elapsed = 00:00:44 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 269 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:20 ; elapsed = 00:00:44 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+Synthesis Optimization Complete : Time (s): cpu = 00:00:20 ; elapsed = 00:00:44 . Memory (MB): peak = 1503.281 ; gain = 1019.082
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1503.281 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 50 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'GDP_Mult' is not ideal for floorplanning, since the cellview 'Mult' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1503.281 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: dd8fa9bd
+INFO: [Common 17-83] Releasing license: Synthesis
+27 Infos, 102 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:21 ; elapsed = 00:00:46 . Memory (MB): peak = 1503.281 ; gain = 1026.332
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1503.281 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Multiplier/GDP_Mult/GDP_Mult.runs/synth_1/GDP_Mult.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file GDP_Mult_utilization_synth.rpt -pb GDP_Mult_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue Nov  7 19:31:31 2023...

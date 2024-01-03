@@ -1,0 +1,365 @@
+Analysis & Synthesis report for GDP_DIV
+Sun Nov  5 22:19:35 2023
+Quartus Prime Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Multiplexer Restructuring Statistics (Restructuring Performed)
+  6. Parameter Settings for User Entity Instance: Top-level Entity: |GDP_DIV
+  7. Parameter Settings for User Entity Instance: Data_Extraction:Extract_IN1
+  8. Parameter Settings for User Entity Instance: Data_Extraction:Extract_IN1|Leading_Bit_Detector:LBD1
+  9. Parameter Settings for User Entity Instance: Data_Extraction:Extract_IN2
+ 10. Parameter Settings for User Entity Instance: Data_Extraction:Extract_IN2|Leading_Bit_Detector:LBD1
+ 11. Parameter Settings for User Entity Instance: Div:Divide
+ 12. Parameter Settings for User Entity Instance: Rounding2_3:Round
+ 13. Port Connectivity Checks: "Div:Divide"
+ 14. Elapsed Time Per Partition
+ 15. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2022  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                 ;
++-----------------------------+------------------------------------------------+
+; Analysis & Synthesis Status ; Failed - Sun Nov  5 22:19:35 2023              ;
+; Quartus Prime Version       ; 22.1std.0 Build 915 10/25/2022 SC Lite Edition ;
+; Revision Name               ; GDP_DIV                                        ;
+; Top-level Entity Name       ; GDP_DIV                                        ;
+; Family                      ; Cyclone V                                      ;
+; Logic utilization (in ALMs) ; N/A until Partition Merge                      ;
+; Total registers             ; N/A until Partition Merge                      ;
+; Total pins                  ; N/A until Partition Merge                      ;
+; Total virtual pins          ; N/A until Partition Merge                      ;
+; Total block memory bits     ; N/A until Partition Merge                      ;
+; Total PLLs                  ; N/A until Partition Merge                      ;
+; Total DLLs                  ; N/A until Partition Merge                      ;
++-----------------------------+------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                             ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                          ; Setting            ; Default Value      ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                          ; 5CSEMA5F31C6       ;                    ;
+; Top-level entity name                                                           ; GDP_DIV            ; GDP_DIV            ;
+; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
+; Use smart compilation                                                           ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                 ;
+; Enable compact report table                                                     ; Off                ; Off                ;
+; Restructure Multiplexers                                                        ; Auto               ; Auto               ;
+; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                ;
+; Create Debugging Nodes for IP Cores                                             ; Off                ; Off                ;
+; Preserve fewer node names                                                       ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                                   ; Enable             ; Enable             ;
+; Verilog Version                                                                 ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                                    ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                        ; Auto               ; Auto               ;
+; Safe State Machine                                                              ; Off                ; Off                ;
+; Extract Verilog State Machines                                                  ; On                 ; On                 ;
+; Extract VHDL State Machines                                                     ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                               ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                      ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                                  ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                         ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                       ; On                 ; On                 ;
+; Parallel Synthesis                                                              ; On                 ; On                 ;
+; DSP Block Balancing                                                             ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                              ; On                 ; On                 ;
+; Power-Up Don't Care                                                             ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                                    ; Off                ; Off                ;
+; Remove Duplicate Registers                                                      ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                            ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                          ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                           ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                       ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                            ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                             ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                                  ; Off                ; Off                ;
+; Optimization Technique                                                          ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                              ; 70                 ; 70                 ;
+; Auto Carry Chains                                                               ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                            ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                           ; Off                ; Off                ;
+; Auto ROM Replacement                                                            ; On                 ; On                 ;
+; Auto RAM Replacement                                                            ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                      ; On                 ; On                 ;
+; Auto Shift Register Replacement                                                 ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                                 ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                                   ; On                 ; On                 ;
+; Strict RAM Replacement                                                          ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                               ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                           ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                                   ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                             ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                               ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                         ; On                 ; On                 ;
+; Report Parameter Settings                                                       ; On                 ; On                 ;
+; Report Source Assignments                                                       ; On                 ; On                 ;
+; Report Connectivity Checks                                                      ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                              ; Off                ; Off                ;
+; Synchronization Register Chain Length                                           ; 3                  ; 3                  ;
+; Power Optimization During Synthesis                                             ; Normal compilation ; Normal compilation ;
+; HDL message level                                                               ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                                 ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                        ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                              ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                       ; 100                ; 100                ;
+; Clock MUX Protection                                                            ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                     ; Off                ; Off                ;
+; Block Design Naming                                                             ; Auto               ; Auto               ;
+; SDC constraint protection                                                       ; Off                ; Off                ;
+; Synthesis Effort                                                                ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal                    ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                            ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                              ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                     ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                          ; On                 ; On                 ;
+; Automatic Parallel Synthesis                                                    ; On                 ; On                 ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                ; Off                ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 12          ;
+; Maximum allowed            ; 6           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                              ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                    ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------+
+; 4:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|R_O_fin[9]                                         ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft2                                         ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft2                                         ;
+; 4:1                ; 24 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN1|ShiftLeft0                               ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN1|ShiftLeft0                               ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN1|ShiftLeft0                               ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN1|ShiftLeft0                               ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN1|ShiftLeft0                               ;
+; 4:1                ; 24 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN2|ShiftLeft0                               ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN2|ShiftLeft0                               ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN2|ShiftLeft0                               ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN2|ShiftLeft0                               ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN2|ShiftLeft0                               ;
+; 4:1                ; 30 bits   ; 60 LEs        ; 60 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 4:1                ; 24 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftRight0                                        ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftRight0                                        ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftRight0                                        ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftRight0                                        ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftRight0                                        ;
+; 4:1                ; 28 bits   ; 56 LEs        ; 56 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 4:1                ; 31 bits   ; 62 LEs        ; 62 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 3:1                ; 31 bits   ; 62 LEs        ; 62 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|OUT[18]                                            ;
+; 4:1                ; 14 bits   ; 28 LEs        ; 28 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 6:1                ; 11 bits   ; 44 LEs        ; 44 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN1|ShiftLeft0                               ;
+; 6:1                ; 11 bits   ; 44 LEs        ; 44 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN2|ShiftLeft0                               ;
+; 6:1                ; 11 bits   ; 44 LEs        ; 44 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftRight0                                        ;
+; 6:1                ; 9 bits    ; 36 LEs        ; 27 LEs               ; 9 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|regime_temp_output[55]                             ;
+; 6:1                ; 16 bits   ; 64 LEs        ; 48 LEs               ; 16 LEs                 ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 6:1                ; 16 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 8:1                ; 9 bits    ; 45 LEs        ; 36 LEs               ; 9 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|regime_temp_output[39]                             ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|regime_temp_output[62]                             ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|regime_temp_output[34]                             ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|regime_temp_output[42]                             ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 8 LEs                ; 2 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|regime_temp_output[54]                             ;
+; 9:1                ; 4 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN1|ShiftLeft0                               ;
+; 9:1                ; 4 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN2|ShiftLeft0                               ;
+; 9:1                ; 4 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftRight0                                        ;
+; 9:1                ; 12 bits   ; 72 LEs        ; 72 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 12:1               ; 2 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Rounding2_3:Round|ShiftLeft0                                         ;
+; 30:1               ; 2 bits    ; 40 LEs        ; 40 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN1|Leading_Bit_Detector:LBD1|EndPosition[1] ;
+; 30:1               ; 2 bits    ; 40 LEs        ; 40 LEs               ; 0 LEs                  ; No         ; |GDP_DIV|Data_Extraction:Extract_IN2|Leading_Bit_Detector:LBD1|EndPosition[1] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |GDP_DIV ;
++----------------+-------+------------------------------------------------+
+; Parameter Name ; Value ; Type                                           ;
++----------------+-------+------------------------------------------------+
+; N              ; 32    ; Signed Integer                                 ;
+; ES             ; 2     ; Signed Integer                                 ;
+; RS             ; 5     ; Signed Integer                                 ;
++----------------+-------+------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Data_Extraction:Extract_IN1 ;
++----------------+-------+-------------------------------------------------+
+; Parameter Name ; Value ; Type                                            ;
++----------------+-------+-------------------------------------------------+
+; N              ; 32    ; Signed Integer                                  ;
+; ES             ; 2     ; Signed Integer                                  ;
+; RS             ; 5     ; Signed Integer                                  ;
++----------------+-------+-------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Data_Extraction:Extract_IN1|Leading_Bit_Detector:LBD1 ;
++----------------+-------+---------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                      ;
++----------------+-------+---------------------------------------------------------------------------+
+; N              ; 32    ; Signed Integer                                                            ;
+; ES             ; 2     ; Signed Integer                                                            ;
+; RS             ; 5     ; Signed Integer                                                            ;
++----------------+-------+---------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Data_Extraction:Extract_IN2 ;
++----------------+-------+-------------------------------------------------+
+; Parameter Name ; Value ; Type                                            ;
++----------------+-------+-------------------------------------------------+
+; N              ; 32    ; Signed Integer                                  ;
+; ES             ; 2     ; Signed Integer                                  ;
+; RS             ; 5     ; Signed Integer                                  ;
++----------------+-------+-------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Data_Extraction:Extract_IN2|Leading_Bit_Detector:LBD1 ;
++----------------+-------+---------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                      ;
++----------------+-------+---------------------------------------------------------------------------+
+; N              ; 32    ; Signed Integer                                                            ;
+; ES             ; 2     ; Signed Integer                                                            ;
+; RS             ; 5     ; Signed Integer                                                            ;
++----------------+-------+---------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Div:Divide ;
++----------------+-------+--------------------------------+
+; Parameter Name ; Value ; Type                           ;
++----------------+-------+--------------------------------+
+; N              ; 32    ; Signed Integer                 ;
+; ES             ; 2     ; Signed Integer                 ;
+; RS             ; 5     ; Signed Integer                 ;
++----------------+-------+--------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Rounding2_3:Round ;
++----------------+-------+---------------------------------------+
+; Parameter Name ; Value ; Type                                  ;
++----------------+-------+---------------------------------------+
+; N              ; 32    ; Signed Integer                        ;
+; ES             ; 2     ; Signed Integer                        ;
+; RS             ; 5     ; Signed Integer                        ;
++----------------+-------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Div:Divide"                                                                         ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; sumR ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:02     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 22.1std.0 Build 915 10/25/2022 SC Lite Edition
+    Info: Processing started: Sun Nov  5 22:19:25 2023
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off GDP_DIV -c GDP_DIV
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file /lab/part iv/elec6200/gdp33/ppu/gdp_divider/arithmetic_div.sv
+    Info (12023): Found entity 1: Div File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Arithmetic_DIV.sv Line: 19
+Info (12021): Found 1 design units, including 1 entities, in source file /lab/part iv/elec6200/gdp33/ppu/gdp_divider/leading_bit_detector.sv
+    Info (12023): Found entity 1: Leading_Bit_Detector File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Leading_Bit_Detector.sv Line: 19
+Info (12021): Found 1 design units, including 1 entities, in source file /lab/part iv/elec6200/gdp33/ppu/gdp_divider/posit_extraction.sv
+    Info (12023): Found entity 1: Data_Extraction File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Extraction.sv Line: 18
+Info (12021): Found 1 design units, including 1 entities, in source file /lab/part iv/elec6200/gdp33/ppu/gdp_divider/top_level_divider.sv
+    Info (12023): Found entity 1: GDP_DIV File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Top_Level_Divider.sv Line: 19
+Info (12021): Found 1 design units, including 1 entities, in source file /lab/part iv/elec6200/gdp33/ppu/gdp_divider/rounding2.3.sv
+    Info (12023): Found entity 1: Rounding2_3 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Rounding2.3.sv Line: 18
+Info (12127): Elaborating entity "GDP_DIV" for the top level hierarchy
+Info (12128): Elaborating entity "Data_Extraction" for hierarchy "Data_Extraction:Extract_IN1" File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Top_Level_Divider.sv Line: 33
+Info (12128): Elaborating entity "Leading_Bit_Detector" for hierarchy "Data_Extraction:Extract_IN1|Leading_Bit_Detector:LBD1" File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Posit_Extraction.sv Line: 38
+Info (12128): Elaborating entity "Div" for hierarchy "Div:Divide" File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Top_Level_Divider.sv Line: 43
+Warning (10036): Verilog HDL or VHDL warning at Arithmetic_DIV.sv(38): object "sumE_Ovf" assigned a value but never read File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Arithmetic_DIV.sv Line: 38
+Warning (10230): Verilog HDL assignment warning at Arithmetic_DIV.sv(62): truncated value with size 66 to match size of target (64) File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Arithmetic_DIV.sv Line: 62
+Warning (10230): Verilog HDL assignment warning at Arithmetic_DIV.sv(103): truncated value with size 32 to match size of target (10) File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Arithmetic_DIV.sv Line: 103
+Warning (10230): Verilog HDL assignment warning at Arithmetic_DIV.sv(105): truncated value with size 32 to match size of target (10) File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Arithmetic_DIV.sv Line: 105
+Info (12128): Elaborating entity "Rounding2_3" for hierarchy "Rounding2_3:Round" File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Top_Level_Divider.sv Line: 45
+Warning (10036): Verilog HDL or VHDL warning at Rounding2.3.sv(52): object "temp1" assigned a value but never read File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Rounding2.3.sv Line: 52
+Warning (10036): Verilog HDL or VHDL warning at Rounding2.3.sv(53): object "temp2" assigned a value but never read File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Rounding2.3.sv Line: 53
+Info (278001): Inferred 1 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "Div:Divide|Div0" File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Arithmetic_DIV.sv Line: 60
+Error (272006): In lpm_divide megafunction, LPM_WIDTHN must be less than or equals to 64 File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Arithmetic_DIV.sv Line: 60
+Error (12154): Can't elaborate inferred hierarchy "Div:Divide|lpm_divide:Div0" File: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Divider/Arithmetic_DIV.sv Line: 60
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 2 errors, 7 warnings
+    Error: Peak virtual memory: 4807 megabytes
+    Error: Processing ended: Sun Nov  5 22:19:35 2023
+    Error: Elapsed time: 00:00:10
+    Error: Total CPU time (on all processors): 00:00:11
+
+

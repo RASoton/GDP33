@@ -1,0 +1,335 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Tue Nov  7 19:37:20 2023
+# Process ID: 2272
+# Current directory: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/GDP_AddSub/GDP_AddSub.runs/synth_1
+# Command line: vivado.exe -log GDP_AddSub.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source GDP_AddSub.tcl
+# Log file: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/GDP_AddSub/GDP_AddSub.runs/synth_1/GDP_AddSub.vds
+# Journal file: H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/GDP_AddSub/GDP_AddSub.runs/synth_1\vivado.jou
+# Running On: Jaspers-OMEN, OS: Windows, CPU Frequency: 2592 MHz, CPU Physical cores: 6, Host memory: 34187 MB
+#-----------------------------------------------------------
+source GDP_AddSub.tcl -notrace
+create_project: Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 473.637 ; gain = 180.059
+Command: synth_design -top GDP_AddSub -part xc7a100tcsg324-2
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 25108
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 921.859 ; gain = 444.281
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'GDP_AddSub' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Top_Level_Posit_Adder.sv:18]
+INFO: [Synth 8-6157] synthesizing module 'Data_Extraction' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Posit_Extraction.sv:18]
+	Parameter N bound to: 32 - type: integer 
+	Parameter ES bound to: 2 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'Leading_Bit_Detector' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Leading_Bit_Detector.sv:18]
+	Parameter N bound to: 32 - type: integer 
+	Parameter ES bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Leading_Bit_Detector' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Leading_Bit_Detector.sv:18]
+INFO: [Synth 8-6155] done synthesizing module 'Data_Extraction' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Posit_Extraction.sv:18]
+INFO: [Synth 8-6157] synthesizing module 'Add_Subtract' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Arithmetic_Add_Sub.sv:20]
+	Parameter N bound to: 32 - type: integer 
+	Parameter ES bound to: 2 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'Leading_Bit_Detector_8B' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/8B_LBD.sv:18]
+	Parameter N bound to: 32 - type: integer 
+	Parameter ES bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Leading_Bit_Detector_8B' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/8B_LBD.sv:18]
+INFO: [Synth 8-6155] done synthesizing module 'Add_Subtract' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Arithmetic_Add_Sub.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'Rounding' [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Rounding.sv:19]
+	Parameter N bound to: 32 - type: integer 
+	Parameter ES bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Rounding' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Rounding.sv:19]
+INFO: [Synth 8-6155] done synthesizing module 'GDP_AddSub' (0#1) [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Top_Level_Posit_Adder.sv:18]
+WARNING: [Synth 8-3936] Found unconnected internal register 'LE_ON_reg' and it is trimmed from '8' to '7' bits. [H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/Arithmetic_Add_Sub.sv:136]
+WARNING: [Synth 8-7129] Port IN1[31] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[30] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[29] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[28] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[27] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[26] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[25] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[24] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[23] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[22] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[21] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[20] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[19] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[18] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[17] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[16] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[15] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[14] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[13] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[12] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[11] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[10] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[9] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[8] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[7] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[6] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[5] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[4] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[3] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[2] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[1] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[0] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[31] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[30] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[29] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[28] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[27] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[26] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[25] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[24] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[23] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[22] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[21] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[20] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[19] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[18] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[17] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[16] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[15] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[14] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[13] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[12] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[11] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[10] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[9] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[8] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[7] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[6] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[5] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[4] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[3] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[2] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[1] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN2[0] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LE_O[6] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LE_O[5] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LE_O[4] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LE_O[3] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LE_O[2] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LE_O[1] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LE_O[0] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Add_Mant_N[63] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port In[0] in module Leading_Bit_Detector_8B is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:08 . Memory (MB): peak = 1032.789 ; gain = 555.211
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:03 ; elapsed = 00:00:08 . Memory (MB): peak = 1032.789 ; gain = 555.211
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:03 ; elapsed = 00:00:08 . Memory (MB): peak = 1032.789 ; gain = 555.211
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a100tcsg324-2
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:09 . Memory (MB): peak = 1032.789 ; gain = 555.211
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input   65 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 4     
+	   2 Input   31 Bit       Adders := 2     
+	   4 Input    8 Bit       Adders := 1     
+	   2 Input    8 Bit       Adders := 1     
+	   2 Input    7 Bit       Adders := 1     
+	   2 Input    6 Bit       Adders := 5     
+	   3 Input    6 Bit       Adders := 1     
+	   2 Input    2 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
++---Muxes : 
+	   2 Input   65 Bit        Muxes := 1     
+	   2 Input   64 Bit        Muxes := 3     
+	   2 Input   32 Bit        Muxes := 4     
+	   2 Input   31 Bit        Muxes := 2     
+	   2 Input    8 Bit        Muxes := 1     
+	   2 Input    7 Bit        Muxes := 1     
+	  31 Input    6 Bit        Muxes := 2     
+	   2 Input    6 Bit        Muxes := 35    
+	   5 Input    6 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 3     
+	   2 Input    1 Bit        Muxes := 2     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7129] Port IN1[31] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[30] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[29] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[28] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[27] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[26] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[25] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[24] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[23] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[22] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[21] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[20] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[19] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[18] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[17] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[16] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[15] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[14] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[13] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[12] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[11] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[10] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[9] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[8] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[7] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[6] in module Rounding is either unconnected or has no load
+WARNING: [Synth 8-7129] Port IN1[5] in module Rounding is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:28 . Memory (MB): peak = 1348.500 ; gain = 870.922
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:28 . Memory (MB): peak = 1357.352 ; gain = 879.773
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:12 ; elapsed = 00:00:29 . Memory (MB): peak = 1357.352 ; gain = 879.773
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:14 ; elapsed = 00:00:34 . Memory (MB): peak = 1357.395 ; gain = 879.816
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:14 ; elapsed = 00:00:34 . Memory (MB): peak = 1357.395 ; gain = 879.816
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:14 ; elapsed = 00:00:34 . Memory (MB): peak = 1357.395 ; gain = 879.816
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:14 ; elapsed = 00:00:34 . Memory (MB): peak = 1357.395 ; gain = 879.816
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:14 ; elapsed = 00:00:34 . Memory (MB): peak = 1357.395 ; gain = 879.816
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:14 ; elapsed = 00:00:34 . Memory (MB): peak = 1357.395 ; gain = 879.816
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |CARRY4 |    65|
+|2     |LUT1   |    94|
+|3     |LUT2   |    50|
+|4     |LUT3   |   149|
+|5     |LUT4   |   214|
+|6     |LUT5   |   371|
+|7     |LUT6   |   632|
+|8     |MUXF7  |    15|
+|9     |MUXF8  |     4|
+|10    |IBUF   |    64|
+|11    |OBUF   |    32|
++------+-------+------+
+
+Report Instance Areas: 
++------+---------+-------+------+
+|      |Instance |Module |Cells |
++------+---------+-------+------+
+|1     |top      |       |  1690|
++------+---------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:14 ; elapsed = 00:00:34 . Memory (MB): peak = 1357.395 ; gain = 879.816
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 148 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:14 ; elapsed = 00:00:34 . Memory (MB): peak = 1357.395 ; gain = 879.816
+Synthesis Optimization Complete : Time (s): cpu = 00:00:14 ; elapsed = 00:00:34 . Memory (MB): peak = 1357.395 ; gain = 879.816
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1369.402 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 84 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'GDP_AddSub' is not ideal for floorplanning, since the cellview 'GDP_AddSub' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1373.090 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 5d3bdeec
+INFO: [Common 17-83] Releasing license: Synthesis
+25 Infos, 103 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:14 ; elapsed = 00:00:36 . Memory (MB): peak = 1373.090 ; gain = 899.453
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1373.090 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'H:/Lab/PART IV/ELEC6200/GDP33/PPU/GDP_Adder_Subtractor/GDP_AddSub/GDP_AddSub.runs/synth_1/GDP_AddSub.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file GDP_AddSub_utilization_synth.rpt -pb GDP_AddSub_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue Nov  7 19:38:05 2023...
