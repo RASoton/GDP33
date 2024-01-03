@@ -18,6 +18,7 @@ timeunit 1ns;
 timeprecision 1ps;
 module Arithmetic_FMA #(parameter N = 32, parameter ES = 2, parameter RS = $clog2(N))
   (
+    input  logic op_N, op_sub,
     input  logic signed Sign1, Sign2, Sign3,
     input  logic signed [RS+2:0] k1,k2,k3,
     input  logic [ES-1:0] Exponent1, Exponent2, Exponent3,
@@ -69,7 +70,7 @@ module Arithmetic_FMA #(parameter N = 32, parameter ES = 2, parameter RS = $clog
     zero_temp = zero1 | zero2;
 
         /////      MULTIPLICATION ARITHMETIC       //////
-    Sign_temp = Sign1 ^ Sign2;
+    Sign_temp = (Sign1 ^ Sign2) ^ op_N;
 
     //  Mantissa Multiplication Handling
     Mult_Mant = Mantissa1 * Mantissa2;
@@ -103,7 +104,7 @@ module Arithmetic_FMA #(parameter N = 32, parameter ES = 2, parameter RS = $clog
     inf = inf_temp | inf3;
     zero = zero_temp & zero3;
     
-    op = Sign_temp ~^ Sign3;
+    op = Sign_temp ~^ (op_sub^Sign3);
 
     // sft_mant3 = Mantissa3 << N;
     sft_mant3 = {Mantissa3, {N{1'b0}}};
@@ -156,6 +157,10 @@ module Arithmetic_FMA #(parameter N = 32, parameter ES = 2, parameter RS = $clog
         
     Mant_Ovf = Add_Mant[2*N];
     
+    if(LR == SR && LM == SM && LE == SE && ~op)
+      zero = 1;
+    else
+      zero = zero;
     // (MSB OR 2nd MSB) bit since LBD_IN is for leading bit
     LBD_in = {(Add_Mant[2*N] | Add_Mant[2*N-1]), Add_Mant[2*N-2:N]}; 
 
