@@ -1,106 +1,100 @@
-/*
- * Copyright 2020 ETH Zurich
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 
-//void matmulNxN(float* matA, float* matB, float* matC, int N);
-
-#define N 5
-
-//float matA[N*N], matB[N*N];
-//float matC[N*N], matC_ref[N*N];
-union FloatBinary {
-    float f;
-    unsigned int i;
+union posit
+{
+  float f;
+  unsigned int i;
 };
 
-void printFloatBinary(float num) {
-    union FloatBinary fb;
-    fb.f = num;
-
-    //printf("Floating-point number: %f\n", fb.f);
-    printf("Binary representation: %08x\n", fb.i);
-}
-
-//void activate_random_stall(void)
-//{
-//  // Address vector for rnd_stall_reg, to control memory stalls/interrupt
-//  volatile unsigned int *rnd_stall_reg[16];
-//
-//  // Setup the address vector
-//  rnd_stall_reg[0] = 0x16000000;
-//  for (int i = 1; i < 16; i++) {
-//    rnd_stall_reg[i] = rnd_stall_reg[i-1] + 1; // It is a pointer to int ("+ 1" means "the next int")
-//  }
-//
-//  /* The interposition of the stall generator between CPU and MEM should happen BEFORE the stall generetor is active */
-//  // Interpose the stall generator between CPU and D-MEM (rnd_stall_reg[1])
-//  *rnd_stall_reg[1] = 0x01;
-//  // Interpose the stall generator between CPU and I-MEM (rnd_stall_reg[0])
-//  *rnd_stall_reg[0] = 0x01;
-//
-//  // DATA MEMORY
-//  // Set max n. stalls on both GNT and VALID for RANDOM mode (rnd_stall_reg[5])
-//  *rnd_stall_reg[5] = 0x05;
-//  // Set n. stalls on  GNT (rnd_stall_reg[7])
-//  *rnd_stall_reg[7] = 0x05;
-//  // Set n. stalls on VALID (rnd_stall_reg[9])
-//  *rnd_stall_reg[9] = 0x05;
-//
-//  // INSTRUCTION MEMORY
-//  // Set max n. stalls on both GNT and VALID for RANDOM mode (rnd_stall_reg[4])
-//  *rnd_stall_reg[4] = 0x05;
-//  // Set n. stalls on  GNT (rnd_stall_reg[6])
-//  *rnd_stall_reg[6] = 0x05;
-//  // Set n. stalls on VALID (rnd_stall_reg[8])
-//  *rnd_stall_reg[8] = 0x05;
-//
-//  /* Activating stalls on D and I Mem has to be done as last operation. Do not change the order. */
-//  // Set stall mode on D-MEM (off=0, standard=1, random=2) (rnd_stall_reg[3])
-//  *rnd_stall_reg[3] = 0x02;
-//  // Set stall mode on I-MEM (off=0, standard=1, random=2) (rnd_stall_reg[2])
-//  *rnd_stall_reg[2] = 0x02;
-//}
+union posit pi, ONE, P_100, Min;
 
 int main(int argc, char *argv[])
 {
+  pi.i = 0x4c90fdaa;    // value of Pi = 3.141592651605606
+  ONE.i = 0x40000000;   // value 1 in posit format
+  P_100.i = 0x6a400000; // value 100 in posit
+  Min.i = 0x00000001;   // value of minimum posit
   printf("---------------- Posit custom function start ----------------\n");
-  // custom code here
-  volatile unsigned int test_a[5] = {0x40000000, 0x45882244, 0x12556763, 0x99383658, 0x94586527};
-  volatile unsigned int test_b[5] = {0x48000000, 0x91277305, 0x22625129, 0x45645234, 0x45216378};
-  
-  union FloatBinary a_temp, b_temp;
-  
-  volatile float a = 0.23;
-  volatile float b = 0.13;
-  volatile float output;
-  
-//  output = a * b;
-//  printf("a * b = %x \n", output);
-//  printf("binary = ");
 
-//  printFloatBinary(output);
-//  printf("\n");
-  for(int i = 0; i < 5; i++)
+  union posit temp, temp_count;
+  volatile union posit sum, count, mid_value;
+
+  //sum.i = 0x377afd1b; // initial sum
+  sum.i = 0x00000000;
+  temp.i = 0x40000000;
+  //count.i = 0x7ebfb751;
+  count.i = 0x00000000;
+  temp_count.i = 0x78331115;
+
+  //int i = 8370001;
+  int i = 0;
+  for (i;;)
   {
-    a_temp.i = test_a[i];
-    b_temp.i = test_b[i];
-    printFloatBinary(a_temp.f * b_temp.f);
+    mid_value.f = ONE.f / (P_100.f * count.f + pi.f);
+    sum.f += mid_value.f;
+
+
+    if (mid_value.f == Min.f)
+    {
+      printf("[%d - %08x], %08x, %08x \n Value of mid_value reach minimum. Program finish\n", i, count.i, sum.i, mid_value.i);
+      break;
+    }
+    else if (temp_count.f == count.f)
+    {
+      printf("[%d - %08x], %08x, %08x \n Value of n is equal to previous n. Program finish\n", i, temp.i, sum.i, mid_value.i);
+      break;
+    }
+    else if (temp.f != sum.f)
+    {
+      // printf("[%d], %08x \n", i, sum.i);
+      if (i % 5000 == 0)
+      {
+        printf("[%d - %08x], %08x, %08x \n", i, count.i, sum.i, mid_value.i);
+      }
+      else if (i == 8388608)
+      {
+        printf("[%d - %08x], %08x, %08x \n", i, count.i, sum.i, mid_value.i);
+      }
+      else if (i == 671089)
+      {
+        printf("[%d - %08x], %08x, %08x \n", i, count.i, sum.i, mid_value.i);
+      }
+      temp.f = sum.f;
+      temp_count.f = count.f;
+      i++;
+      count.f += ONE.f;
+    }
+    else if (temp.f == sum.f)
+    {
+      printf("[%d - %08x], %08x, %08x \n value same finish calulation \n", i, count.i, sum.i, mid_value.i);
+      break;
+    }
+    else
+    {
+      printf("error \n");
+    }
+
   }
+
+  i--; // as in the final loop, the value is the same.
+
+  printf("\n reverse calculation \n");
+  printf("initial [%d], %08x \n", i, sum.i);
+  for (i; i >= 0;)
+  {
+    i--;
+    count.f -= ONE.f;
+    if (i % 5000 == 0)
+    {
+      printf("[%d - %08x], %08x, %08x \n", i, count.i, sum.i, mid_value.i);
+    }
+    mid_value.f = ONE.f / (P_100.f * count.f + pi.f);
+    sum.f -= mid_value.f;
+  }
+  
+  printf("Finish reverse calculation. \n");
+
   printf("----------------- Posit custom function end -----------------\n");
 
   return EXIT_SUCCESS;
