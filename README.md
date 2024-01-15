@@ -2,8 +2,8 @@
 Posits for RISC-V
 Implement Posit Processing Unit on CV32E40P
 
-Posit: Link
-CV32E40P: Link
+[posit standard-2](https://posithub.org/docs/posit_standard-2.pdf)  
+[cv32e40p main](https://github.com/openhwgroup/cv32e40p/tree/master)
 
 -----------------------------------------------------------------------
 
@@ -34,3 +34,4 @@ git checkout fcd5968
 ### Copy PPU (Posit Process Unit) into CV32E40P
 ### Test Program
 ## Result
+Picture
