@@ -10,7 +10,6 @@
 
 // Language: SystemVerilog
 // Description: posit-based division and square root 
-`include "common_cells/registers.svh"
 
 module posit_divsqrt #(
   parameter posit_pkg::posit_format_e  pFormat = posit_pkg::posit_format_e'(0),
@@ -58,27 +57,27 @@ module posit_divsqrt #(
   // Extraction for operand_a
   posit_extraction #(pFormat) extractor1
   (
-   .In		    (operands_i[0]),
-   .Sign		(Sign1), 
-   .k			(k1), 
-   .Exponent	(Exponent1), 
-   .Mantissa	(Mantissa1), 
-   .InRemain	(InRemain1), 
-   .NaR		    (NaR1), 
-   .zero		(zero1)
+   .In              (operands_i[0]),
+   .Sign            (Sign1), 
+   .k               (k1), 
+   .Exponent        (Exponent1), 
+   .Mantissa        (Mantissa1), 
+   .InRemain        (InRemain1), 
+   .NaR             (NaR1), 
+   .zero            (zero1)
   );
 
   // Extraction for operand_b
   posit_extraction #(pFormat) extractor2
   (
-   .In		    (operands_i[1]),
-   .Sign		(Sign2), 
-   .k			(k2), 
-   .Exponent	(Exponent2), 
-   .Mantissa	(Mantissa2), 
-   .InRemain	(InRemain2), 
-   .NaR		    (NaR2), 
-   .zero		(zero2)
+   .In              (operands_i[1]),
+   .Sign            (Sign2), 
+   .k               (k2), 
+   .Exponent        (Exponent2), 
+   .Mantissa        (Mantissa2), 
+   .InRemain        (InRemain2), 
+   .NaR             (NaR2), 
+   .zero            (zero2)
   );
 
   // Outputs from division and square root
@@ -135,16 +134,17 @@ module posit_divsqrt #(
   logic [2*WIDTH-1:0] Mant;
   logic signed [RS+4:0] R_O;
   logic Sign, NaR, zero, sign_Exponent, DZ;
-  
+  logic sign_Exponent_O;
+
+  assign DZ = div_valid ? (zero2 ? 1'b1 : 1'b0) : 1'b0;
   assign E_O = div_valid ? E_O_div : E_O_sqrt;
   assign Mant = div_valid ? Div_Mant_N : Sqrt_Mant_N;
   assign R_O = div_valid ? R_O_div : R_O_sqrt;
   assign Sign = div_valid ? Sign_div : Sign1;
-  assign NaR = div_valid ? NaR_div : Sign1;
+  assign NaR = div_valid ? (NaR_div || DZ) : Sign1;
   assign zero = div_valid ? zero_div : zero1;
   assign sign_Exponent_O = div_valid ? SE_div : SE_sqrt;
-  assign DZ = div_valid ? (zero2 ? 1'b1 : 1'b0) : 1'b0;
-  
+
   posit_rounding #(pFormat) rnd
   (
    .Sign(Sign),

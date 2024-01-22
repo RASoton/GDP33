@@ -98,7 +98,7 @@ module posit_opgroup_fmt_slice #(
       .flush_i,
       .result_o        ( op_result     ),
       .status_o        ( op_status     ),
-      .tag_o           ( tags          ),
+      .tag_o           ( tag           ),
       .out_valid_o     ( out_valid_o   ),
       .out_ready_i     ( out_ready_i   ),
       .busy_o          ( busy          )

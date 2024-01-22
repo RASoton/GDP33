@@ -242,7 +242,9 @@ custom-vsim-run-gui: vsim-run-gui
 # Compiling main.c into main.s
 #custom_fp/main.s: custom_fp/main.c 
 #	$(RISCV_EXE_PREFIX)gcc -march=rv32imfc_zicsr -mabi=ilp32 -S -o $@ $<  
-custom_fp/main.elf: custom_fp/matmulNxN.c custom_fp/main.c
+
+# compile and run custom posit c programs
+custom_fp/main.elf: custom_fp/quadratic.c
 	$(RISCV_EXE_PREFIX)gcc -march=rv32imfc_zicsr -mabi=ilp32 -O0 -o $@ -w -g -nostdlib \
 		$(CUSTOM_GCC_FLAGS) \
 		-T custom/link.ld  \
@@ -264,54 +266,6 @@ custom-fp-vsim-run: vsim-run-fp
 custom-fp-vsim-run-gui: vsim-all-fp custom_fp/main.hex
 custom-fp-vsim-run-gui: ALL_VSIM_FLAGS += "+firmware=custom_fp/main.hex"
 custom-fp-vsim-run-gui: vsim-run-gui-fp
-
-# compile and run main_mul.c
-custom_fp/main_mul.elf: custom_fp/matmulNxN.c custom_fp/main_mul.c
-	$(RISCV_EXE_PREFIX)gcc -march=rv32imfc_zicsr -mabi=ilp32 -O0 -o $@ -w -g -nostdlib \
-		$(CUSTOM_GCC_FLAGS) \
-		-T custom/link.ld  \
-		-static \
-		custom/crt0.S \
-		$^ custom/syscalls.c custom/vectors.S \
-		-I $(RISCV)/riscv32-corev-elf/include \
-		-L $(RISCV)/riscv32-corev-elf/lib \
-		-lc -lm -lgcc
-custom-fp-clean2:
-	rm -rf custom_fp/main_mul.elf custom_fp/main_mul.hex
-
-.PHONY: custom-fp-vsim-run2
-custom-fp-vsim-run2: vsim-all-fp custom_fp/main_mul.hex
-custom-fp-vsim-run2: ALL_VSIM_FLAGS += "+firmware=custom_fp/main_mul.hex"
-custom-fp-vsim-run2: vsim-run-fp
-
-.PHONY: custom-fp-vsim-run-gui2
-custom-fp-vsim-run-gui2: vsim-all-fp custom_fp/main_mul.hex
-custom-fp-vsim-run-gui2: ALL_VSIM_FLAGS += "+firmware=custom_fp/main_mul.hex"
-custom-fp-vsim-run-gui2: vsim-run-gui-fp
-
-# compile and run main_SquareAdd.c
-custom_fp/main_SquareAdd.elf: custom_fp/matmulNxN.c custom_fp/main_SquareAdd.c
-	$(RISCV_EXE_PREFIX)gcc -march=rv32imfc_zicsr -mabi=ilp32 -O0 -o $@ -w -g -nostdlib \
-		$(CUSTOM_GCC_FLAGS) \
-		-T custom/link.ld  \
-		-static \
-		custom/crt0.S \
-		$^ custom/syscalls.c custom/vectors.S \
-		-I $(RISCV)/riscv32-corev-elf/include \
-		-L $(RISCV)/riscv32-corev-elf/lib \
-		-lc -lm -lgcc
-custom-fp-clean3:
-	rm -rf custom_fp/main_SquareAdd.elf custom_fp/main_SquareAdd.hex
-
-.PHONY: custom-fp-vsim-run2
-custom-fp-vsim-run3: vsim-all-fp custom_fp/main_SquareAdd.hex
-custom-fp-vsim-run3: ALL_VSIM_FLAGS += "+firmware=custom_fp/main_SquareAdd.hex"
-custom-fp-vsim-run3: vsim-run-fp
-
-.PHONY: custom-fp-vsim-run-gui2
-custom-fp-vsim-run-gui3: vsim-all-fp custom_fp/main_SquareAdd.hex
-custom-fp-vsim-run-gui3: ALL_VSIM_FLAGS += "+firmware=custom_fp/main_SquareAdd.hex"
-custom-fp-vsim-run-gui3: vsim-run-gui-fp
 
 # compile and run interrupt
 interrupt/interrupt.elf: interrupt/interrupt.c
