@@ -57,7 +57,7 @@ module posit_sqrt_NR #(
         Sqrt_Mant = Q << 32;
         // adjust for rounding
         sign_Exponent_O = Sqrt_regime[RS];
-        R_O = (sign_Exponent_O) ? -Sqrt_regime : Sqrt_regime;
+        R_O = (sign_Exponent_O) ? -Sqrt_regime : Sqrt_regime+1;
     end
   end
 endmodule

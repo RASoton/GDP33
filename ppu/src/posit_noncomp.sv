@@ -20,8 +20,8 @@ module posit_noncomp #(
   input logic [1:0][WIDTH-1:0]     operands_i, // 2 operands
   input posit_pkg::roundmode_e     rnd_mode_i,
   input posit_pkg::operation_e     op_i,
-  input logic 					   op_mod_i,
-  input logic			           tag_i,
+  input logic 					           op_mod_i,
+  input logic			                 tag_i,
   // Input Handshake
   input  logic                     in_valid_i,
   output logic                     in_ready_o,
@@ -73,8 +73,8 @@ module posit_noncomp #(
 
   // Equality checks for zeroes too
   assign operands_equal = (operand_a == operand_b);
-  // Invert result if non-zero signs involved (unsigned comparison)
-  assign operand_a_smaller = (operand_a < operand_b) ^ (operand_a_sign || operand_b_sign);
+  // Invert result if non-zero signs involved 
+  assign operand_a_smaller = (operand_a < operand_b);
 
   // ---------------
   // Sign Injection
@@ -229,6 +229,4 @@ module posit_noncomp #(
   assign out_valid_o     = in_valid_i;
   assign busy_o          = in_valid_i;
   assign in_ready_o      = out_ready_i;
-  assign signa = operand_a_sign;
-  assign signb = operand_b_sign;
 endmodule
