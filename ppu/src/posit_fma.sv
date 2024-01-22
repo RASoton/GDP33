@@ -63,10 +63,10 @@ module posit_fma #(
     operand_a = operands_i[0];
     operand_b = operands_i[1];
     operand_c = operands_i[2];
-	op_N = 0;
+    op_N = 0;
 	
-	if(op_mod_i)
-	  operand_c = -operand_c;
+    if(op_mod_i)
+      operand_c = -operand_c;
 	  
     unique case (op_i)
       posit_pkg::FMADD: ;                 
@@ -143,9 +143,9 @@ module posit_fma #(
     inf_temp = NaR1 | NaR2;
     zero_temp = zero1 | zero2;
 
-	// --------------------------
-  	// Multiplication Arithmetic
-  	// --------------------------
+    // --------------------------
+    // Multiplication Arithmetic
+    // --------------------------
 
     Sign_temp = (Sign1 ^ Sign2) ^ op_N;
 
@@ -174,8 +174,8 @@ module posit_fma #(
     end
 
     // --------------------------
-  	// Addition Arithmetic
-  	// --------------------------
+    // Addition Arithmetic
+    // --------------------------
 
     NaR = inf_temp | NaR3;
     zero = zero_temp & zero3;
@@ -232,18 +232,18 @@ module posit_fma #(
         
     Mant_Ovf = Add_Mant[2*WIDTH];
 
-        // set zero flag when subtracting two identical numbers
+    // set zero flag when subtracting two identical numbers
     if(LR == SR && LM == SM && LE == SE && ~op)
-    zero = 1;
+      zero = 1;
     else
-    zero = zero;
+      zero = zero;
     
     // (MSB OR 2nd MSB) bit since LBD_IN is for leading bit
     LBD_in = {(Add_Mant[2*WIDTH] | Add_Mant[2*WIDTH-1]), Add_Mant[2*WIDTH-2:WIDTH]}; 
 
-  	// ---------------------
-  	// Leading Bit Detection
-  	// ---------------------
+    // ---------------------
+    // Leading Bit Detection
+    // ---------------------
     check = 1; 
     shift = '0;
     // EndPosition = EndPosition + 1'b1; // initial EP starts from InRemain[1] as InRemain[0] is RC
@@ -268,8 +268,8 @@ module posit_fma #(
     // Add_Mant_N[0] = Add_Mant_N[0]|Add_Mant[0];
 
     // ------------------------------
-  	// Post Composition for Rounding
-  	// ------------------------------
+    // Post Composition for Rounding
+    // ------------------------------
 
     // Compute regime and exponent of final result  
     /* 

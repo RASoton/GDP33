@@ -15,9 +15,9 @@ package posit_pkg;
   // ---------
   // POSIT TYPES
   // ---------
-  // | Enumerator | Format           | Width  | REGIME | EXP_BITS | FRAC_BITS
-  // |:----------:|------------------|-------:|:------:|:--------:|:--------:
-  // | POSIT32    | POSIT binary32   | 32 bit | r      | 0-2      | 0-28
+  // | Enumerator | Format           | Width  | REGIME   | EXP_BITS | FRAC_BITS
+  // |:----------:|------------------|-------:|:--------:|:--------:|:--------:
+  // | POSIT32    | POSIT binary32   | 32 bit | 2 to 31  |  0 to 2  | 0 to 27
  
   // Encoding for a format
   typedef struct packed {
@@ -134,7 +134,7 @@ package posit_pkg;
     RDN = 3'b010,
     RUP = 3'b011,
     RMM = 3'b100,
-    ROD = 3'b101,  // This mode is not defined in RISC-V FP-SPEC
+    ROD = 3'b101, 
     DYN = 3'b111
   } roundmode_e;
 
